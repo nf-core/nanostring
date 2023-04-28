@@ -4,7 +4,6 @@
     nf-core/nanostring
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     Github : https://github.com/nf-core/nanostring
-
     Website: https://nf-co.re/nanostring
     Slack  : https://nfcore.slack.com/channels/nanostring
 ----------------------------------------------------------------------------------------
