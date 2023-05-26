@@ -6,7 +6,7 @@ library(NACHO)
 ###Commandline Argument parsing###
 args = commandArgs(trailingOnly=TRUE)
 if (length(args) < 2) {
-  stop("Usage: nanoQC.R <filepath_to_rccs> <path_to_samplesheet>", call.=FALSE)
+  stop("Usage: nacho_qc.R <filepath_to_rccs> <path_to_samplesheet>", call.=FALSE)
 }
 input_rcc_path <- args[1]
 input_samplesheet <- args[2]
@@ -42,7 +42,6 @@ line="#id: nf-core-nanostring-hk-genes
 write(line,file=paste0(output_base, "hk_detected_mqc.txt"),append=TRUE)
 write(nacho_data$housekeeping_genes ,paste0(output_base,"hk_detected_mqc.txt"),append=TRUE)
 
-
 #Add in all plots as MQC output for MultiQC
 plot_bd <- autoplot(
   object = nacho_data,
@@ -52,7 +51,6 @@ plot_bd <- autoplot(
   show_legend = TRUE
 )
 ggsave(filename="BD_mqc.png", plot_bd)
-
 
 ## Field of View (FoV) Imaging
 
@@ -220,7 +218,6 @@ plot_normf <- autoplot(
   show_legend = TRUE
 )
 ggsave(filename="plot_normf_mqc.png", plot_normf)
-
 
 #Render Standard Report for investigation in main MultiQC Report
 render(nacho_object = nacho_data, output_dir = output_base, output_file = "NanoQC.html", show_outliers = FALSE)

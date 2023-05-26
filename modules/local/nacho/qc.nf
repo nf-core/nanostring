@@ -1,5 +1,4 @@
 process NACHO_QC {
-    tag '$bam'
     label 'process_single'
 
     conda "r-nacho=2.0.4 r-tidyverse=2.0.0 r-ggplot2=3.4.2 r-rlang=1.1.1 r-tidylog=1.0.2 r-fs=1.6.2 bioconductor-complexheatmap=2.14.0 r-circlize=0.4.15 r-yaml=2.3.7 r-ragg=1.2.5 r-rcolorbrewer=1.1_3 r-pheatmap=1.0.12"
@@ -23,10 +22,14 @@ process NACHO_QC {
     def args = task.ext.args ?: ''
 
     """
+    nacho_qc.R . samplesheet.tsv
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        : \$(echo \$(samtools --version 2>&1) | sed 's/^.*samtools //; s/Using.*\$//' ))
+        r-base: \$(echo \$(R --version 2>&1) | sed 's/^.*R version //; s/ .*\$//')
+        r-nacho: \$(Rscript -e "library(NACHO); cat(as.character(packageVersion('NACHO')))")
+        r-tidyverse: \$(Rscript -e "library(tidyverse); cat(as.character(packageVersion('tidyverse')))")
+        r-fs: \$(Rscript -e "library(fs); cat(as.character(packageVersion('fs')))")
     END_VERSIONS
     """
 }

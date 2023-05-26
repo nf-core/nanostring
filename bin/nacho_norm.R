@@ -62,6 +62,6 @@ non_hk_normed_data <- normalise(nacho_data_no_hk,
 
 norm_counts_without_hks <- as.data.frame(get_counts(non_hk_normed_data))
 
-write_tsv(norm_counts_without_hks, file = "./normalized_counts_wo_HK_normalization.tsv")
+write_tsv(norm_counts_without_hks, file = "./normalized_counts_wo_HKnorm.tsv")
 
 
