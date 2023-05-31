@@ -6,7 +6,7 @@ library(NACHO)
 ###Commandline Argument parsing###
 args = commandArgs(trailingOnly=TRUE)
 if (length(args) < 2) {
-  stop("Usage: nanoQC.R <filepath_to_rccs> <path_to_samplesheet>", call.=FALSE)
+    stop("Usage: nanoQC.R <filepath_to_rccs> <path_to_samplesheet>", call.=FALSE)
 }
 input_rcc_path <- args[1]
 input_samplesheet <- args[2]
@@ -25,18 +25,18 @@ write.table(tmp_list, "samplesheet.tsv", sep="\t", row.names=F, col.names=T, quo
 
 ####RealCode####
 nacho_data <- load_rcc(data_directory = input_rcc_path,
-                       ssheet_csv = input_samplesheet,
-                       id_colname = "RCC_FILE")
+                    ssheet_csv = input_samplesheet,
+                    id_colname = "RCC_FILE")
 
 output_base <- "./"
 
 get_counts <- function(
-  nacho,
-  codeclass = "Endogenous",
-  rownames = "RCC_FILE",
-  colnames = c("Name", "Accession")
+    nacho,
+    codeclass = "Endogenous",
+    rownames = "RCC_FILE",
+    colnames = c("Name", "Accession")
 ) {
-  nacho[["nacho"]] %>%
+    nacho[["nacho"]] %>%
     dplyr::filter(grepl(codeclass, .data[["CodeClass"]])) %>%
     dplyr::select(c("RCC_FILE", "Name", "Count_Norm")) %>%
     tidyr::pivot_wider(names_from = colnames[1], values_from = "Count_Norm") %>%
@@ -51,13 +51,13 @@ write_tsv(norm_counts, file = "./normalized_counts.tsv")
 
 #Write out non-hk normalized counts too
 nacho_data_no_hk <- load_rcc(data_directory = input_rcc_path,
-                       ssheet_csv = input_samplesheet,
-                       id_colname = "RCC_FILE")
+    ssheet_csv = input_samplesheet,
+    id_colname = "RCC_FILE")
 
 #Perform normalization again but without HK (so only pos + negative controls are used)
 non_hk_normed_data <- normalise(nacho_data_no_hk,
-                       nacho_data_no_hk[["housekeeping_genes"]],
-                       housekeeping_norm = FALSE
+        nacho_data_no_hk[["housekeeping_genes"]],
+        housekeeping_norm = FALSE
 )
 
 norm_counts_without_hks <- as.data.frame(get_counts(non_hk_normed_data))
