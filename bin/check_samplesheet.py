@@ -24,9 +24,7 @@ class RowChecker:
 
     """
 
-    VALID_FORMATS = (
-        ".RCC"
-    )
+    VALID_FORMATS = ".RCC"
 
     def __init__(
         self,
@@ -200,7 +198,7 @@ def check_samplesheet(file_in, file_out):
             'RCC_FILE','RCC_FILE_NAME','SAMPLE_ID','TIME','TREATMENT','INCLUDE','OTHER_METADATA'
 
     """
-    required_columns = {'RCC_FILE','RCC_FILE_NAME','SAMPLE_ID','TIME','TREATMENT','INCLUDE','OTHER_METADATA'}
+    required_columns = {"RCC_FILE", "RCC_FILE_NAME", "SAMPLE_ID", "TIME", "TREATMENT", "INCLUDE", "OTHER_METADATA"}
     # See https://docs.python.org/3.9/library/csv.html#id3 to read up on `newline=""`.
     with file_in.open(newline="") as in_handle:
         reader = csv.DictReader(in_handle, dialect=sniff_format(in_handle))
@@ -217,9 +215,7 @@ def check_samplesheet(file_in, file_out):
             except AssertionError as error:
                 logger.critical(f"{str(error)} On line {i + 2}.")
                 sys.exit(1)
-        #checker.validate_unique_samples()
     header = list(reader.fieldnames)
-    #header.insert(1, "single_end")
     # See https://docs.python.org/3.9/library/csv.html#id3 to read up on `newline=""`.
     with file_out.open(mode="w", newline="") as out_handle:
         writer = csv.DictWriter(out_handle, header, delimiter=",")

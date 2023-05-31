@@ -1,6 +1,6 @@
 prefix: nf-core
 skip:
-- github
-- ci
-- github_badges
-- nf_core_configs
+  - github
+  - ci
+  - github_badges
+  - nf_core_configs

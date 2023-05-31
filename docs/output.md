@@ -7,13 +7,13 @@ This document describes the output produced by the pipeline.
 The pipeline is built using [Nextflow](https://www.nextflow.io/)
 and processes data using the following steps:
 
-* [NachoQC](#nachoqc) - compute QC metrics for Nanostring data, assess data quality
-* [Normalize](#normalize) - computes normalized gene counts given RCC files
-* [Annotate](#annotate) - annotates the normalized gene counts with metadata from samplesheet
-* [Boxplots](#boxplots) - creates boxplots for the normalized gene expression data
-* [nSolver Visualize](#nsolver) - creates heatmaps for nSolver Pathway and Celltype Scores provided
-* [Gene Scores](#genescores) - creates gene scores based on supplied gene sets
-* [MultiQC](#multiqc) - aggregate report, describing results of the whole pipeline
+- [NachoQC](#nachoqc) - compute QC metrics for Nanostring data, assess data quality
+- [Normalize](#normalize) - computes normalized gene counts given RCC files
+- [Annotate](#annotate) - annotates the normalized gene counts with metadata from samplesheet
+- [Boxplots](#boxplots) - creates boxplots for the normalized gene expression data
+- [nSolver Visualize](#nsolver) - creates heatmaps for nSolver Pathway and Celltype Scores provided
+- [Gene Scores](#genescores) - creates gene scores based on supplied gene sets
+- [MultiQC](#multiqc) - aggregate report, describing results of the whole pipeline
 
 ## NACHO QC
 
@@ -21,10 +21,10 @@ This step uses the NACHO Nanostring analysis package to perform basic QC of the 
 
 **Output directory: `results/QC`**
 
-* `NanoQC.html`
-  * Basic Nacho QC report - a standalone HTML file that can be viewed in your web browser
-* `NanoQC_with_outliers.html`
-  * The same as above, but with highlighted outliers
+- `NanoQC.html`
+  - Basic Nacho QC report - a standalone HTML file that can be viewed in your web browser
+- `NanoQC_with_outliers.html`
+  - The same as above, but with highlighted outliers
 
 ## Normalize
 
@@ -32,12 +32,12 @@ This holds the normalized gene expression data, normalized using an in-house Pyt
 
 **Output directory: `results/Normalized_Data/`**
 
-* `normalized_qc_mqc.tsv`
-  * QC Results of the normalization method applied. This is also shown in table format in the MultiQC table and usually there is no need to have a look at this.
-* `normalized_counts.tsv`
-  * Normalized gene expression matrix, unmodified.
-* `normalized_counts_wo_HK.tsv`
-  * Normalized gene expression matrix but without Housekeeper Normalization applied, unmodified. DO NOT USE THIS IF YOU DO NOT KNOW WHAT THIS MEANS.
+- `normalized_qc_mqc.tsv`
+  - QC Results of the normalization method applied. This is also shown in table format in the MultiQC table and usually there is no need to have a look at this.
+- `normalized_counts.tsv`
+  - Normalized gene expression matrix, unmodified.
+- `normalized_counts_wo_HK.tsv`
+  - Normalized gene expression matrix but without Housekeeper Normalization applied, unmodified. DO NOT USE THIS IF YOU DO NOT KNOW WHAT THIS MEANS.
 
 ## Annotate
 
@@ -45,10 +45,10 @@ This holds the normalized and annotated gene expression data. There are always t
 
 **Output directory: `results/annotated_gex_tables/`**
 
-* `*GEX_HK_mqc.tsv`
-  * TSV table holding all housekeeping gene expression values with annotation.
-* `*GEX_ENDO.tsv`
-  * TSV table holding the endogenous gene expression values with annotation.
+- `*GEX_HK_mqc.tsv`
+  - TSV table holding all housekeeping gene expression values with annotation.
+- `*GEX_ENDO.tsv`
+  - TSV table holding the endogenous gene expression values with annotation.
 
 ## nSolver
 
@@ -60,15 +60,14 @@ Directory holding boxplots for various categories on the normalized gene express
 
 **Output directory: `results/expression_boxplots/`**
 
-* `SAMPLE_ID`
-  * Grouping based on SAMPLE_ID (each SAMPLE on X-Axis), Gene on Y axis
-* `TIME`
-  * Gene expression grouped by TIME points. If only one, only one is used.
-* `TREATMENT`
-  * Gene expression per treatment, if only one available, only one is used.
-* `EXTRA_GROUP`
-  * If multiple extra groups are availble - each of these extra groups gets a separate grouping boxplot.
-
+- `SAMPLE_ID`
+  - Grouping based on SAMPLE_ID (each SAMPLE on X-Axis), Gene on Y axis
+- `TIME`
+  - Gene expression grouped by TIME points. If only one, only one is used.
+- `TREATMENT`
+  - Gene expression per treatment, if only one available, only one is used.
+- `EXTRA_GROUP`
+  - If multiple extra groups are availble - each of these extra groups gets a separate grouping boxplot.
 
 ## Genescores
 
@@ -77,10 +76,10 @@ The results have been created using the `bin/perform_gene_score_analysis.R` scri
 
 **Output directory: `results/gene_set_scores`**
 
-* `gene_scores.tsv`
-  * Contains gene scores computed for all samples
-  * Multiple scores in the YAML create multiple lines in the TSV file
-  * Results are also tabularized in the subsequent MultiQC report
+- `gene_scores.tsv`
+  - Contains gene scores computed for all samples
+  - Multiple scores in the YAML create multiple lines in the TSV file
+  - Results are also tabularized in the subsequent MultiQC report
 
 ## MultiQC
 
@@ -90,15 +89,14 @@ The pipeline has special steps which allow the software versions used to be repo
 
 **Output directory: `results/MultiQC`**
 
-* `DATE_TIME_nanostring_Report.html`
-  * MultiQC report - a standalone HTML file that can be viewed in your web browser
-* `DATE_TIME_nanostring_Report_data/`
-  * Directory containing parsed statistics from the different tools used in the pipeline
-* `DATE_TIME_nanostring_Report_plots/`
-  * Directory containing the plots that MultiQC created (if any).
+- `DATE_TIME_nanostring_Report.html`
+  - MultiQC report - a standalone HTML file that can be viewed in your web browser
+- `DATE_TIME_nanostring_Report_data/`
+  - Directory containing parsed statistics from the different tools used in the pipeline
+- `DATE_TIME_nanostring_Report_plots/`
+  - Directory containing the plots that MultiQC created (if any).
 
 For more information about how to use MultiQC reports, see [http://multiqc.info](http://multiqc.info)
-
 
 <details markdown="1">
 <summary>Output files</summary>
