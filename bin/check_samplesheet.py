@@ -73,7 +73,7 @@ class RowChecker:
 
         """
         self._validate_sample(row)
-        self._validate_rcc_file()
+        self._validate_rcc_file(row)
         self._seen.add((row[self._sample_col], row[self._rcc_file], row[self._rcc_file_name]))
         self.modified.append(row)
 
@@ -203,6 +203,7 @@ def check_samplesheet(file_in, file_out):
     with file_in.open(newline="") as in_handle:
         reader = csv.DictReader(in_handle, dialect=sniff_format(in_handle))
         # Validate the existence of the expected header columns.
+        print(reader.fieldnames)
         if not required_columns.issubset(reader.fieldnames):
             req_cols = ", ".join(required_columns)
             logger.critical(f"The sample sheet **must** contain these column headers: {req_cols}.")

@@ -11,9 +11,9 @@ process NACHO_QC {
     path sample_sheet
 
     output:
-    path "*.html", emit: nacho_qc_reports
-    path "*.mqc*", emit: nacho_qc_multiqc_metrics
-    path "versions.yml"           , emit: versions
+    path "*.html",       emit: nacho_qc_reports
+    path "*.mqc*",       emit: nacho_qc_multiqc_metrics
+    path "versions.yml", emit: versions
 
     when:
     task.ext.when == null || task.ext.when
