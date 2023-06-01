@@ -13,7 +13,7 @@ workflow NORMALIZE {
     NACHO_NORMALIZE ( counts, samplesheet )
 
     emit:
-    nacho_qc_reports = NACHO_NORMALIZE.out.nacho_qc_reports                              // channel: [ val(meta), [ counts ] ]
-    nacho_qc_multiqc_metrics = NACHO_NORMALIZE.out.nacho_qc_multiqc_metrics  // channel: [ samplesheet.valid.csv ]
+    normalized_counts = NACHO_NORMALIZE.out.normalized_counts                              // channel: [ val(meta), [ counts ] ]
+    normalized_counts_wo_HK = NACHO_NORMALIZE.out.normalized_counts_wo_HK  // channel: [ samplesheet.valid.csv ]
     versions = NACHO_NORMALIZE.out.versions // channel: [ versions.yml ]
 }

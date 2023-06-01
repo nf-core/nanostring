@@ -76,10 +76,17 @@ workflow NANOSTRING {
     ch_versions = ch_versions.mix(INPUT_CHECK.out.versions)
 
     //
+    // INPUT RCC FILES
+    //
+    INPUT_CHECK.out.counts
+        .map { meta, path -> path}.collect()
+        .set{ rcc_files }
+
+    //
     // SUBWORKFLOW: Quality control of input files
     //
     QUALITY_CONTROL (
-        INPUT_CHECK.out.counts.map {meta, path -> path}.collect(),
+        rcc_files,
         INPUT_CHECK.out.sample_sheet
     )
     ch_versions = ch_versions.mix(QUALITY_CONTROL.out.versions)
@@ -87,10 +94,11 @@ workflow NANOSTRING {
     //
     // SUBWORKFLOW: Normalize data
     //
-    //NORMALIZE (
-
- //   )
-   // ch_versions = ch_versions.mix(NORMALIZE.out.versions)
+    NORMALIZE (
+        rcc_files,
+        INPUT_CHECK.out.sample_sheet
+    )
+    ch_versions = ch_versions.mix(NORMALIZE.out.versions)
 
     //
     // DUMP SOFTWARE VERSIONS

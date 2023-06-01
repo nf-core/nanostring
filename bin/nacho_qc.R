@@ -14,14 +14,6 @@ input_samplesheet <- args[2]
 #Create filelist for NachoQC
 
 list_of_rccs <- dir_ls(path = input_rcc_path, glob = "*.RCC")
-print(list_of_rccs)
-tmp_list <- as.data.frame(list_of_rccs)
-row.names(tmp_list) <- NULL
-colnames(tmp_list)[1] <- "RCC_FILE"
-tmp_list$RCC_FILE <- as.character(tmp_list$RCC_FILE)
-
-#write to table
-write.table(tmp_list, "samplesheet.tsv", sep="\t", row.names=F, col.names=T, quote=F)
 
 ####RealCode####
 nacho_data <- load_rcc(data_directory = input_rcc_path,
