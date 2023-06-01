@@ -16,7 +16,7 @@ workflow INPUT_CHECK {
         .set { counts }
 
     emit:
-    counts                                    // channel: [ val(meta), [ counts ] ]
+    counts                                    // channel: [ val(meta), file(counts_file) ]
     sample_sheet = SAMPLESHEET_CHECK.out.csv  // channel: [ samplesheet.valid.csv ]
     versions = SAMPLESHEET_CHECK.out.versions // channel: [ versions.yml ]
 }

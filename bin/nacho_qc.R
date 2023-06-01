@@ -13,8 +13,8 @@ input_samplesheet <- args[2]
 
 #Create filelist for NachoQC
 
-list_of_rccs <- dir_ls(path = input_rcc_path, pattern= "*RCC$")
-
+list_of_rccs <- dir_ls(path = input_rcc_path, glob = "*.RCC")
+print(list_of_rccs)
 tmp_list <- as.data.frame(list_of_rccs)
 row.names(tmp_list) <- NULL
 colnames(tmp_list)[1] <- "RCC_FILE"
@@ -26,7 +26,7 @@ write.table(tmp_list, "samplesheet.tsv", sep="\t", row.names=F, col.names=T, quo
 ####RealCode####
 nacho_data <- load_rcc(data_directory = input_rcc_path,
                         ssheet_csv = input_samplesheet,
-                        id_colname = "RCC_FILE")
+                        id_colname = "RCC_FILE_NAME")
 
 output_base <- "./"
 
@@ -157,35 +157,35 @@ ggsave(filename="AVG_vs_MED_mqc.png", plot_avg_vs_med)
 
 ## Principal Component 1 vs. 2
 
-plot_pc12 <- autoplot(
-    object = nacho_data,
-    x = "PCA12",
-    colour = "CartridgeID",
-    size = 0.5,
-    show_legend = TRUE
-)
-ggsave(filename="PCA1_vs_PCA2_mqc.png", plot_pc12)
+#plot_pc12 <- autoplot(
+#    object = nacho_data,
+#    x = "PCA12",
+#    colour = "CartridgeID",
+#    size = 0.5,
+#    show_legend = TRUE
+#)
+#ggsave(filename="PCA1_vs_PCA2_mqc.png", plot_pc12)
 
 ## Principal Component i
 
-plot_pcai <- autoplot(
-    object = nacho_data,
-    x = "PCAi",
-    colour = "CartridgeID",
-    size = 0.5,
-    show_legend = TRUE
-)
-ggsave(filename="PCAi_mqc.png", plot_pcai)
+#plot_pcai <- autoplot(
+#    object = nacho_data,
+#    x = "PCAi",
+#    colour = "CartridgeID",
+#    size = 0.5,
+#    show_legend = TRUE
+#)
+#ggsave(filename="PCAi_mqc.png", plot_pcai)
 
 ## Principal Component planes
-plot_pcap <- autoplot(
-    object = nacho_data,
-    x = "PCA",
-    colour = "CartridgeID",
-    size = 0.5,
-    show_legend = TRUE
-)
-ggsave(filename="PCA_mqc.png", plot_pcap)
+#plot_pcap <- autoplot(
+#    object = nacho_data,
+#    x = "PCA",
+#    colour = "CartridgeID",
+#    size = 0.5,
+#    show_legend = TRUE
+#)
+#ggsave(filename="PCA_mqc.png", plot_pcap)
 
 ## Positive Factor vs. Negative Factor
 plot_posf_vs_negf <- autoplot(
@@ -220,7 +220,7 @@ plot_normf <- autoplot(
 ggsave(filename="plot_normf_mqc.png", plot_normf)
 
 #Render Standard Report for investigation in main MultiQC Report
-render(nacho_object = nacho_data, output_dir = output_base, output_file = "NanoQC.html", show_outliers = FALSE)
+#render(nacho_data, output_dir = output_base, output_file = "NanoQC.html", show_outliers = FALSE)
 
 #Render the same Report for standard investigation, but not for MultiQC Report
-render(nacho_object = nacho_data, output_dir = output_base, output_file = "NanoQC_with_outliers.html", show_outliers = TRUE)
+#render(nacho_data, output_dir = output_base, output_file = "NanoQC_with_outliers.html", show_outliers = TRUE)

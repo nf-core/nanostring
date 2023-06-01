@@ -11,7 +11,7 @@ WorkflowNanostring.initialise(params, log)
 
 // TODO nf-core: Add all file path parameters for the pipeline to the list below
 // Check input path parameters to see if they exist
-def checkPathParamList = [ params.input, params.multiqc_config, params.fasta ]
+def checkPathParamList = [ params.input, params.multiqc_config ]
 for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true) } }
 
 // Check mandatory parameters
@@ -39,6 +39,7 @@ ch_multiqc_custom_methods_description = params.multiqc_methods_description ? fil
 //
 include { INPUT_CHECK     } from '../subworkflows/local/input_check'
 include { QUALITY_CONTROL } from '../subworkflows/local/quality_control'
+include { NORMALIZE } from '../subworkflows/local/normalize'
 
 
 /*
@@ -78,10 +79,18 @@ workflow NANOSTRING {
     // SUBWORKFLOW: Quality control of input files
     //
     QUALITY_CONTROL (
-        INPUT_CHECK.out.counts.map {meta, path -> path.getParent().collect()},
+        INPUT_CHECK.out.counts.map {meta, path -> path}.collect(),
         INPUT_CHECK.out.sample_sheet
     )
     ch_versions = ch_versions.mix(QUALITY_CONTROL.out.versions)
+
+    //
+    // SUBWORKFLOW: Normalize data
+    //
+    //NORMALIZE (
+
+ //   )
+   // ch_versions = ch_versions.mix(NORMALIZE.out.versions)
 
     //
     // DUMP SOFTWARE VERSIONS
@@ -102,6 +111,7 @@ workflow NANOSTRING {
     ch_multiqc_files = Channel.empty()
     ch_multiqc_files = ch_multiqc_files.mix(ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
     ch_multiqc_files = ch_multiqc_files.mix(ch_methods_description.collectFile(name: 'methods_description_mqc.yaml'))
+    ch_multiqc_files = ch_multiqc_files.mix(QUALITY_CONTROL.out.nacho_qc_multiqc_metrics.collect())
     ch_multiqc_files = ch_multiqc_files.mix(CUSTOM_DUMPSOFTWAREVERSIONS.out.mqc_yml.collect())
 
     MULTIQC (

@@ -13,7 +13,7 @@ workflow QUALITY_CONTROL {
     NACHO_QC ( counts, samplesheet )
 
     emit:
-    nacho_qc_reports = NACHO_QC.out.nacho_qc_reports                              // channel: [ val(meta), [ counts ] ]
+    //nacho_qc_reports = NACHO_QC.out.nacho_qc_reports                              // channel: [ val(meta), [ counts ] ]
     nacho_qc_multiqc_metrics = NACHO_QC.out.nacho_qc_multiqc_metrics  // channel: [ samplesheet.valid.csv ]
     versions = NACHO_QC.out.versions // channel: [ versions.yml ]
 }
