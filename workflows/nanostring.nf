@@ -39,7 +39,12 @@ ch_multiqc_custom_methods_description = params.multiqc_methods_description ? fil
 //
 include { INPUT_CHECK     } from '../subworkflows/local/input_check'
 include { QUALITY_CONTROL } from '../subworkflows/local/quality_control'
-include { NORMALIZE } from '../subworkflows/local/normalize'
+include { NORMALIZE }       from '../subworkflows/local/normalize'
+
+//
+// MODULES
+//
+include { CREATE_ANNOTATED_TABLES } from '../modules/local/create_annotated_tables'
 
 
 /*
@@ -100,6 +105,17 @@ workflow NANOSTRING {
     )
     ch_versions = ch_versions.mix(NORMALIZE.out.versions)
 
+
+    //
+    // MODULE: Annotate normalized counts with metadata from the samplesheet
+    //
+    CREATE_ANNOTATED_TABLES (
+        NORMALIZE.out.normalized_counts,
+        INPUT_CHECK.out.sample_sheet
+    )
+    ch_versions = ch_versions.mix(CREATE_ANNOTATED_TABLES.out.versions)
+
+
     //
     // DUMP SOFTWARE VERSIONS
     //
@@ -121,6 +137,7 @@ workflow NANOSTRING {
     ch_multiqc_files = ch_multiqc_files.mix(ch_methods_description.collectFile(name: 'methods_description_mqc.yaml'))
     ch_multiqc_files = ch_multiqc_files.mix(QUALITY_CONTROL.out.nacho_qc_multiqc_metrics.collect())
     ch_multiqc_files = ch_multiqc_files.mix(CUSTOM_DUMPSOFTWAREVERSIONS.out.mqc_yml.collect())
+    ch_multiqc_files = ch_multiqc_files.mix(CREATE_ANNOTATED_TABLES.out.annotated_data_mqc.collect())
 
     MULTIQC (
         ch_multiqc_files.collect(),

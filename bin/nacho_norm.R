@@ -28,12 +28,15 @@ get_counts <- function(
     rownames = "RCC_FILE_NAME",
     colnames = c("Name", "Accession")
 ) {
+    # suggestion how to change it, not sure if this is what we intend to have (commented out the original version)
     nacho[["nacho"]] %>%
     dplyr::filter(grepl(codeclass, .data[["CodeClass"]])) %>%
-    dplyr::select(c("RCC_FILE_NAME", "Name", "Count_Norm")) %>%
-    tidyr::pivot_wider(names_from = colnames[1], values_from = "Count_Norm") %>%
-    tibble::column_to_rownames(rownames) %>%
-    t()
+    #dplyr::select(c("RCC_FILE_NAME", "Name", "Count_Norm", "CodeClass")) %>%
+    #tidyr::pivot_wider(names_from = colnames[1], values_from = "Count_Norm") %>%
+    dplyr::select(c("RCC_FILE_NAME", "Name", "Count_Norm", "CodeClass")) %>%
+    tidyr::pivot_wider(names_from = "RCC_FILE_NAME", values_from = "Count_Norm")
+    #tibble::column_to_rownames(rownames) %>%
+    #t()
 }
 
 #Write out normalized counts
