@@ -110,7 +110,7 @@ workflow NANOSTRING {
     // MODULE: Annotate normalized counts with metadata from the samplesheet
     //
     CREATE_ANNOTATED_TABLES (
-        NORMALIZE.out.normalized_counts,
+        NORMALIZE.out.normalized_counts.mix(NORMALIZE.out.normalized_counts_wo_HK),
         INPUT_CHECK.out.sample_sheet
     )
     ch_versions = ch_versions.mix(CREATE_ANNOTATED_TABLES.out.versions)

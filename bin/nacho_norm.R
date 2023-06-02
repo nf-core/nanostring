@@ -30,7 +30,7 @@ get_counts <- function(
 ) {
     # suggestion how to change it, not sure if this is what we intend to have (commented out the original version)
     nacho[["nacho"]] %>%
-    dplyr::filter(grepl(codeclass, .data[["CodeClass"]])) %>%
+    #dplyr::filter(grepl(codeclass, .data[["CodeClass"]])) %>%
     #dplyr::select(c("RCC_FILE_NAME", "Name", "Count_Norm", "CodeClass")) %>%
     #tidyr::pivot_wider(names_from = colnames[1], values_from = "Count_Norm") %>%
     dplyr::select(c("RCC_FILE_NAME", "Name", "Count_Norm", "CodeClass")) %>%
