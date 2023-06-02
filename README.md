@@ -44,7 +44,6 @@ RCC_FILE,RCC_FILE_NAME,SAMPLE_ID,TIME,TREATMENT,INCLUDE,OTHER_METADATA
 
 Each row represents a RCC file with counts.
 
-
 Now, you can run the pipeline using:
 
 ```bash
