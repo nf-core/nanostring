@@ -149,35 +149,35 @@ ggsave(filename="AVG_vs_MED_mqc.png", plot_avg_vs_med)
 
 ## Principal Component 1 vs. 2
 
-#plot_pc12 <- autoplot(
-#    object = nacho_data,
-#    x = "PCA12",
-#    colour = "CartridgeID",
-#    size = 0.5,
-#    show_legend = TRUE
-#)
-#ggsave(filename="PCA1_vs_PCA2_mqc.png", plot_pc12)
+plot_pc12 <- autoplot(
+    object = nacho_data,
+    x = "PCA12",
+    colour = "CartridgeID",
+    size = 0.5,
+    show_legend = TRUE
+)
+ggsave(filename="PCA1_vs_PCA2_mqc.png", plot_pc12)
 
 ## Principal Component i
 
-#plot_pcai <- autoplot(
-#    object = nacho_data,
-#    x = "PCAi",
-#    colour = "CartridgeID",
-#    size = 0.5,
-#    show_legend = TRUE
-#)
-#ggsave(filename="PCAi_mqc.png", plot_pcai)
+plot_pcai <- autoplot(
+    object = nacho_data,
+    x = "PCAi",
+    colour = "CartridgeID",
+    size = 0.5,
+    show_legend = TRUE
+)
+ggsave(filename="PCAi_mqc.png", plot_pcai)
 
 ## Principal Component planes
-#plot_pcap <- autoplot(
-#    object = nacho_data,
-#    x = "PCA",
-#    colour = "CartridgeID",
-#    size = 0.5,
-#    show_legend = TRUE
-#)
-#ggsave(filename="PCA_mqc.png", plot_pcap)
+plot_pcap <- autoplot(
+    object = nacho_data,
+    x = "PCA",
+    colour = "CartridgeID",
+    size = 0.5,
+    show_legend = TRUE
+)
+ggsave(filename="PCA_mqc.png", plot_pcap)
 
 ## Positive Factor vs. Negative Factor
 plot_posf_vs_negf <- autoplot(
