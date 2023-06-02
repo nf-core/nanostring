@@ -39,9 +39,11 @@ get_counts <- function(
     #t()
 }
 
+now=format(Sys.time(), "%Y%m%d%H%M")
+
 #Write out normalized counts
 norm_counts <- as.data.frame(get_counts(nacho_data))
-write_tsv(norm_counts, file = "./normalized_counts.tsv")
+write_tsv(norm_counts, file = paste0(now, "_normalized_counts.tsv"))
 
 
 #Write out non-hk normalized counts too
@@ -56,7 +58,6 @@ non_hk_normed_data <- normalise(nacho_data_no_hk,
 )
 
 norm_counts_without_hks <- as.data.frame(get_counts(non_hk_normed_data))
-
-write_tsv(norm_counts_without_hks, file = "./normalized_counts_wo_HKnorm.tsv")
+write_tsv(norm_counts_without_hks, file = paste0(now, "_normalized_counts_wo_HKnorm.tsv"))
 
 

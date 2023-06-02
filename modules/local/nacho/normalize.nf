@@ -11,8 +11,8 @@ process NACHO_NORMALIZE {
     path sample_sheet
 
     output:
-    path "normalized_counts.tsv", emit: normalized_counts
-    path "normalized_counts_wo_HKnorm.tsv", emit: normalized_counts_wo_HK
+    path "*normalized_counts.tsv", emit: normalized_counts
+    path "*normalized_counts_wo_HKnorm.tsv", emit: normalized_counts_wo_HK
     path "versions.yml"           , emit: versions
 
     when:
