@@ -52,5 +52,8 @@ now=format(Sys.time(), "%Y%m%d%H%M")
 
 input_name <- str_c(str_split_1(tools::file_path_sans_ext(input_counts), "_")[-1], collapse = "_")
 
-write.table(hk_annotated, file = paste0(now, "_", input_name, "_Norm_GEX_HK_mqc.tsv"), sep="\t", quote = FALSE, col.names = TRUE, row.names=FALSE)
+write.table(hk_annotated, file = paste0(now, "_", input_name, "_Norm_GEX_HK.tsv"), sep="\t", quote = FALSE, col.names = TRUE, row.names=FALSE)
 write.table(endo_annotated, file = paste0(now, "_", input_name, "_Norm_GEX_ENDO.tsv"), sep="\t", quote = FALSE, col.names = TRUE, row.names=FALSE)
+
+write.table(hk_annotated, file = paste0("Norm_GEX_HK_mqc.tsv"), sep="\t", quote = FALSE, col.names = TRUE, row.names=FALSE)
+write.table(endo_annotated, file = paste0("Norm_GEX_ENDO_mqc.tsv"), sep="\t", quote = FALSE, col.names = TRUE, row.names=FALSE)

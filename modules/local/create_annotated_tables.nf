@@ -11,7 +11,8 @@ process CREATE_ANNOTATED_TABLES {
     path sample_sheet
 
     output:
-    path "*ENDO.tsv"   , emit: annotated_data
+    path "*ENDO.tsv"   , emit: annotated_endo_data
+    path "*HK.tsv*"    , emit: annotated_hk_data
     path "*_mqc.tsv"   , emit: annotated_data_mqc
     path "versions.yml", emit: versions
 

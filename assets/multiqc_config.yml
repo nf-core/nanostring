@@ -52,6 +52,8 @@ report_section_order:
     order: 760
   Norm_GEX_HK:
     order: 750
+  Norm_GEX_ENDO:
+    order: 740
 
 export_plots: true
 
@@ -82,7 +84,6 @@ custom_data:
     id: POSF_vs_NEGF
     section_name: "Positive Factor vs. Background Threshold"
     description: "Positive Factor plotted against the Background Threshold. Values should be in the grey area of the plot, otherwise be investigated for potential failure. Red dots mark outliers."
-
   AVG_vs_MED:
     id: AVG_vs_MED
     section_name: "Average counts vs median count"
@@ -144,7 +145,19 @@ custom_data:
       In most (codeset) assays, you will observe that even the <b>POS_F</b> probe (equivalent to <b>0.25</b> copies per cell) is detectable above background. Red dots mark outliers."
   normalized_qc:
     section_name: "Normalized QC"
-    description: "QC metrics for the normalization applied to all data. Samples that pass the required thresholds are marked as <code>Passed</code>."
+    description:
+      "QC metrics for the normalization applied to all data. Samples that pass the required thresholds are marked as <code>Passed</code>.<br><br>
+
+      <b>Outlier Thresholds and Metrics:</b> <br><br>
+      Binding Density (BD) < 0.1 and > 2.25 <br>
+      Field of View (FoV) < 75 <br>
+      Positive Control Linearity (PCL) < 0.95 <br>
+      Limit of Detection (LoD) < 2 <br>
+      Positive normalisation factor (Positive_factor) < 0.25 and > 4 <br>
+      Housekeeping normalisation factor (house_factor) < 0.091 and > 11 <br>
+      Mean Count (MC) <br>
+      Median Count (MedC) <br>
+      ??? (PCNA)<br>"
   NSolver_Pathway_Heatmap:
     section_name: "Pathway Score Heatmap (nSolver)"
     description: "Pathway Score Heatmap based on nSolver generated scores."
@@ -152,8 +165,13 @@ custom_data:
     section_name: "Celltype Score Heatmap (nSolver)"
     description: "Celltype Score Heatmap based on nSolver generated scores."
   Norm_GEX_HK:
-    section_name: "Normalized Gene Expression values for housekeeping genes."
-    description: "Normalized Housekeeping Gene Expression table, including available metadata. Endogenous Genes can be found in the results/annotated_gex_tables folder for the pipeline run."
+    id: Norm_GEX_HK
+    section_name: "Normalized count values for housekeeping genes."
+    description: "Normalized Housekeeping gene count table, including available metadata."
+  Norm_GEX_ENDO:
+    id: Norm_GEX_ENDO
+    section_name: "Normalized count values for endogenous genes."
+    description: "Normalized Endogenous gene count table, including available metadata."
   gene_heatmap:
     section_name: "Heatmap for selected set of target genes"
     description: "Normalized and log2+1 transformed Gene Expression for selected set of target genes."

@@ -25,7 +25,7 @@ output_base <- "./"
 #Write out HK genes detected and add to MultiQC report as custom content
 line="#id: nf-core-nanostring-hk-genes
 #section_name: 'Housekeeping Genes'
-#description: 'detected in the input RCC Files.'
+#description: 'The following Housekeeping Genes have been detected in the input RCC Files:'
 #plot_type: 'html'
 #section_href: 'https://github.com/nf-core/nanostring'
 #data:
@@ -210,6 +210,25 @@ plot_normf <- autoplot(
     show_legend = TRUE
 )
 ggsave(filename="plot_normf_mqc.png", plot_normf)
+
+# Create QC table for MultiQC Report
+outliers_thresholds <- nacho_data[["outliers_thresholds"]]
+
+qc_table <- nacho_data[["nacho"]] %>%
+    select(c(RCC_FILE_NAME,BD,FoV,PCL,LoD,MC,MedC,Positive_factor,Negative_factor,House_factor)) %>%
+    unique() %>%
+    mutate("BD QC" = if_else(BD < outliers_thresholds[["BD"]][1] | BD > outliers_thresholds[["BD"]][2], "FAILED", "PASSED"), .after = BD) %>%
+    mutate("FoV QC" = if_else(FoV < outliers_thresholds[["FoV"]], "FAILED", "PASSED"), .after = FoV) %>%
+    mutate("PCL QC" = if_else(PCL < outliers_thresholds[["PCL"]], "FAILED", "PASSED"), .after = PCL) %>%
+    mutate("LoD QC" = if_else(PCL < outliers_thresholds[["LoD"]], "FAILED", "PASSED"), .after = LoD) %>%
+    mutate("PNF QC" = if_else(PCL < outliers_thresholds[["Positive_factor"]][1] | PCL < outliers_thresholds[["Positive_factor"]][2], "FAILED", "PASSED"), .after = Positive_factor) %>%
+    mutate("HKNF QC" = if_else(PCL < outliers_thresholds[["House_factor"]][1] | PCL < outliers_thresholds[["House_factor"]][2], "FAILED", "PASSED"), .after = House_factor) %>%
+    relocate(Negative_factor, .after = last_col()) %>%
+    rename("Negative Factor" = Negative_factor) %>%
+    rename("House Factor" = House_factor) %>%
+    rename("Positive Factor" = Positive_factor)
+
+write_tsv(qc_table ,file=paste0(output_base,"normalized_qc_mqc.txt"))
 
 #Render Standard Report for investigation in main MultiQC Report
 #render(nacho_data, output_dir = output_base, output_file = "NanoQC.html", show_outliers = FALSE)
