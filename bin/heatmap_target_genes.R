@@ -11,7 +11,7 @@ library(tidylog)
 ###Commandline Argument parsing###
 args = commandArgs(trailingOnly=TRUE)
 if (length(args) < 2) {
-  stop("Usage: heatmap_target_genes.R <annotated_counts.tsv> <genes.yaml>", call.=FALSE)
+    stop("Usage: heatmap_target_genes.R <annotated_counts.tsv> <genes.yaml>", call.=FALSE)
 }
 ####Uncomment if debugging
 

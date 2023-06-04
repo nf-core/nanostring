@@ -3,7 +3,7 @@
 
 """Provide a command line tool to validate and transform tabular samplesheets."""
 
-
+import os
 import argparse
 import csv
 import logging
@@ -24,17 +24,17 @@ class RowChecker:
 
     """
 
-    VALID_FORMATS = (
-        ".fq.gz",
-        ".fastq.gz",
-    )
+    VALID_FORMATS = ".RCC"
 
     def __init__(
         self,
-        sample_col="sample",
-        first_col="fastq_1",
-        second_col="fastq_2",
-        single_col="single_end",
+        sample_col="SAMPLE_ID",
+        rcc_file="RCC_FILE",
+        rcc_file_name="RCC_FILE_NAME",
+        time="TIME",
+        treatment="TREATMENT",
+        include="INCLUDE",
+        other="OTHER_METADATA",
         **kwargs,
     ):
         """
@@ -54,9 +54,12 @@ class RowChecker:
         """
         super().__init__(**kwargs)
         self._sample_col = sample_col
-        self._first_col = first_col
-        self._second_col = second_col
-        self._single_col = single_col
+        self._rcc_file = rcc_file
+        self._rcc_file_name = rcc_file_name
+        self._time = time
+        self._treatment = treatment
+        self._include = include
+        self._other = other
         self._seen = set()
         self.modified = []
 
@@ -70,10 +73,8 @@ class RowChecker:
 
         """
         self._validate_sample(row)
-        self._validate_first(row)
-        self._validate_second(row)
-        self._validate_pair(row)
-        self._seen.add((row[self._sample_col], row[self._first_col]))
+        self._validate_rcc_file(row)
+        self._seen.add((row[self._sample_col], row[self._rcc_file], row[self._rcc_file_name]))
         self.modified.append(row)
 
     def _validate_sample(self, row):
@@ -82,6 +83,15 @@ class RowChecker:
             raise AssertionError("Sample input is required.")
         # Sanitize samples slightly.
         row[self._sample_col] = row[self._sample_col].replace(" ", "_")
+
+    def _validate_rcc_file(self, row):
+        """Assert that the RCC entry is non-empty and has the right format."""
+        if len(row[self._rcc_file]) <= 0:
+            raise AssertionError("RCC file is required.")
+        self._validate_rcc_format(row[self._rcc_file])
+
+        if len(row[self._rcc_file_name]) <= 0:
+            row[self._rcc_file_name] = os.path.basename(row[self._rcc_file])
 
     def _validate_first(self, row):
         """Assert that the first FASTQ entry is non-empty and has the right format."""
@@ -110,6 +120,14 @@ class RowChecker:
         if not any(filename.endswith(extension) for extension in self.VALID_FORMATS):
             raise AssertionError(
                 f"The FASTQ file has an unrecognized extension: {filename}\n"
+                f"It should be one of: {', '.join(self.VALID_FORMATS)}"
+            )
+
+    def _validate_rcc_format(self, filename):
+        """Assert that a given filename has one of the expected RCC extensions."""
+        if not any(filename.endswith(extension) for extension in self.VALID_FORMATS):
+            raise AssertionError(
+                f"The RCC file has an unrecognized extension: {filename}\n"
                 f"It should be one of: {', '.join(self.VALID_FORMATS)}"
             )
 
@@ -166,8 +184,7 @@ def check_samplesheet(file_in, file_out):
     """
     Check that the tabular samplesheet has the structure expected by nf-core pipelines.
 
-    Validate the general shape of the table, expected columns, and each row. Also add
-    an additional column which records whether one or two FASTQ reads were found.
+    Validate the general shape of the table, expected columns, and each row.
 
     Args:
         file_in (pathlib.Path): The given tabular samplesheet. The format can be either
@@ -176,23 +193,17 @@ def check_samplesheet(file_in, file_out):
             be created; always in CSV format.
 
     Example:
-        This function checks that the samplesheet follows the following structure,
-        see also the `viral recon samplesheet`_::
+        This function checks that the samplesheet follows the following structure:
 
-            sample,fastq_1,fastq_2
-            SAMPLE_PE,SAMPLE_PE_RUN1_1.fastq.gz,SAMPLE_PE_RUN1_2.fastq.gz
-            SAMPLE_PE,SAMPLE_PE_RUN2_1.fastq.gz,SAMPLE_PE_RUN2_2.fastq.gz
-            SAMPLE_SE,SAMPLE_SE_RUN1_1.fastq.gz,
-
-    .. _viral recon samplesheet:
-        https://raw.githubusercontent.com/nf-core/test-datasets/viralrecon/samplesheet/samplesheet_test_illumina_amplicon.csv
+            'RCC_FILE','RCC_FILE_NAME','SAMPLE_ID','TIME','TREATMENT','INCLUDE','OTHER_METADATA'
 
     """
-    required_columns = {"sample", "fastq_1", "fastq_2"}
+    required_columns = {"RCC_FILE", "RCC_FILE_NAME", "SAMPLE_ID", "TIME", "TREATMENT", "INCLUDE", "OTHER_METADATA"}
     # See https://docs.python.org/3.9/library/csv.html#id3 to read up on `newline=""`.
     with file_in.open(newline="") as in_handle:
         reader = csv.DictReader(in_handle, dialect=sniff_format(in_handle))
         # Validate the existence of the expected header columns.
+        print(reader.fieldnames)
         if not required_columns.issubset(reader.fieldnames):
             req_cols = ", ".join(required_columns)
             logger.critical(f"The sample sheet **must** contain these column headers: {req_cols}.")
@@ -205,9 +216,7 @@ def check_samplesheet(file_in, file_out):
             except AssertionError as error:
                 logger.critical(f"{str(error)} On line {i + 2}.")
                 sys.exit(1)
-        checker.validate_unique_samples()
     header = list(reader.fieldnames)
-    header.insert(1, "single_end")
     # See https://docs.python.org/3.9/library/csv.html#id3 to read up on `newline=""`.
     with file_out.open(mode="w", newline="") as out_handle:
         writer = csv.DictWriter(out_handle, header, delimiter=",")

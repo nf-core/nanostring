@@ -12,11 +12,12 @@ workflow INPUT_CHECK {
     SAMPLESHEET_CHECK ( samplesheet )
         .csv
         .splitCsv ( header:true, sep:',' )
-        .map { create_fastq_channel(it) }
-        .set { reads }
+        .map { create_rcc_channel(it) }
+        .set { counts }
 
     emit:
-    reads                                     // channel: [ val(meta), [ reads ] ]
+    counts                                    // channel: [ val(meta), file(counts_file) ]
+    sample_sheet = SAMPLESHEET_CHECK.out.csv  // channel: [ samplesheet.valid.csv ]
     versions = SAMPLESHEET_CHECK.out.versions // channel: [ versions.yml ]
 }
 
@@ -42,3 +43,22 @@ def create_fastq_channel(LinkedHashMap row) {
     }
     return fastq_meta
 }
+
+def create_rcc_channel(LinkedHashMap row) {
+    // create meta map
+    def meta = [:]
+    meta.id = row.SAMPLE_ID
+    meta.filename = row.RCC_FILE_NAME
+    meta.time = row.TIME
+    meta.treatment = row.TREATMENT
+    meta.include = row.INCLUDE
+    meta.metadata = row.OTHER_METADATA
+
+    // add path(s) of the rcc file(s) to the meta map
+    if (!file(row.RCC_FILE).exists()) {
+        exit 1, "ERROR: Please check input samplesheet -> RCC file does not exist!\n${row.RCC_FILE}"
+    }
+
+    return [ meta, file(row.RCC_FILE) ]
+}
+
