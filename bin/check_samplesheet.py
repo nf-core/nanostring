@@ -90,7 +90,7 @@ class RowChecker:
             raise AssertionError("RCC file is required.")
         self._validate_rcc_format(row[self._rcc_file])
 
-        if (self._rcc_file_name not in row):
+        if self._rcc_file_name not in row:
             row[self._rcc_file_name] = os.path.basename(row[self._rcc_file])
         elif len(row[self._rcc_file_name]) <= 0:
             row[self._rcc_file_name] = os.path.basename(row[self._rcc_file])
@@ -200,7 +200,6 @@ def check_samplesheet(file_in, file_out):
             'RCC_FILE','RCC_FILE_NAME','SAMPLE_ID','TIME','TREATMENT','INCLUDE','OTHER_METADATA'
 
     """
-    #required_columns = {"RCC_FILE", "RCC_FILE_NAME", "SAMPLE_ID", "TIME", "TREATMENT", "INCLUDE", "OTHER_METADATA"}
     required_columns = {"RCC_FILE", "SAMPLE_ID"}
     # See https://docs.python.org/3.9/library/csv.html#id3 to read up on `newline=""`.
     with file_in.open(newline="") as in_handle:
