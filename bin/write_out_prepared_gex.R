@@ -33,7 +33,7 @@ getTransposedAnnotatedCounts <- function(counts, entity , metadata) {
 
     #Remove RCC_FILE from metadata
     remove_meta <- c("RCC_FILE", "INCLUDE")
-    metadata <- metadata %>% select(!all_of(remove_meta))
+    metadata <- metadata %>% select(!any_of(remove_meta))
 
     #Lets merge with metadata
     merged_counts <- t_counts %>%
