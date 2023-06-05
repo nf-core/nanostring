@@ -18,37 +18,32 @@ You will need to create a samplesheet with information about the samples you wou
 
 ### Multiple runs of the same sample
 
-The `sample` identifiers have to be the same when you have re-sequenced the same sample more than once e.g. to increase sequencing depth. The pipeline will concatenate the raw reads before performing any downstream analysis. Below is an example for the same sample sequenced across 3 lanes:
+The `sample` identifiers should be the same when you measured the same sample multiple times. Below is an example for the same sample measured twice:
 
 ```console
-sample,fastq_1,fastq_2
-CONTROL_REP1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz
-CONTROL_REP1,AEG588A1_S1_L003_R1_001.fastq.gz,AEG588A1_S1_L003_R2_001.fastq.gz
-CONTROL_REP1,AEG588A1_S1_L004_R1_001.fastq.gz,AEG588A1_S1_L004_R2_001.fastq.gz
+RCC_FILE,SAMPLE_ID
+/path/to/sample1.RCC,sample1
+/path/to/sample2_1.RCC,sample2
+/path/to/sample2_2.RCC,sample2
 ```
 
 ### Full samplesheet
 
-The pipeline will auto-detect whether a sample is single- or paired-end using the information provided in the samplesheet. The samplesheet can have as many columns as you desire, however, there is a strict requirement for the first 3 columns to match those defined in the table below.
+The samplesheet can have as many columns as you desire, however, there is a strict requirement for the first two columns to match those defined in the table below.
 
-A final samplesheet file consisting of both single- and paired-end data may look something like the one below. This is for 6 samples, where `TREATMENT_REP3` has been sequenced twice.
+A final samplesheet with additional metadata may look something like the one below. This is for 3 samples. If the column `RCC_FILE_NAME` is not specified, the pipeline will fill it automatically from the `RCC_FILE` column.
 
 ```console
-sample,fastq_1,fastq_2
-CONTROL_REP1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz
-CONTROL_REP2,AEG588A2_S2_L002_R1_001.fastq.gz,AEG588A2_S2_L002_R2_001.fastq.gz
-CONTROL_REP3,AEG588A3_S3_L002_R1_001.fastq.gz,AEG588A3_S3_L002_R2_001.fastq.gz
-TREATMENT_REP1,AEG588A4_S4_L003_R1_001.fastq.gz,
-TREATMENT_REP2,AEG588A5_S5_L003_R1_001.fastq.gz,
-TREATMENT_REP3,AEG588A6_S6_L003_R1_001.fastq.gz,
-TREATMENT_REP3,AEG588A6_S6_L004_R1_001.fastq.gz,
+RCC_FILE,RCC_FILE_NAME,SAMPLE_ID,TIME,TREATMENT,INCLUDE,OTHER_METADATA
+/path/to/sample1.RCC,sample1.RCC,sample1,1,0,1,your metadata
+/path/to/sample2_1.RCC,sample2_1.RCC,sample2,2,0,1,your metadata
+/path/to/sample2_2.RCC,sample2_2.RCC,sample2,2,0,1,your metadata
 ```
 
-| Column    | Description                                                                                                                                                                            |
-| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sample`  | Custom sample name. This entry will be identical for multiple sequencing libraries/runs from the same sample. Spaces in sample names are automatically converted to underscores (`_`). |
-| `fastq_1` | Full path to FastQ file for Illumina short reads 1. File has to be gzipped and have the extension ".fastq.gz" or ".fq.gz".                                                             |
-| `fastq_2` | Full path to FastQ file for Illumina short reads 2. File has to be gzipped and have the extension ".fastq.gz" or ".fq.gz".                                                             |
+| Column      | Description                                                                                                                                          |
+| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | --- |
+| `SAMPLE_ID` | Custom sample name. This entry will be identical for multiple measurements. Spaces in sample names are automatically converted to underscores (`_`). |
+| `RCC_FILE`  | Full path to RCC file of NanoString measurement.                                                                                                     |     |
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
 
@@ -57,7 +52,7 @@ An [example samplesheet](../assets/samplesheet.csv) has been provided with the p
 The typical command for running the pipeline is as follows:
 
 ```bash
-nextflow run nf-core/nanostring --input samplesheet.csv --outdir <OUTDIR> --genome GRCh37 -profile docker
+nextflow run nf-core/nanostring --input samplesheet.csv --outdir <OUTDIR> -profile docker
 ```
 
 This will launch the pipeline with the `docker` configuration profile. See below for more information about profiles.
@@ -87,7 +82,6 @@ with `params.yaml` containing:
 ```yaml
 input: './samplesheet.csv'
 outdir: './results/'
-genome: 'GRCh37'
 input: 'data'
 <...>
 ```
