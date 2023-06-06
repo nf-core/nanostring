@@ -4,14 +4,8 @@ report_comment: >
   <a href="https://nf-co.re/nanostring" target="_blank">documentation</a>.
 
 report_section_order:
-  "nf-core-nanostring-methods-description":
-    order: -1000
-  software_versions:
-    order: -1001
-  "nf-core-nanostring-summary":
-    order: -1002
   BD:
-    order: 1000
+    order: 960
   FOV:
     order: 950
   Posctrl_linearity:
@@ -54,6 +48,12 @@ report_section_order:
     order: 750
   Norm_GEX_ENDO:
     order: 740
+  "nf-core-nanostring-methods-description":
+    order: -1000
+  software_versions:
+    order: -1001
+  "nf-core-nanostring-summary":
+    order: -1002
 
 export_plots: true
 
@@ -156,8 +156,54 @@ custom_data:
       Positive normalisation factor (Positive_factor) < 0.25 and > 4 <br>
       Housekeeping normalisation factor (house_factor) < 0.091 and > 11 <br>
       Mean Count (MC) <br>
-      Median Count (MedC) <br>
-      ??? (PCNA)<br>"
+      Median Count (MedC) <br>"
+    plot_type: "table"
+    headers:
+      "BD":
+        format: "{:,.3f}"
+        placement: 200
+      "BD QC":
+        description: "Binding Density QC"
+        placement: 300
+      "FoV":
+        format: "{:,.2f}"
+        placement: 400
+      "FoV QC":
+        description: "Field of View QC"
+        placement: 500
+      "PCL":
+        format: "{:,.3f}"
+        placement: 600
+      "PCL QC":
+        description: "Positive Control Linearity QC"
+        placement: 700
+      "LoD":
+        format: "{:,.3f}"
+        placement: 800
+      "LoD QC":
+        description: "Limit of Detection QC"
+        placement: 900
+      "MC":
+        format: "{:,.1f}"
+        placement: 1500
+      "MedC":
+        format: "{:,.1f}"
+        placement: 1600
+      "Positive Factor":
+        format: "{:,.3f}"
+        placement: 1000
+      "PNF QC":
+        description: "Positive Normalisation Factor QC"
+        placement: 1100
+      "House Factor":
+        format: "{:,.3f}"
+        placement: 1200
+      "HKNF QC":
+        description: "Housekeeping Normalization Factor QC"
+        placement: 1300
+      "Negative Factor":
+        format: "{:,.3f}"
+        placement: 1400
   NSolver_Pathway_Heatmap:
     section_name: "Pathway Score Heatmap (nSolver)"
     description: "Pathway Score Heatmap based on nSolver generated scores."
