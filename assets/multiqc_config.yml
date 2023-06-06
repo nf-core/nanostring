@@ -78,18 +78,19 @@ custom_data:
       The counts observed in lanes with a Binding Density at this level may have had significant numbers of codes ignored, which could potentially affect quantification and linearity of the assay."
   plot_normf:
     id: plot_normf
-    section_name: "Normalization factor"
-    description: "This plot describes the normalization factor obtained."
+    section_name: "Normalization Result"
+    description: "This plot describes the normalization result obtained."
   POSF_vs_NEGF:
     id: POSF_vs_NEGF
-    section_name: "Positive Factor vs. Background Threshold"
-    description: "Positive Factor plotted against the Background Threshold. Values should be in the grey area of the plot, otherwise be investigated for potential failure. Red dots mark outliers."
+    section_name: "Positive Factor vs. Negative Factor"
+    description: "Positive factor plotted against the negative factor (background threshold). Values should be in the grey area of the plot, otherwise be investigated for potential failure. Red dots mark outliers."
   AVG_vs_MED:
     id: AVG_vs_MED
-    section_name: "Average counts vs median count"
+    section_name: "Average Counts vs. Median Counts"
+    description: "The average counts plotted against the median counts."
   PCAi:
     id: PCAi
-    section_name: "Inertia"
+    section_name: "Principal Component Analysis Inertia"
     description: "Inertia of the analyzed data."
   Pos:
     id: Pos
@@ -102,15 +103,19 @@ custom_data:
   HK:
     id: HK
     section_name: "Housekeeping Genes"
-    description: "Boxplots showing the housekeeping gene expression per cartridge. Red dots mark outliers."
+    description: "Box plots showing the housekeeping gene expression per cartridge. Red dots mark outliers."
   Pos_vs_neg:
     id: Pos_vs_neg
-    section_name: "Positive counts vs. negative counts"
-    description: "Lineplot showing the number of positive counts against the number of negative counts. Red dots mark outliers."
+    section_name: "Positive Counts vs. Negative Counts"
+    description: "Line plot showing the number of positive counts against the number of negative counts. Red dots mark outliers."
   AVG_vs_BD:
     id: AVG_vs_BD
-    section_name: "Average counts vs. Binding Density"
+    section_name: "Average Counts vs. Binding Density"
     description: "This plot shows the average counts vs the respective binding density and can be used to determine outliers that show very low average counts and suffer from too high binding density simultaneously. Red dots mark outliers."
+  PCA:
+    id: PCA
+    section_name: "Principal Component Analysis"
+    description: "Principal components planes."
   PCA1_vs_PCA2:
     id: PCA1_vs_PCA2
     section_name: "PC1 vs PC2 (PCA)"

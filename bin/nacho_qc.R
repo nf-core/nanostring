@@ -217,12 +217,12 @@ outliers_thresholds <- nacho_data[["outliers_thresholds"]]
 qc_table <- nacho_data[["nacho"]] %>%
     select(c(RCC_FILE_NAME,BD,FoV,PCL,LoD,MC,MedC,Positive_factor,Negative_factor,House_factor)) %>%
     unique() %>%
-    mutate("BD QC" = if_else(BD < outliers_thresholds[["BD"]][1] | BD > outliers_thresholds[["BD"]][2], "FAILED", "PASSED"), .after = BD) %>%
-    mutate("FoV QC" = if_else(FoV < outliers_thresholds[["FoV"]], "FAILED", "PASSED"), .after = FoV) %>%
-    mutate("PCL QC" = if_else(PCL < outliers_thresholds[["PCL"]], "FAILED", "PASSED"), .after = PCL) %>%
-    mutate("LoD QC" = if_else(PCL < outliers_thresholds[["LoD"]], "FAILED", "PASSED"), .after = LoD) %>%
-    mutate("PNF QC" = if_else(PCL < outliers_thresholds[["Positive_factor"]][1] | PCL < outliers_thresholds[["Positive_factor"]][2], "FAILED", "PASSED"), .after = Positive_factor) %>%
-    mutate("HKNF QC" = if_else(PCL < outliers_thresholds[["House_factor"]][1] | PCL < outliers_thresholds[["House_factor"]][2], "FAILED", "PASSED"), .after = House_factor) %>%
+    mutate("BD QC" = if_else(BD < outliers_thresholds[["BD"]][1] | BD > outliers_thresholds[["BD"]][2], "FAIL", "PASS"), .after = BD) %>%
+    mutate("FoV QC" = if_else(FoV < outliers_thresholds[["FoV"]], "FAIL", "PASS"), .after = FoV) %>%
+    mutate("PCL QC" = if_else(PCL < outliers_thresholds[["PCL"]], "FAIL", "PASS"), .after = PCL) %>%
+    mutate("LoD QC" = if_else(PCL < outliers_thresholds[["LoD"]], "FAIL", "PASS"), .after = LoD) %>%
+    mutate("PNF QC" = if_else(PCL < outliers_thresholds[["Positive_factor"]][1] | PCL < outliers_thresholds[["Positive_factor"]][2], "FAIL", "PASS"), .after = Positive_factor) %>%
+    mutate("HKNF QC" = if_else(PCL < outliers_thresholds[["House_factor"]][1] | PCL < outliers_thresholds[["House_factor"]][2], "FAIL", "PASS"), .after = House_factor) %>%
     relocate(Negative_factor, .after = last_col()) %>%
     rename("Negative Factor" = Negative_factor) %>%
     rename("House Factor" = House_factor) %>%
