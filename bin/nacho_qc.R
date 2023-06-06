@@ -226,7 +226,8 @@ qc_table <- nacho_data[["nacho"]] %>%
     relocate(Negative_factor, .after = last_col()) %>%
     rename("Negative Factor" = Negative_factor) %>%
     rename("House Factor" = House_factor) %>%
-    rename("Positive Factor" = Positive_factor)
+    rename("Positive Factor" = Positive_factor) %>%
+    rename("RCC_FILE" = RCC_FILE_NAME)
 
 write_tsv(qc_table ,file=paste0(output_base,"normalized_qc_mqc.txt"))
 
