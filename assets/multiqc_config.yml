@@ -151,7 +151,7 @@ custom_data:
   normalized_qc:
     section_name: "Normalized QC"
     description:
-      "QC metrics for the normalization applied to all data. Samples that pass the required thresholds are marked as <code>Passed</code>.<br><br>
+      "QC metrics for the normalization applied to all data. Samples that pass the required thresholds are marked as <code>PASS</code>.<br><br>
 
       <b>Outlier Thresholds and Metrics:</b> <br><br>
       Binding Density (BD) < 0.1 and > 2.25 <br>
