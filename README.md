@@ -37,9 +37,9 @@ First, prepare a samplesheet with your input data that looks as follows:
 `samplesheet.csv`:
 
 ```csv
-RCC_FILE,RCC_FILE_NAME,SAMPLE_ID,TIME,TREATMENT,INCLUDE,OTHER_METADATA
-/path/to/sample1.RCC,sample1.RCC,sample1,1,0,1,your metadata
-/path/to/sample2.RCC,sample2.RCC,sample2,2,0,1,your metadata
+RCC_FILE,RCC_FILE_NAME,SAMPLE_ID
+/path/to/sample1.RCC,sample1.RCC,sample1
+/path/to/sample2.RCC,sample2.RCC,sample2
 ```
 
 Each row represents a RCC file with counts.
@@ -84,8 +84,6 @@ For further information or help, don't hesitate to get in touch on the [Slack `#
 
 <!-- TODO nf-core: Add citation for pipeline after first release. Uncomment lines below and update Zenodo doi and badge at the top of this file. -->
 <!-- If you use  nf-core/nanostring for your analysis, please cite it using the following doi: [10.5281/zenodo.XXXXXX](https://doi.org/10.5281/zenodo.XXXXXX) -->
-
-<!-- TODO nf-core: Add bibliography of tools and data used in your pipeline -->
 
 An extensive list of references for the tools used by the pipeline can be found in the [`CITATIONS.md`](CITATIONS.md) file.
 

@@ -90,7 +90,9 @@ class RowChecker:
             raise AssertionError("RCC file is required.")
         self._validate_rcc_format(row[self._rcc_file])
 
-        if len(row[self._rcc_file_name]) <= 0:
+        if self._rcc_file_name not in row:
+            row[self._rcc_file_name] = os.path.basename(row[self._rcc_file])
+        elif len(row[self._rcc_file_name]) <= 0:
             row[self._rcc_file_name] = os.path.basename(row[self._rcc_file])
 
     def _validate_first(self, row):
@@ -198,12 +200,11 @@ def check_samplesheet(file_in, file_out):
             'RCC_FILE','RCC_FILE_NAME','SAMPLE_ID','TIME','TREATMENT','INCLUDE','OTHER_METADATA'
 
     """
-    required_columns = {"RCC_FILE", "RCC_FILE_NAME", "SAMPLE_ID", "TIME", "TREATMENT", "INCLUDE", "OTHER_METADATA"}
+    required_columns = {"RCC_FILE", "SAMPLE_ID"}
     # See https://docs.python.org/3.9/library/csv.html#id3 to read up on `newline=""`.
     with file_in.open(newline="") as in_handle:
         reader = csv.DictReader(in_handle, dialect=sniff_format(in_handle))
         # Validate the existence of the expected header columns.
-        print(reader.fieldnames)
         if not required_columns.issubset(reader.fieldnames):
             req_cols = ", ".join(required_columns)
             logger.critical(f"The sample sheet **must** contain these column headers: {req_cols}.")
@@ -217,6 +218,8 @@ def check_samplesheet(file_in, file_out):
                 logger.critical(f"{str(error)} On line {i + 2}.")
                 sys.exit(1)
     header = list(reader.fieldnames)
+    if "RCC_FILE_NAME" not in list(reader.fieldnames):
+        header.append("RCC_FILE_NAME")
     # See https://docs.python.org/3.9/library/csv.html#id3 to read up on `newline=""`.
     with file_out.open(mode="w", newline="") as out_handle:
         writer = csv.DictWriter(out_handle, header, delimiter=",")
