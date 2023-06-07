@@ -12,6 +12,7 @@ Initial release of nf-core/nanostring, created with the [nf-core](https://nf-co.
 - [#21](https://github.com/nf-core/nanostring/pull/21) - Add quality control using [NACHO](https://github.com/mcanouil/NACHO/) [#11](https://github.com/nf-core/nanostring/issues/11)
 - [#21](https://github.com/nf-core/nanostring/pull/21) - Add normalization with and without Housekeeping genes using [NACHO](https://github.com/mcanouil/NACHO/) [#12](https://github.com/nf-core/nanostring/issues/12)
 - [#21](https://github.com/nf-core/nanostring/pull/21) - Add tests and respective test data [#19](https://github.com/nf-core/nanostring/issues/19)
+- [#23](https://github.com/nf-core/nanostring/pull/23) - Add tables with non-housekeeping-normalized counts to MultiQC report
 
 ### `Fixed`
 

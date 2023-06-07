@@ -4,14 +4,8 @@ report_comment: >
   <a href="https://nf-co.re/nanostring" target="_blank">documentation</a>.
 
 report_section_order:
-  "nf-core-nanostring-methods-description":
-    order: -1000
-  software_versions:
-    order: -1001
-  "nf-core-nanostring-summary":
-    order: -1002
   BD:
-    order: 1000
+    order: 960
   FOV:
     order: 950
   Posctrl_linearity:
@@ -54,6 +48,16 @@ report_section_order:
     order: 750
   Norm_GEX_ENDO:
     order: 740
+  No_HK_Norm_GEX_HK:
+    order: 750
+  No_HK_Norm_GEX_ENDO:
+    order: 740
+  "nf-core-nanostring-methods-description":
+    order: -1000
+  software_versions:
+    order: -1001
+  "nf-core-nanostring-summary":
+    order: -1002
 
 export_plots: true
 
@@ -78,18 +82,19 @@ custom_data:
       The counts observed in lanes with a Binding Density at this level may have had significant numbers of codes ignored, which could potentially affect quantification and linearity of the assay."
   plot_normf:
     id: plot_normf
-    section_name: "Normalization factor"
-    description: "This plot describes the normalization factor obtained."
+    section_name: "Normalization Result"
+    description: "This plot describes the normalization result obtained."
   POSF_vs_NEGF:
     id: POSF_vs_NEGF
-    section_name: "Positive Factor vs. Background Threshold"
-    description: "Positive Factor plotted against the Background Threshold. Values should be in the grey area of the plot, otherwise be investigated for potential failure. Red dots mark outliers."
+    section_name: "Positive Factor vs. Negative Factor"
+    description: "Positive factor plotted against the negative factor (background threshold). Values should be in the grey area of the plot, otherwise be investigated for potential failure. Red dots mark outliers."
   AVG_vs_MED:
     id: AVG_vs_MED
-    section_name: "Average counts vs median count"
+    section_name: "Average Counts vs. Median Counts"
+    description: "The average counts plotted against the median counts."
   PCAi:
     id: PCAi
-    section_name: "Inertia"
+    section_name: "Principal Component Analysis Inertia"
     description: "Inertia of the analyzed data."
   Pos:
     id: Pos
@@ -102,15 +107,19 @@ custom_data:
   HK:
     id: HK
     section_name: "Housekeeping Genes"
-    description: "Boxplots showing the housekeeping gene expression per cartridge. Red dots mark outliers."
+    description: "Box plots showing the housekeeping gene expression per cartridge. Red dots mark outliers."
   Pos_vs_neg:
     id: Pos_vs_neg
-    section_name: "Positive counts vs. negative counts"
-    description: "Lineplot showing the number of positive counts against the number of negative counts. Red dots mark outliers."
+    section_name: "Positive Counts vs. Negative Counts"
+    description: "Line plot showing the number of positive counts against the number of negative counts. Red dots mark outliers."
   AVG_vs_BD:
     id: AVG_vs_BD
-    section_name: "Average counts vs. Binding Density"
+    section_name: "Average Counts vs. Binding Density"
     description: "This plot shows the average counts vs the respective binding density and can be used to determine outliers that show very low average counts and suffer from too high binding density simultaneously. Red dots mark outliers."
+  PCA:
+    id: PCA
+    section_name: "Principal Component Analysis"
+    description: "Principal components planes."
   PCA1_vs_PCA2:
     id: PCA1_vs_PCA2
     section_name: "PC1 vs PC2 (PCA)"
@@ -144,9 +153,9 @@ custom_data:
       An nCounter assay run on the FLEX/MAX system should thus conservatively be able to detect roughly one transcript copy per cell for each target (or 10,000 total transcript copies). <br>
       In most (codeset) assays, you will observe that even the <b>POS_F</b> probe (equivalent to <b>0.25</b> copies per cell) is detectable above background. Red dots mark outliers."
   normalized_qc:
-    section_name: "Normalized QC"
+    section_name: "Quality Control Metrics"
     description:
-      "QC metrics for the normalization applied to all data. Samples that pass the required thresholds are marked as <code>Passed</code>.<br><br>
+      "QC metrics for the data provided by NACHO. Samples that pass the required thresholds are marked as <code>PASS</code>.<br><br>
 
       <b>Outlier Thresholds and Metrics:</b> <br><br>
       Binding Density (BD) < 0.1 and > 2.25 <br>
@@ -156,8 +165,54 @@ custom_data:
       Positive normalisation factor (Positive_factor) < 0.25 and > 4 <br>
       Housekeeping normalisation factor (house_factor) < 0.091 and > 11 <br>
       Mean Count (MC) <br>
-      Median Count (MedC) <br>
-      ??? (PCNA)<br>"
+      Median Count (MedC) <br>"
+    plot_type: "table"
+    headers:
+      "BD":
+        format: "{:,.3f}"
+        placement: 200
+      "BD QC":
+        description: "Binding Density QC"
+        placement: 300
+      "FoV":
+        format: "{:,.2f}"
+        placement: 400
+      "FoV QC":
+        description: "Field of View QC"
+        placement: 500
+      "PCL":
+        format: "{:,.3f}"
+        placement: 600
+      "PCL QC":
+        description: "Positive Control Linearity QC"
+        placement: 700
+      "LoD":
+        format: "{:,.3f}"
+        placement: 800
+      "LoD QC":
+        description: "Limit of Detection QC"
+        placement: 900
+      "MC":
+        format: "{:,.1f}"
+        placement: 1500
+      "MedC":
+        format: "{:,.1f}"
+        placement: 1600
+      "Positive Factor":
+        format: "{:,.3f}"
+        placement: 1000
+      "PNF QC":
+        description: "Positive Normalisation Factor QC"
+        placement: 1100
+      "House Factor":
+        format: "{:,.3f}"
+        placement: 1200
+      "HKNF QC":
+        description: "Housekeeping Normalization Factor QC"
+        placement: 1300
+      "Negative Factor":
+        format: "{:,.3f}"
+        placement: 1400
   NSolver_Pathway_Heatmap:
     section_name: "Pathway Score Heatmap (nSolver)"
     description: "Pathway Score Heatmap based on nSolver generated scores."
@@ -172,6 +227,14 @@ custom_data:
     id: Norm_GEX_ENDO
     section_name: "Normalized count values for endogenous genes."
     description: "Normalized Endogenous gene count table, including available metadata."
+  No_HK_Norm_GEX_HK:
+    id: No_HK_Norm_GEX_HK
+    section_name: "Non-HK-Normalized count values for housekeeping genes."
+    description: "Non-Housekeeping-Normalized Housekeeping gene count table, including available metadata."
+  No_HK_Norm_GEX_ENDO:
+    id: No_HK_Norm_GEX_ENDO
+    section_name: "Non-HK-Normalized count values for endogenous genes."
+    description: "Non-Housekeeping-Normalized Endogenous gene count table, including available metadata."
   gene_heatmap:
     section_name: "Heatmap for selected set of target genes"
     description: "Normalized and log2+1 transformed Gene Expression for selected set of target genes."
