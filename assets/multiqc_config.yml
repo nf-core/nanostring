@@ -48,6 +48,10 @@ report_section_order:
     order: 750
   Norm_GEX_ENDO:
     order: 740
+  No_HK_Norm_GEX_HK:
+    order: 750
+  No_HK_Norm_GEX_ENDO:
+    order: 740
   "nf-core-nanostring-methods-description":
     order: -1000
   software_versions:
@@ -149,9 +153,9 @@ custom_data:
       An nCounter assay run on the FLEX/MAX system should thus conservatively be able to detect roughly one transcript copy per cell for each target (or 10,000 total transcript copies). <br>
       In most (codeset) assays, you will observe that even the <b>POS_F</b> probe (equivalent to <b>0.25</b> copies per cell) is detectable above background. Red dots mark outliers."
   normalized_qc:
-    section_name: "Normalized QC"
+    section_name: "Quality Control Metrics"
     description:
-      "QC metrics for the normalization applied to all data. Samples that pass the required thresholds are marked as <code>PASS</code>.<br><br>
+      "QC metrics for the data provided by NACHO. Samples that pass the required thresholds are marked as <code>PASS</code>.<br><br>
 
       <b>Outlier Thresholds and Metrics:</b> <br><br>
       Binding Density (BD) < 0.1 and > 2.25 <br>
@@ -223,6 +227,14 @@ custom_data:
     id: Norm_GEX_ENDO
     section_name: "Normalized count values for endogenous genes."
     description: "Normalized Endogenous gene count table, including available metadata."
+  No_HK_Norm_GEX_HK:
+    id: No_HK_Norm_GEX_HK
+    section_name: "Non-HK-Normalized count values for housekeeping genes."
+    description: "Non-Housekeeping-Normalized Housekeeping gene count table, including available metadata."
+  No_HK_Norm_GEX_ENDO:
+    id: No_HK_Norm_GEX_ENDO
+    section_name: "Non-HK-Normalized count values for endogenous genes."
+    description: "Non-Housekeeping-Normalized Endogenous gene count table, including available metadata."
   gene_heatmap:
     section_name: "Heatmap for selected set of target genes"
     description: "Normalized and log2+1 transformed Gene Expression for selected set of target genes."

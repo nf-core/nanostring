@@ -55,5 +55,10 @@ input_name <- str_c(str_split_1(tools::file_path_sans_ext(input_counts), "_")[-1
 write.table(hk_annotated, file = paste0(now, "_", input_name, "_Norm_GEX_HK.tsv"), sep="\t", quote = FALSE, col.names = TRUE, row.names=FALSE)
 write.table(endo_annotated, file = paste0(now, "_", input_name, "_Norm_GEX_ENDO.tsv"), sep="\t", quote = FALSE, col.names = TRUE, row.names=FALSE)
 
-write.table(hk_annotated, file = paste0("Norm_GEX_HK_mqc.tsv"), sep="\t", quote = FALSE, col.names = TRUE, row.names=FALSE)
-write.table(endo_annotated, file = paste0("Norm_GEX_ENDO_mqc.tsv"), sep="\t", quote = FALSE, col.names = TRUE, row.names=FALSE)
+prefix <- ""
+if (grepl("wo_HKnorm",input_name)) {
+    prefix <- "No_HK_"
+}
+
+write.table(hk_annotated, file = paste0(prefix,"Norm_GEX_HK_mqc.tsv"), sep="\t", quote = FALSE, col.names = TRUE, row.names=FALSE)
+write.table(endo_annotated, file = paste0(prefix,"Norm_GEX_ENDO_mqc.tsv"), sep="\t", quote = FALSE, col.names = TRUE, row.names=FALSE)
