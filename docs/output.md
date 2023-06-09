@@ -1,102 +1,83 @@
 # nf-core/nanostring: Output
 
-This document describes the output produced by the pipeline.
+## Introduction
+
+This document describes the output produced by the pipeline. Most of the plots are taken from the MultiQC report, which summarises results at the end of the pipeline.
+
+The directories listed below will be created in the results directory after the pipeline has finished. All paths are relative to the top-level results directory.
 
 ## Pipeline overview
 
 The pipeline is built using [Nextflow](https://www.nextflow.io/)
 and processes data using the following steps:
 
-- [NachoQC](#nachoqc) - compute QC metrics for Nanostring data, assess data quality
+- [Quality Control](#qualitycontrol) - compute QC metrics for NanoString data, assess data quality
 - [Normalize](#normalize) - computes normalized gene counts given RCC files
 - [Annotate](#annotate) - annotates the normalized gene counts with metadata from samplesheet
-- [Boxplots](#boxplots) - creates boxplots for the normalized gene expression data
-- [nSolver Visualize](#nsolver) - creates heatmaps for nSolver Pathway and Celltype Scores provided
-- [Gene Scores](#genescores) - creates gene scores based on supplied gene sets
 - [MultiQC](#multiqc) - aggregate report, describing results of the whole pipeline
+- [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
 
-## NACHO QC
+### Quality Control
 
-This step uses the NACHO Nanostring analysis package to perform basic QC of the input RCC files. Several quality metrics are created and the majority of these are available in the MultiQC report.These have been created using the `bin/nanoQC.R` script in the pipeline. In addition to this, the output also has two NACHO reports, once with outliers highlighted and once without highlighting outliers in the visualizations:
+This step currently uses the NACHO NanoString analysis package to perform basic QC of the input RCC files. Several quality metrics are created and the majority of these are available in the MultiQC report. These have been created using the `bin/nacho_qc.R` script in the pipeline. In addition to this, the output also has two NACHO reports, once with outliers highlighted and once without highlighting outliers in the visualizations:
 
-**Output directory: `results/QC`**
+<details markdown="1">
+<summary>Output files</summary>
 
-- `NanoQC.html`
-  - Basic Nacho QC report - a standalone HTML file that can be viewed in your web browser
-- `NanoQC_with_outliers.html`
-  - The same as above, but with highlighted outliers
+- `QC/NACHO/`
+  - `png/`: Directory containing the generated qc plots for the MultiQC report.
+  - `hk_detected_mqc.txt`: Text file containing the housekeeping genes that have been detected in the data.
+  - `NanoQC.html`: Basic Nacho QC report - a standalone HTML file that can be viewed in your web browser.
+  - `NanoQC_with_outliers.html`: The same as above, but with highlighted outliers.
+  - `normalized_qc_mqc.txt`: QC metrics from NACHO. This is also shown in table format in a MultiQC table.
 
-## Normalize
+</details>
 
-This holds the normalized gene expression data, normalized using an in-house Python Script.
+### Normalize
 
-**Output directory: `results/Normalized_Data/`**
+This holds the normalized gene expression data, normalized using NACHO (`bin/nacho_norm.R`).
 
-- `normalized_qc_mqc.tsv`
-  - QC Results of the normalization method applied. This is also shown in table format in the MultiQC table and usually there is no need to have a look at this.
-- `normalized_counts.tsv`
-  - Normalized gene expression matrix, unmodified.
-- `normalized_counts_wo_HK.tsv`
-  - Normalized gene expression matrix but without Housekeeper Normalization applied, unmodified. DO NOT USE THIS IF YOU DO NOT KNOW WHAT THIS MEANS.
+<details markdown="1">
+<summary>Output files</summary>
 
-## Annotate
+- `normalized_counts/`
+  - `*_normalized_counts.tsv`: Normalized count matrix, unmodified.
+  - `*_normalized_counts_wo_HKnorm.tsv`: Normalized count matrix without Housekeeping-normalization applied (`housekeeping_norm=FALSE`), unmodified.
 
-This holds the normalized and annotated gene expression data. There are always two tables - one for endogenous genes of interest, one for housekeeping genes. Negative and positive control spike ins are filtered out already in this step as these are only of importance for QC analysis. Annotation is performed using the custom script `bin/write_out_prepared_gex.R` in the pipeline.
+</details>
 
-**Output directory: `results/annotated_gex_tables/`**
+### Annotate
 
-- `*GEX_HK_mqc.tsv`
-  - TSV table holding all housekeeping gene expression values with annotation.
-- `*GEX_ENDO.tsv`
-  - TSV table holding the endogenous gene expression values with annotation.
+<details markdown="1">
+<summary>Output files</summary>
 
-## nSolver
+This holds the normalized and non-housekeeping-normalized annotated gene expression data. There are two tables each - one for endogenous genes of interest, one for housekeeping genes. Annotation is performed using the custom script `bin/write_out_prepared_gex.R` in the pipeline. These tables are also part of the MultiQC report.
 
-If the pipeline was provided with Pathway and CellType score tables from Nanostring nSolver v4.0+, the pipeline can produce a heatmap for these types of data and integrates this automatically in the MultiQC report. Note, that this requires loading all of the RCC files into nSolver and performing an "Advanced Analysis" manually in that software - this pipeline cannot automate these steps unfortunately.
+- `annotated_tables/`
+ - `*_normalized_counts_Norm_GEX_HK.tsv`: TSV table holding all normalized housekeeping gene expression values with annotation.
+ - `*_normalized_counts_Norm_GEX_ENDO.tsv`: TSV table holding the normalized endogenous gene expression values with annotation.
+ - `*_normalized_counts_wo_HKnorm_Norm_GEX_HK.tsv`: TSV table holding the non-HK-normalized endogenous gene expression values with annotation.
+ - `*_normalized_counts_wo_HKnorm_Norm_GEX_ENDO.tsv`: TSV table holding the non-HK-normalized endogenous gene expression values with annotation.
 
-## Boxplots
+</details>
 
-Directory holding boxplots for various categories on the normalized gene expression data. Depending on available metadata columns, this typically has subfolders that contain per-gene or per SAMPLE_ID boxplots. These have been created using the `bin/boxplots_expression.R` script in the pipeline.
+### MultiQC
 
-**Output directory: `results/expression_boxplots/`**
+<details markdown="1">
+<summary>Output files</summary>
 
-- `SAMPLE_ID`
-  - Grouping based on SAMPLE_ID (each SAMPLE on X-Axis), Gene on Y axis
-- `TIME`
-  - Gene expression grouped by TIME points. If only one, only one is used.
-- `TREATMENT`
-  - Gene expression per treatment, if only one available, only one is used.
-- `EXTRA_GROUP`
-  - If multiple extra groups are availble - each of these extra groups gets a separate grouping boxplot.
+- `multiqc/`
+  - `multiqc_report.html`: a standalone HTML file that can be viewed in your web browser.
+  - `multiqc_data/`: directory containing parsed statistics from the different tools used in the pipeline.
+  - `multiqc_plots/`: directory containing static images from the report in various formats.
 
-## Genescores
+</details>
 
-The pipeline creates gene scores based on a user-provided YAML file (see usage documentation for this and an example).
-The results have been created using the `bin/perform_gene_score_analysis.R` script in the pipeline.
+[MultiQC](http://multiqc.info) is a visualization tool that generates a single HTML report summarising all samples in your project. Most of the pipeline QC results are visualised in the report and further statistics are available in the report data directory.
 
-**Output directory: `results/gene_set_scores`**
+Results generated by MultiQC collate pipeline QC from supported tools e.g. FastQC. The pipeline has special steps which also allow the software versions to be reported in the MultiQC output for future traceability. For more information about how to use MultiQC reports, see <http://multiqc.info>.
 
-- `gene_scores.tsv`
-  - Contains gene scores computed for all samples
-  - Multiple scores in the YAML create multiple lines in the TSV file
-  - Results are also tabularized in the subsequent MultiQC report
-
-## MultiQC
-
-[MultiQC](http://multiqc.info) is a visualisation tool that generates a single HTML report summarising all samples in your project. Most of the pipeline QC results are visualised in the report and further statistics are available in within the report data directory.
-
-The pipeline has special steps which allow the software versions used to be reported in the MultiQC output for future traceability.
-
-**Output directory: `results/MultiQC`**
-
-- `DATE_TIME_nanostring_Report.html`
-  - MultiQC report - a standalone HTML file that can be viewed in your web browser
-- `DATE_TIME_nanostring_Report_data/`
-  - Directory containing parsed statistics from the different tools used in the pipeline
-- `DATE_TIME_nanostring_Report_plots/`
-  - Directory containing the plots that MultiQC created (if any).
-
-For more information about how to use MultiQC reports, see [http://multiqc.info](http://multiqc.info)
+### Pipeline information
 
 <details markdown="1">
 <summary>Output files</summary>
