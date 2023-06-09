@@ -49,9 +49,9 @@ report_section_order:
   Norm_GEX_ENDO:
     order: 740
   No_HK_Norm_GEX_HK:
-    order: 750
+    order: 730
   No_HK_Norm_GEX_ENDO:
-    order: 740
+    order: 720
   "nf-core-nanostring-methods-description":
     order: -1000
   software_versions:
