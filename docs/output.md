@@ -6,46 +6,70 @@ This document describes the output produced by the pipeline. Most of the plots a
 
 The directories listed below will be created in the results directory after the pipeline has finished. All paths are relative to the top-level results directory.
 
-<!-- TODO nf-core: Write this documentation describing your workflow's output -->
-
 ## Pipeline overview
 
-The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes data using the following steps:
+The pipeline is built using [Nextflow](https://www.nextflow.io/)
+and processes data using the following steps:
 
-* [FastQC](#fastqc) - Raw read QC
-* [MultiQC](#multiqc) - Aggregate report describing results and QC from the whole pipeline
-* [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
+- [Quality Control](#qualitycontrol) - compute QC metrics for NanoString data, assess data quality
+- [Normalize](#normalize) - compute normalized gene counts for given RCC files
+- [Annotate](#annotate) - annotate the normalized gene counts with metadata from samplesheet
+- [MultiQC](#multiqc) - aggregate report, describing results of the whole pipeline
+- [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
 
-### FastQC
+### Quality Control
+
+This step currently uses the NACHO NanoString analysis package to perform basic QC of the input RCC files. Several quality metrics are created and the majority of these are available in the MultiQC report. These have been created using the `bin/nacho_qc.R` script in the pipeline. In addition to this, the output also has two NACHO reports, once with outliers highlighted and once without highlighting outliers in the visualizations:
 
 <details markdown="1">
 <summary>Output files</summary>
 
-* `fastqc/`
-    * `*_fastqc.html`: FastQC report containing quality metrics.
-    * `*_fastqc.zip`: Zip archive containing the FastQC report, tab-delimited data file and plot images.
+- `QC/NACHO/`
+  - `png/`: Directory containing the generated qc plots for the MultiQC report.
+  - `hk_detected_mqc.txt`: Text file containing the housekeeping genes that have been detected in the data.
+  - `NanoQC.html`: Basic Nacho QC report - a standalone HTML file that can be viewed in your web browser.
+  - `NanoQC_with_outliers.html`: The same as above, but with highlighted outliers.
+  - `normalized_qc_mqc.txt`: QC metrics from NACHO. This is also shown in table format in a MultiQC table.
 
 </details>
 
-[FastQC](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/) gives general quality metrics about your sequenced reads. It provides information about the quality score distribution across your reads, per base sequence content (%A/T/G/C), adapter contamination and overrepresented sequences. For further reading and documentation see the [FastQC help pages](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/).
+### Normalize
 
-![MultiQC - FastQC sequence counts plot](images/mqc_fastqc_counts.png)
+This holds the normalized gene expression data, normalized using NACHO (`bin/nacho_norm.R`).
 
-![MultiQC - FastQC mean quality scores plot](images/mqc_fastqc_quality.png)
+<details markdown="1">
+<summary>Output files</summary>
 
-![MultiQC - FastQC adapter content plot](images/mqc_fastqc_adapter.png)
+- `normalized_counts/`
+  - `*_normalized_counts.tsv`: Normalized count matrix, unmodified.
+  - `*_normalized_counts_wo_HKnorm.tsv`: Normalized count matrix without Housekeeping-normalization applied (`housekeeping_norm=FALSE`), unmodified.
 
-> **NB:** The FastQC plots displayed in the MultiQC report shows _untrimmed_ reads. They may contain adapter sequence and potentially regions with low quality.
+</details>
+
+### Annotate
+
+<details markdown="1">
+<summary>Output files</summary>
+
+This holds the normalized and non-housekeeping-normalized annotated gene expression data. There are two tables each - one for endogenous genes of interest, one for housekeeping genes. Annotation is performed using the custom script `bin/write_out_prepared_gex.R` in the pipeline. These tables are also part of the MultiQC report.
+
+- `annotated_tables/`
+- `*_normalized_counts_Norm_GEX_HK.tsv`: TSV table holding all normalized housekeeping gene expression values with annotation.
+- `*_normalized_counts_Norm_GEX_ENDO.tsv`: TSV table holding the normalized endogenous gene expression values with annotation.
+- `*_normalized_counts_wo_HKnorm_Norm_GEX_HK.tsv`: TSV table holding the non-HK-normalized endogenous gene expression values with annotation.
+- `*_normalized_counts_wo_HKnorm_Norm_GEX_ENDO.tsv`: TSV table holding the non-HK-normalized endogenous gene expression values with annotation.
+
+</details>
 
 ### MultiQC
 
 <details markdown="1">
 <summary>Output files</summary>
 
-* `multiqc/`
-    * `multiqc_report.html`: a standalone HTML file that can be viewed in your web browser.
-    * `multiqc_data/`: directory containing parsed statistics from the different tools used in the pipeline.
-    * `multiqc_plots/`: directory containing static images from the report in various formats.
+- `multiqc/`
+  - `multiqc_report.html`: a standalone HTML file that can be viewed in your web browser.
+  - `multiqc_data/`: directory containing parsed statistics from the different tools used in the pipeline.
+  - `multiqc_plots/`: directory containing static images from the report in various formats.
 
 </details>
 
@@ -58,10 +82,10 @@ Results generated by MultiQC collate pipeline QC from supported tools e.g. FastQ
 <details markdown="1">
 <summary>Output files</summary>
 
-* `pipeline_info/`
-    * Reports generated by Nextflow: `execution_report.html`, `execution_timeline.html`, `execution_trace.txt` and `pipeline_dag.dot`/`pipeline_dag.svg`.
-    * Reports generated by the pipeline: `pipeline_report.html`, `pipeline_report.txt` and `software_versions.yml`. The `pipeline_report*` files will only be present if the `--email` / `--email_on_fail` parameter's are used when running the pipeline.
-    * Reformatted samplesheet files used as input to the pipeline: `samplesheet.valid.csv`.
+- `pipeline_info/`
+  - Reports generated by Nextflow: `execution_report.html`, `execution_timeline.html`, `execution_trace.txt` and `pipeline_dag.dot`/`pipeline_dag.svg`.
+  - Reports generated by the pipeline: `pipeline_report.html`, `pipeline_report.txt` and `software_versions.yml`. The `pipeline_report*` files will only be present if the `--email` / `--email_on_fail` parameter's are used when running the pipeline.
+  - Reformatted samplesheet files used as input to the pipeline: `samplesheet.valid.csv`.
 
 </details>
 

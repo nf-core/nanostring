@@ -2,6 +2,7 @@
 // This file holds several functions used to perform JSON parameter validation, help and summary rendering for the nf-core pipeline template.
 //
 
+import nextflow.Nextflow
 import org.everit.json.schema.Schema
 import org.everit.json.schema.loader.SchemaLoader
 import org.everit.json.schema.ValidationException
@@ -27,7 +28,7 @@ class NfcoreSchema {
     /* groovylint-disable-next-line UnusedPrivateMethodParameter */
     public static void validateParameters(workflow, params, log, schema_filename='nextflow_schema.json') {
         def has_error = false
-        //=====================================================================//
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
         // Check for nextflow core params and unexpected params
         def json = new File(getSchemaPath(workflow, schema_filename=schema_filename)).text
         def Map schemaParams = (Map) new JsonSlurper().parseText(json).get('definitions')
@@ -46,7 +47,6 @@ class NfcoreSchema {
             'quiet',
             'syslog',
             'v',
-            'version',
 
             // Options for `nextflow run` command
             'ansi',
@@ -84,6 +84,7 @@ class NfcoreSchema {
             'stub-run',
             'test',
             'w',
+            'with-apptainer',
             'with-charliecloud',
             'with-conda',
             'with-dag',
@@ -135,7 +136,7 @@ class NfcoreSchema {
             }
         }
 
-        //=====================================================================//
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
         // Validate parameters against the schema
         InputStream input_stream = new File(getSchemaPath(workflow, schema_filename=schema_filename)).newInputStream()
         JSONObject raw_schema = new JSONObject(new JSONTokener(input_stream))
@@ -178,7 +179,7 @@ class NfcoreSchema {
         }
 
         if (has_error) {
-            System.exit(1)
+            Nextflow.error('Exiting!')
         }
     }
 
