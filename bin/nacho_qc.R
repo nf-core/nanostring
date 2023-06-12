@@ -232,7 +232,7 @@ qc_table <- nacho_data[["nacho"]] %>%
 write_tsv(qc_table ,file=paste0(output_base,"normalized_qc_mqc.txt"))
 
 #Render Standard Report for investigation in main MultiQC Report
-#render(nacho_data, output_dir = output_base, output_file = "NanoQC.html", show_outliers = FALSE)
+render(nacho_data, output_dir = output_base, output_file = "NanoQC.html", show_outliers = FALSE)
 
 #Render the same Report for standard investigation, but not for MultiQC Report
-#render(nacho_data, output_dir = output_base, output_file = "NanoQC_with_outliers.html", show_outliers = TRUE)
+render(nacho_data, output_dir = output_base, output_file = "NanoQC_with_outliers.html", show_outliers = TRUE)
