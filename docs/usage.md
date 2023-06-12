@@ -29,7 +29,7 @@ RCC_FILE,SAMPLE_ID
 
 ### Full samplesheet
 
-The samplesheet can have as many columns as you desire, however, there is a strict requirement for the first two columns to match those defined in the table below.
+The samplesheet can have as many columns as you desire, however, there is a strict requirement for the two columns `RCC_FILE` and `SAMPLE_ID`.
 
 A final samplesheet with additional metadata may look something like the one below. This is for 3 samples. If the column `RCC_FILE_NAME` is not specified, the pipeline will fill it automatically from the `RCC_FILE` column.
 

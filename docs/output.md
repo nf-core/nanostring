@@ -12,8 +12,8 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/)
 and processes data using the following steps:
 
 - [Quality Control](#qualitycontrol) - compute QC metrics for NanoString data, assess data quality
-- [Normalize](#normalize) - computes normalized gene counts given RCC files
-- [Annotate](#annotate) - annotates the normalized gene counts with metadata from samplesheet
+- [Normalize](#normalize) - compute normalized gene counts for given RCC files
+- [Annotate](#annotate) - annotate the normalized gene counts with metadata from samplesheet
 - [MultiQC](#multiqc) - aggregate report, describing results of the whole pipeline
 - [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
 
