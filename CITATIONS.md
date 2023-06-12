@@ -13,7 +13,7 @@
 - [MultiQC](https://pubmed.ncbi.nlm.nih.gov/27312411/)
   > Ewels P, Magnusson M, Lundin S, Käller M. MultiQC: summarize analysis results for multiple tools and samples in a single report. Bioinformatics. 2016 Oct 1;32(19):3047-8. doi: 10.1093/bioinformatics/btw354. Epub 2016 Jun 16. PubMed PMID: 27312411; PubMed Central PMCID: PMC5039924.
 - [NACHO](https://pubmed.ncbi.nlm.nih.gov/31504159/)
-  > Canouil M, Bouland GA, Bonnefond A, Froguel P, Hart L, Slieker R. NACHO: an R package for quality control of NanoString nCounter data. Bioinformatics. 2019 Aug 23;36(3), 970-971. doi: 10.1093/bioinformatics/btz647. PubMed PMID: 31504159; PubMed Central MCID: PMC9883715.
+  > Canouil M, Bouland GA, Bonnefond A, Froguel P, Hart L, Slieker R. NACHO: an R package for quality control of NanoString nCounter data. Bioinformatics. 2019 Aug 23;36(3), 970-971. doi: 10.1093/bioinformatics/btz647. PubMed PMID: 31504159; PubMed Central PMCID: PMC9883715.
 
 ## Software packaging/containerisation tools
 
