@@ -70,10 +70,10 @@ For more details about the output files and reports, please refer to the
 
 nf-core/nanostring was originally written by Alexander Peltzer & Christopher Mohr. Extensive support was provided from other co-authors on the scientific or technical input required for the pipeline:
 
-* Kai Stadermann
-* Matthias Zwick
-* Germán Leparc
-* Ramona Schmid
+- Kai Stadermann
+- Matthias Zwick
+- Germán Leparc
+- Ramona Schmid
 
 ## Contributions and Support
 
