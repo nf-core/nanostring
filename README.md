@@ -75,9 +75,6 @@ nf-core/nanostring was originally written by Alexander Peltzer & Christopher Moh
 * Germán Leparc
 * Ramona Schmid
 
-We thank the following people for their extensive assistance in the development of this pipeline:
-
-
 ## Contributions and Support
 
 If you would like to contribute to this pipeline, please see the [contributing guidelines](.github/CONTRIBUTING.md).
