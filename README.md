@@ -68,11 +68,15 @@ For more details about the output files and reports, please refer to the
 
 ## Credits
 
-nf-core/nanostring was originally written by Alexander Peltzer.
+nf-core/nanostring was originally written by Alexander Peltzer & Christopher Mohr. Extensive support was provided from other co-authors on the scientific or technical input required for the pipeline:
+
+* Kai Stadermann
+* Matthias Zwick
+* Germán Leparc
+* Ramona Schmid
 
 We thank the following people for their extensive assistance in the development of this pipeline:
 
-<!-- TODO nf-core: If applicable, make list of people who have also contributed -->
 
 ## Contributions and Support
 
