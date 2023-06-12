@@ -6,7 +6,7 @@
 
 ## Introduction
 
-<!-- TODO nf-core: Add documentation about anything specific to running your pipeline. For general topics, please point to (and add to) the main nf-core website. -->
+The **nf-core/nanostring** pipeline allows the analysis of NanoString data. The pipeline performs quality control, normalization and annotation of the obtained counts.
 
 ## Samplesheet input
 
