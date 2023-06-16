@@ -54,7 +54,7 @@ if (grepl("wo_HKnorm",input_counts)) {
     prefix <- "wo_HKnorm_"
 }
 
-agg_png(file = paste0(prefix, "gene_heatmap_mqc.png"), width = 1200, height = 2000, unit = "px", res=1200)
+agg_png(file = paste0(prefix, "gene_heatmap_mqc.png"), width = 1200, height = 2000, unit = "px")
 
 Heatmap(counts_selected, name = "Gene-Count Heatmap", column_title = "Gene (log2 +1)",
         row_title_rot = 90, row_title = "SampleID",row_dend_reorder = FALSE, show_row_dend = FALSE, row_names_side = "left",
