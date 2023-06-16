@@ -51,7 +51,7 @@ min_value <- min(colMin(counts_selected))
 
 prefix <- ""
 if (grepl("wo_HKnorm",input_counts)) {
-    prefix <- "No_HK_"
+    prefix <- "wo_HKnorm_"
 }
 
 agg_png(file = paste0(prefix, "gene_heatmap_mqc.png"), width = 1200, height = 2000, unit = "px")

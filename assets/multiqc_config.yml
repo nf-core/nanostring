@@ -54,7 +54,7 @@ report_section_order:
     order: 720
   gene_heatmap:
     order: 710
-  No_HK_gene_heatmap:
+  wo_HKnorm_gene_heatmap:
     order: 700
   "nf-core-nanostring-methods-description":
     order: -1000
@@ -242,7 +242,7 @@ custom_data:
   gene_heatmap:
     section_name: "Count-Heatmap for all or selected set of target genes"
     description: "Normalized and log2+1 transformed gene expression for all or selected set of target genes."
-  No_HK_gene_heatmap:
+  wo_HKnorm_gene_heatmap:
     section_name: "Count-Heatmap for all or selected set of target genes (Non-HK-normalized)"
     description: "Normalized and log2+1 transformed gene expression for all or selected set of target genes based on the Non-HK-normalized results."
   genescore_plage:
