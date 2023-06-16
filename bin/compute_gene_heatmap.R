@@ -22,22 +22,20 @@ counts <- read.table(input_counts, sep="\t", check.names = FALSE, header=TRUE, s
 if (length(args) == 2) {
     input_genes <- args[2]
     genes <- read_yaml(input_genes)
+} else {
+    gene_cols <- counts %>% dplyr::select(- any_of(c("RCC_FILE", "SAMPLE_ID", "TIME", "TREATMENT", "OTHER_METADATA")))
+    genes <- colnames(gene_cols)
 }
-else {
-    genes <- counts %>% colnames(select(-c(RCC_FILE, SAMPLE_ID, TIME, TREATMENT, OTHER_METADATA)))
-}
-
-#Target Genes of Interest
-genes_of_interest <- colnames(counts %>% select(all_of(genes)))
 
 #Select counts of interest
-counts_selected <- counts %>% select(all_of(genes_of_interest))
+counts_selected <- counts %>% dplyr::select(all_of(genes))
 
 #Add proper Rownames
 rownames(counts_selected) <- counts$SAMPLE_ID
 
 #log2+1
 counts_selected <- log2(counts_selected + 1)
+
 #Find max
 colMax <- function(data) sapply(data, max, na.rm = TRUE)
 #Find min
@@ -47,7 +45,13 @@ max_value <- max(colMax(counts_selected))
 min_value <- min(colMin(counts_selected))
 
 #Save as PDF
-agg_png(file = "gene_heatmap_mqc.png", width = 1200, height = 2000, unit = "px")
+
+prefix <- ""
+if (grepl("wo_HKnorm",input_name)) {
+    prefix <- "No_HK_"
+}
+
+agg_png(file = paste0(prefix, "gene_heatmap_mqc.png"), width = 1200, height = 2000, unit = "px")
 
 Heatmap(counts_selected, name = "Gene-Count Heatmap", column_title = "Gene (log2 +1)",
         row_title_rot = 90, row_title = "SampleID",show_row_dend = FALSE, row_names_side = "left",

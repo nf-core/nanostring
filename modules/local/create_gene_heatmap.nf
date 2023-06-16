@@ -19,7 +19,7 @@ process CREATE_GENE_HEATMAP {
     script:
     def args = task.ext.args ?: ''
 
-    def gene_filter = ${params.heatmap_genes_to_filter} ?: ""
+    def gene_filter = params.heatmap_genes_to_filter ?: ""
 
     """
     compute_gene_heatmap.R $annotated_counts $gene_filter

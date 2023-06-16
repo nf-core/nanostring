@@ -145,6 +145,7 @@ workflow NANOSTRING {
     ch_multiqc_files = ch_multiqc_files.mix(QUALITY_CONTROL.out.nacho_qc_multiqc_metrics.collect())
     ch_multiqc_files = ch_multiqc_files.mix(CUSTOM_DUMPSOFTWAREVERSIONS.out.mqc_yml.collect())
     ch_multiqc_files = ch_multiqc_files.mix(CREATE_ANNOTATED_TABLES.out.annotated_data_mqc.collect())
+    ch_multiqc_files = ch_multiqc_files.mix(CREATE_GENE_HEATMAP.out.gene_heatmap.collect())
 
     MULTIQC (
         ch_multiqc_files.collect(),
