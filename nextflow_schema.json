@@ -42,6 +42,20 @@
                 }
             }
         },
+        "processing_options": {
+            "title": "Processing options",
+            "type": "object",
+            "description": "Define how the pipeline should process the data.",
+            "default": "",
+            "fa_icon": "fas fa-exchange-alt",
+            "properties": {
+                "heatmap_genes_to_filter": {
+                    "type": "string",
+                    "description": "Path to yml file (list, one item per line) to specify which genes should be used for the gene-count heatmap.",
+                    "default": null
+                }
+            }
+        },
         "reference_genome_options": {
             "title": "Reference genome options",
             "type": "object",
@@ -255,6 +269,9 @@
     "allOf": [
         {
             "$ref": "#/definitions/input_output_options"
+        },
+        {
+            "$ref": "#/definitions/processing_options"
         },
         {
             "$ref": "#/definitions/reference_genome_options"
