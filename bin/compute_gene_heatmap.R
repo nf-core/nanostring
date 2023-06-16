@@ -33,6 +33,9 @@ counts_selected <- counts %>% dplyr::select(all_of(genes))
 #Add proper Rownames
 rownames(counts_selected) <- counts$SAMPLE_ID
 
+#sort dataframe by rownames to make it easier comparable across heatmaps
+counts_selected[order(row.names(counts_selected)), ]
+
 #log2+1
 counts_selected <- log2(counts_selected + 1)
 
@@ -47,14 +50,14 @@ min_value <- min(colMin(counts_selected))
 #Save as PDF
 
 prefix <- ""
-if (grepl("wo_HKnorm",input_name)) {
+if (grepl("wo_HKnorm",input_counts)) {
     prefix <- "No_HK_"
 }
 
 agg_png(file = paste0(prefix, "gene_heatmap_mqc.png"), width = 1200, height = 2000, unit = "px")
 
 Heatmap(counts_selected, name = "Gene-Count Heatmap", column_title = "Gene (log2 +1)",
-        row_title_rot = 90, row_title = "SampleID",show_row_dend = FALSE, row_names_side = "left",
+        row_title_rot = 90, row_title = "SampleID",row_dend_reorder = FALSE, show_row_dend = FALSE, row_names_side = "left",
         show_column_dend = FALSE, col = colorRamp2(c(min_value, max_value), c("#f7f7f7", "#67a9cf")))
 
 dev.off()
