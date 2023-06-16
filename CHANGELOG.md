@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
+- [#33](https://github.com/nf-core/nanostring/pull/33) - Add functionality to generate gene-count heatmaps [#17](https://github.com/nf-core/nanostring/issues/17)
+
 ### `Fixed`
 
 ### `Dependencies`
@@ -28,7 +30,7 @@ Initial release of nf-core/nanostring, created with the [nf-core](https://nf-co.
 
 ### `Dependencies`
 
-| Dependency | Old version | New version |
+| Dependency | Old version | New version |S
 | ---------- | ----------- | ----------- |
 | `nacho`    | -           | 2.0.4       |
 
