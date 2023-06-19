@@ -30,7 +30,7 @@ Initial release of nf-core/nanostring, created with the [nf-core](https://nf-co.
 
 ### `Dependencies`
 
-| Dependency | Old version | New version |S
+| Dependency | Old version | New version |
 | ---------- | ----------- | ----------- |
 | `nacho`    | -           | 2.0.4       |
 
