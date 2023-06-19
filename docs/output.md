@@ -61,6 +61,19 @@ This holds the normalized and non-housekeeping-normalized annotated gene express
 
 </details>
 
+### Gene-Count Heatmaps
+
+<details markdown="1">
+<summary>Output files</summary>
+
+This holds the gene-count heatmaps generated for the normalized and non-housekeeping-normalized annotated gene expression data. These heatmaps are also part of the MultiQC report.
+
+- `gene_heatmaps/`
+- `gene_heatmap_mqc.png`: Gene-count heatmap for HK-normalized data.
+- `wo_HKnorm_gene_heatmap_mqc.png`: Gene-count heatmap for non-HK-normalized data.
+
+</details>
+
 ### MultiQC
 
 <details markdown="1">

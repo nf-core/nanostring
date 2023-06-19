@@ -31,7 +31,9 @@ RCC_FILE,SAMPLE_ID
 
 The samplesheet can have as many columns as you desire, however, there is a strict requirement for the two columns `RCC_FILE` and `SAMPLE_ID`.
 
-A final samplesheet with additional metadata may look something like the one below. This is for 3 samples. If the column `RCC_FILE_NAME` is not specified, the pipeline will fill it automatically from the `RCC_FILE` column.
+A final samplesheet with additional metadata may look something like the one below. This is for 3 samples. If you want to use additional metadata columns please follow the instructions provided in the section on [Gene-Count Heatmap](#gene-count-heatmap).
+
+If the column `RCC_FILE_NAME` is not specified, the pipeline will fill it automatically from the `RCC_FILE` column.
 
 ```console
 RCC_FILE,RCC_FILE_NAME,SAMPLE_ID,TIME,TREATMENT,INCLUDE,OTHER_METADATA
@@ -87,6 +89,18 @@ input: 'data'
 ```
 
 You can also generate such `YAML`/`JSON` files via [nf-core/launch](https://nf-co.re/launch).
+
+### Gene-Count Heatmap
+
+The pipeline will generate one heatmap each, for the Housekeeping-normalized and non-Housekeeping-normalized data. These heatmaps will also be included in the MultiQC report. Per default the heatmap will include all endogenous genes. If you want to generate the heatmap for a subset of genes, please specify a `yml` file using the parameter `--heatmap_genes_to_filter` with the following format:
+
+```
+- geneA
+- geneB
+...
+```
+
+> ⚠️ If you want to use other metadata in your samplesheet than the one shown in the section [Full samplesheet](#full-samplesheet), please make sure to specify the `yml` file with all endogenous genes or a subset of it.
 
 ### Updating the pipeline
 
