@@ -52,7 +52,24 @@
                 "heatmap_genes_to_filter": {
                     "type": "string",
                     "description": "Path to yml file (list, one item per line) to specify which genes should be used for the gene-count heatmap.",
-                    "default": null
+                    "default": "None"
+                }
+            }
+        },
+        "gene_score_computation": {
+            "title": "Gene Score Computation",
+            "type": "object",
+            "description": "Configuration to define how to compute gene scores",
+            "default": "",
+            "fa_icon": "fas fa-bicycle",
+            "properties": {
+                "gene_score_method": {
+                    "type": "string",
+                    "default": "PLAGE"
+                },
+                "compute_gene_scores": {
+                    "type": "string",
+                    "default": "false"
                 }
             }
         },
@@ -272,6 +289,9 @@
         },
         {
             "$ref": "#/definitions/processing_options"
+        },
+        {
+            "$ref": "#/definitions/gene_score_computation"
         },
         {
             "$ref": "#/definitions/reference_genome_options"
