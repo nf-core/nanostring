@@ -45,6 +45,8 @@ include { NORMALIZE }       from '../subworkflows/local/normalize'
 //
 include { CREATE_ANNOTATED_TABLES } from '../modules/local/create_annotated_tables'
 include { COMPUTE_GENE_SCORES } from '../modules/local/compute_gene_scores'
+include { CREATE_GENE_HEATMAP     } from '../modules/local/create_gene_heatmap'
+
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -114,6 +116,13 @@ workflow NANOSTRING {
     )
     ch_versions = ch_versions.mix(CREATE_ANNOTATED_TABLES.out.versions)
 
+    //
+    // MODULE: Compute gene-count heatmap for MultiQC report based on annotated (ENDO) counts
+    //
+    CREATE_GENE_HEATMAP (
+        CREATE_ANNOTATED_TABLES.out.annotated_endo_data
+    )
+    ch_versions = ch_versions.mix(CREATE_GENE_HEATMAP.out.versions)
 
     //
     // DUMP SOFTWARE VERSIONS
@@ -137,6 +146,7 @@ workflow NANOSTRING {
     ch_multiqc_files = ch_multiqc_files.mix(QUALITY_CONTROL.out.nacho_qc_multiqc_metrics.collect())
     ch_multiqc_files = ch_multiqc_files.mix(CUSTOM_DUMPSOFTWAREVERSIONS.out.mqc_yml.collect())
     ch_multiqc_files = ch_multiqc_files.mix(CREATE_ANNOTATED_TABLES.out.annotated_data_mqc.collect())
+    ch_multiqc_files = ch_multiqc_files.mix(CREATE_GENE_HEATMAP.out.gene_heatmap.collect())
 
     MULTIQC (
         ch_multiqc_files.collect(),
