@@ -117,6 +117,15 @@ workflow NANOSTRING {
     ch_versions = ch_versions.mix(CREATE_ANNOTATED_TABLES.out.versions)
 
     //
+    // MODULE: Compute gene scores for supplied YAML gene score file
+    //
+    COMPUTE_GENE_SCORES(
+        NORMALIZE.out.normalized_counts,
+        ch_gene_score_config
+    )
+    ch_versions = ch_versions.mix(COMPUTE_GENE_SCORES.out.versions)
+
+    //
     // MODULE: Compute gene-count heatmap for MultiQC report based on annotated (ENDO) counts
     //
     CREATE_GENE_HEATMAP (
