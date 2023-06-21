@@ -65,11 +65,12 @@
             "properties": {
                 "gene_score_method": {
                     "type": "string",
-                    "default": "PLAGE"
+                    "default": "PLAGE",
+                    "fa_icon": "fas fa-adjust"
                 },
                 "compute_gene_scores": {
-                    "type": "string",
-                    "default": "false"
+                    "type": "boolean",
+                    "fa_icon": "fas fa-ad"
                 }
             }
         },
