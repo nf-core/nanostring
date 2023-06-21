@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Added`
 
 - [#33](https://github.com/nf-core/nanostring/pull/33) - Add functionality to generate gene-count heatmaps [#17](https://github.com/nf-core/nanostring/issues/17)
+- [#32](https://github.com/nf-core/nanostring/pull/32) - Add functinoality to compute gene scores [#16](https://github.com/nf-core/nanostring/issues/16)
 
 ### `Fixed`
 
