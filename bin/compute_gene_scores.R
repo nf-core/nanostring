@@ -29,7 +29,6 @@ geneSymbol2Ensembl <- function(x, s2e=NULL) {
     return(ens)
 }
 
-
 geneSet2Ensembl <- function(sets, s2e=NULL) {
     sets.ensembl <- lapply(sets, geneSymbol2Ensembl, s2e)
     return(sets.ensembl)
@@ -107,78 +106,7 @@ geneSetAsList <- function(set) {
     return(retSet)
 }
 
-####Commandline Argument parsing###
-args = commandArgs(trailingOnly=TRUE)
-if (length(args) < 3) {
-    stop("Usage: process_nanostring_data.R <scores.yaml> <counts.tsv> algorithm", call.=FALSE)
-}
-####Uncomment if debugging
-
-gene_sets_to_compute <- args[1]
-counts_input <- args[2]
-score.method <- args[3]
-
-#Input parsing yaml
-yaml_parsed <- read_yaml(gene_sets_to_compute)
-
-#Get GEX into shape for Nanostring pipeline
-counts <- read.table(counts_input, sep="\t", check.names=F, header=T) %>%
-    select(-`RCC_FILE`, -`TIME`, -`TREATMENT`,-`OTHER_METADATA`) %>%
-    rownames_to_column("SAMPLE_ID")
-
-# explicit signature check against expression matrix to generate an QC overview
-cs <- checkSignatures(counts, yaml_parsed)
-
-#Write to multiQC output
-
-qc.file="signature_scores_qc_mqc.txt"
-line="# id: nf-core-nanoflow-signature-score-qc
-# section_name: 'Signature Score QC'
-# description: 'Compare Signatures to Expression Matrix'
-# plot_type: 'table'
-# section_href: 'https://github.com/nf-core/nanoflow'"
-write(line,
-    file = qc.file)
-write.table(cs,
-            file = qc.file,
-            append=TRUE,
-            sep="\t",
-            row.names = FALSE,
-            quote = FALSE, na="",
-            )
-
-## Compute scores we need in our case
-scores <- calculateSignatureScores(xp = counts, genes = yaml_parsed, method=score.method)
-s.r <- 1
-s.c <- 1
-if(ncol(scores)>1) {
-    hc <- hclust(dist(t(scores)))
-    s.c <- hc$order
-}
-if(nrow(scores)>1) {
-    hc.r <- hclust(dist(scores))
-    s.r <- hc.r$order
-}
-scores.df <- as.data.frame.matrix(t(scores[s.r,s.c]))
-scores.df <- rownames_to_column(scores.df, "sample")
-
-#Write to multiQC output
-score.file="signature_scores_mqc.txt"
-line=paste0("# id: nf-core-nanoflow-signature-score
-# section_name: 'Signature Scores'
-# description: 'Signature Scores: Algorithm: ",score.method,"'
-# plot_type: 'heatmap'
-# section_href: 'https://github.com/nf-core/nanoflow'")
-write(line, file = score.file)
-
-write.table(scores.df,
-            file = score.file,
-            append=TRUE,
-            sep="\t",
-            row.names = FALSE,
-            quote = FALSE, na=""
-)
-
+#Scores
 ## Create an actual Geneset object from GSEABase package
 ## not used at the moment
 createGeneset <- function(set, name.set) {
@@ -436,6 +364,7 @@ sams_score <- function(expr_mat,
     return(my_score_mat)
 }
 
+
 ## check signature
 
 checkSignatures <- function(xp, genes) {
@@ -584,3 +513,80 @@ boxplotScores <- function(score.matrix, set, group, title="") {
 
 
 sessionInfo()
+
+
+####Commandline Argument parsing###
+args = commandArgs(trailingOnly=TRUE)
+if (length(args) < 3) {
+    stop("Usage: process_nanostring_data.R <scores.yaml> <counts.tsv> algorithm", call.=FALSE)
+}
+####Uncomment if debugging
+
+gene_sets_to_compute <- args[1]
+counts_input <- args[2]
+score.method <- args[3]
+
+#Input parsing yaml
+yaml_parsed <- read_yaml(gene_sets_to_compute)
+
+#Get GEX into shape for Nanostring pipeline
+counts <- read.table(counts_input, sep="\t", check.names=F, header=T) %>%
+  filter(`CodeClass` == "Endogenous") %>%
+  select(-`CodeClass`) %>%
+  column_to_rownames("Name")
+
+# explicit signature check against expression matrix to generate an QC overview
+cs <- checkSignatures(counts, yaml_parsed)
+
+#Write to multiQC output
+
+qc.file="signature_scores_qc_mqc.txt"
+line="# id: nf-core-nanoflow-signature-score-qc
+# section_name: 'Signature Score QC'
+# description: 'Compare Signatures to Expression Matrix'
+# plot_type: 'table'
+# section_href: 'https://github.com/nf-core/nanoflow'"
+write(line,
+    file = qc.file)
+write.table(cs,
+            file = qc.file,
+            append=TRUE,
+            sep="\t",
+            row.names = FALSE,
+            quote = FALSE, na="",
+            )
+
+## Compute scores we need in our case
+scores <- calculateSignatureScores(xp = counts, genes = yaml_parsed, method=score.method)
+s.r <- 1
+s.c <- 1
+if(ncol(scores)>1) {
+    hc <- hclust(dist(t(scores)))
+    s.c <- hc$order
+}
+if(nrow(scores)>1) {
+    hc.r <- hclust(dist(scores))
+    s.r <- hc.r$order
+}
+scores.df <- as.data.frame.matrix(t(scores[s.r,s.c]))
+scores.df <- rownames_to_column(scores.df, "sample")
+
+#Write to multiQC output
+score.file="signature_scores_mqc.txt"
+line=paste0("# id: nf-core-nanoflow-signature-score
+# section_name: 'Signature Scores'
+# description: 'Signature Scores: Algorithm: ",score.method,"'
+# plot_type: 'heatmap'
+# section_href: 'https://github.com/nf-core/nanoflow'")
+write(line, file = score.file)
+
+write.table(scores.df,
+            file = score.file,
+            append=TRUE,
+            sep="\t",
+            row.names = FALSE,
+            quote = FALSE, na=""
+)
+
+
+
