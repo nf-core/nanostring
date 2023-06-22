@@ -14,7 +14,8 @@
   > Ewels P, Magnusson M, Lundin S, Käller M. MultiQC: summarize analysis results for multiple tools and samples in a single report. Bioinformatics. 2016 Oct 1;32(19):3047-8. doi: 10.1093/bioinformatics/btw354. Epub 2016 Jun 16. PubMed PMID: 27312411; PubMed Central PMCID: PMC5039924.
 - [NACHO](https://pubmed.ncbi.nlm.nih.gov/31504159/)
   > Canouil M, Bouland GA, Bonnefond A, Froguel P, Hart L, Slieker R. NACHO: an R package for quality control of NanoString nCounter data. Bioinformatics. 2019 Aug 23;36(3), 970-971. doi: 10.1093/bioinformatics/btz647. PubMed PMID: 31504159; PubMed Central PMCID: PMC9883715.
-- [GSVA](https://link.springer.com/article/10.1186/1471-2105-14-7) - Hänzelmann, Sonja, Robert Castelo, and Justin Guinney. "GSVA: gene set variation analysis for microarray and RNA-seq data." BMC bioinformatics 14 (2013): 1-15.
+- [GSVA](https://link.springer.com/article/10.1186/1471-2105-14-7)
+   > Hänzelmann, Sonja, Robert Castelo, and Justin Guinney. "GSVA: gene set variation analysis for microarray and RNA-seq data." BMC bioinformatics 14 (2013): 1-15.
 - [SINGSCORE](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-018-2435-4)
   > Foroutan, M., Bhuva, D.D., Lyu, R. et al. Single sample scoring of molecular phenotypes. BMC Bioinformatics 19, 404 (2018)
 - [PLAGE](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-6-225)
