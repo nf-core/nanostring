@@ -102,6 +102,24 @@ The pipeline will generate one heatmap each, for the Housekeeping-normalized and
 
 > ⚠️ If you want to use other metadata in your samplesheet than the one shown in the section [Full samplesheet](#full-samplesheet), please make sure to specify the `yml` file with all endogenous genes or a subset of it.
 
+### Gene Scores
+
+The pipeline can compute gene scores for arbitrary sets of genes. It automatically checks for the set of desired genes to be present in the data, e.g. you cannot specify a set of genes that is not also present and measured in your nCounter experiment. Furthermore, the algorithm / method of choice can be adjusted - available options are: `plage`, `plage.dir`(directed PLAGE), `GSVA`, `singscore`, `ssgsea`, `median`, `mean`, `sams`.
+The recommendation is to use PLAGE or PLAGE in the directed form (default) for Nanostring nCounter data. You can simply start the analysis by supplying an appropriate YAML description with the desired gene and the required genes, e.g. to compute the MPAS score, supply this as a yaml using the option `--gene_score_yaml <file>`:
+
+```yaml
+MPAS:
+  - PRY2
+  - SPRY4
+  - ETV4
+  - ETV5
+  - DUSP4
+  - DUSP6
+  - CCND1
+  - EPHA2
+  - EPHA4
+```
+
 ### Updating the pipeline
 
 When you run the above command, Nextflow automatically pulls the pipeline code from GitHub and stores it as a cached version. When running the pipeline after this, it will always use the cached version if available - even if the pipeline has been updated since. To make sure that you're running the latest version of the pipeline, make sure that you regularly update the cached version of the pipeline:
