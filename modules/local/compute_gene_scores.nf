@@ -26,9 +26,12 @@ process COMPUTE_GENE_SCORES {
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         r-base: \$(echo \$(R --version 2>&1) | sed 's/^.*R version //; s/ .*\$//')
-        r-nacho: \$(Rscript -e "library(NACHO); cat(as.character(packageVersion('NACHO')))")
         r-tidyverse: \$(Rscript -e "library(tidyverse); cat(as.character(packageVersion('tidyverse')))")
-        r-fs: \$(Rscript -e "library(fs); cat(as.character(packageVersion('fs')))")
+        r-singscore: \$(Rscript -e "library(singscore); cat(as.character(packageVersion('singscore')))")
+        r-GSVA: \$(Rscript -e "library(GSVA); cat(as.character(packageVersion('GSVA')))")
+        r-yaml: \$(Rscript -e "library(yaml); cat(as.character(packageVersion('yaml')))")
+        r-FactoMineR: \$(Rscript -e "library(FactoMineR); cat(as.character(packageVersion('FactoMineR')))")
+        r-stringr: \$(Rscript -e "library(stringr); cat(as.character(packageVersion('stringr')))")
     END_VERSIONS
     """
 }
