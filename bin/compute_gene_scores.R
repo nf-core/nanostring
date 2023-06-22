@@ -366,11 +366,6 @@ score_flat <- lapply(names(samsscore), my_flat)
 
 score_flat_join <- Reduce(function(...) dplyr::full_join(..., by = "sample"), score_flat)
 
-# score_flat_join %>%
-#   tidyr::gather(var, val, 2:ncol(.)) %>%
-#   tidyr::spread_(names(score_flat_join)[1], "val")  %>%
-#   data.table::as.data.table() %>%
-#   as.matrix(rownames = 1)
 ret_val <- score_flat_join %>% data.table::as.data.table() %>%
     data.table::melt(id.vars = "sample", variable.name = "geneset", value.name = "score") %>%
     data.table::dcast(geneset~sample, value.var = "score") %>%

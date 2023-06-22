@@ -66,11 +66,14 @@
                 "gene_score_method": {
                     "type": "string",
                     "default": "PLAGE",
-                    "fa_icon": "fas fa-adjust"
+                    "fa_icon": "fas fa-adjust",
+                    "description": "This selects the algorithm for computing the respective gene score. Default is 'PLAGE'."
                 },
-                "compute_gene_scores": {
-                    "type": "boolean",
-                    "fa_icon": "fas fa-ad"
+                "gene_score_yaml": {
+                    "type": "string",
+                    "default": null,
+                    "fa_icon": "fas fa-align-justify",
+                    "help_text": "The YAML format is as such:\n\n```\nscore_name: \n    - GENE1\n    - GENE2\n    - GENE3\n```"
                 }
             }
         },
