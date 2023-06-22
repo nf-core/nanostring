@@ -46,7 +46,8 @@ RCC_FILE,RCC_FILE_NAME,SAMPLE_ID,TIME,TREATMENT,INCLUDE,OTHER_METADATA
 | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `SAMPLE_ID` | Custom sample name. This entry will be identical for multiple measurements. Spaces in sample names are automatically converted to underscores (`_`). |
 | `RCC_FILE`  | Full path to RCC file of NanoString measurement.                                                                                                     |
------------
+
+---
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
 
