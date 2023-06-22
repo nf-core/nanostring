@@ -31,7 +31,9 @@ RCC_FILE,SAMPLE_ID
 
 The samplesheet can have as many columns as you desire, however, there is a strict requirement for the two columns `RCC_FILE` and `SAMPLE_ID`.
 
-A final samplesheet with additional metadata may look something like the one below. This is for 3 samples. If the column `RCC_FILE_NAME` is not specified, the pipeline will fill it automatically from the `RCC_FILE` column.
+A final samplesheet with additional metadata may look something like the one below. This is for 3 samples. If you want to use additional metadata columns please follow the instructions provided in the section on [Gene-Count Heatmap](#gene-count-heatmap).
+
+If the column `RCC_FILE_NAME` is not specified, the pipeline will fill it automatically from the `RCC_FILE` column.
 
 ```console
 RCC_FILE,RCC_FILE_NAME,SAMPLE_ID,TIME,TREATMENT,INCLUDE,OTHER_METADATA
@@ -41,9 +43,11 @@ RCC_FILE,RCC_FILE_NAME,SAMPLE_ID,TIME,TREATMENT,INCLUDE,OTHER_METADATA
 ```
 
 | Column      | Description                                                                                                                                          |
-| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | --- |
+| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `SAMPLE_ID` | Custom sample name. This entry will be identical for multiple measurements. Spaces in sample names are automatically converted to underscores (`_`). |
-| `RCC_FILE`  | Full path to RCC file of NanoString measurement.                                                                                                     |     |
+| `RCC_FILE`  | Full path to RCC file of NanoString measurement.                                                                                                     |
+
+---
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
 
@@ -87,6 +91,36 @@ input: 'data'
 ```
 
 You can also generate such `YAML`/`JSON` files via [nf-core/launch](https://nf-co.re/launch).
+
+### Gene-Count Heatmap
+
+The pipeline will generate one heatmap each, for the Housekeeping-normalized and non-Housekeeping-normalized data. These heatmaps will also be included in the MultiQC report. Per default the heatmap will include all endogenous genes. If you want to generate the heatmap for a subset of genes, please specify a `yml` file using the parameter `--heatmap_genes_to_filter` with the following format:
+
+```
+- geneA
+- geneB
+...
+```
+
+> ⚠️ If you want to use other metadata in your samplesheet than the one shown in the section [Full samplesheet](#full-samplesheet), please make sure to specify the `yml` file with all endogenous genes or a subset of it.
+
+### Gene Scores
+
+The pipeline can compute gene scores for arbitrary sets of genes. It automatically checks for the set of desired genes to be present in the data, e.g. you cannot specify a set of genes that is not also present and measured in your nCounter experiment. Furthermore, the algorithm / method of choice can be adjusted - available options are: `plage`, `plage.dir`(directed PLAGE), `GSVA`, `singscore`, `ssgsea`, `median`, `mean`, `sams`.
+The recommendation is to use PLAGE or PLAGE in the directed form (default) for Nanostring nCounter data. You can simply start the analysis by supplying an appropriate YAML description with the desired gene and the required genes, e.g. to compute the MPAS score, supply this as a yaml using the option `--gene_score_yaml <file>`:
+
+```yaml
+MPAS:
+  - PRY2
+  - SPRY4
+  - ETV4
+  - ETV5
+  - DUSP4
+  - DUSP6
+  - CCND1
+  - EPHA2
+  - EPHA4
+```
 
 ### Updating the pipeline
 

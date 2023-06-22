@@ -42,6 +42,40 @@
                 }
             }
         },
+        "processing_options": {
+            "title": "Processing options",
+            "type": "object",
+            "description": "Define how the pipeline should process the data.",
+            "default": "",
+            "fa_icon": "fas fa-exchange-alt",
+            "properties": {
+                "heatmap_genes_to_filter": {
+                    "type": "string",
+                    "description": "Path to yml file (list, one item per line) to specify which genes should be used for the gene-count heatmap."
+                }
+            }
+        },
+        "gene_score_computation": {
+            "title": "Gene Score Computation",
+            "type": "object",
+            "description": "Configuration to define how to compute gene scores",
+            "default": "",
+            "fa_icon": "fas fa-bicycle",
+            "properties": {
+                "gene_score_method": {
+                    "type": "string",
+                    "default": "PLAGE",
+                    "fa_icon": "fas fa-adjust",
+                    "description": "This selects the algorithm for computing the respective gene score. Default is 'PLAGE'."
+                },
+                "gene_score_yaml": {
+                    "type": "string",
+                    "fa_icon": "fas fa-align-justify",
+                    "help_text": "The YAML format is as such:\n\n```\nscore_name: \n    - GENE1\n    - GENE2\n    - GENE3\n```",
+                    "description": "This sets the YAML to be used for computing the gene scores. Needs both a name for each set of genes and respective genes to be selected."
+                }
+            }
+        },
         "reference_genome_options": {
             "title": "Reference genome options",
             "type": "object",
@@ -255,6 +289,12 @@
     "allOf": [
         {
             "$ref": "#/definitions/input_output_options"
+        },
+        {
+            "$ref": "#/definitions/processing_options"
+        },
+        {
+            "$ref": "#/definitions/gene_score_computation"
         },
         {
             "$ref": "#/definitions/reference_genome_options"

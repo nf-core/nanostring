@@ -5,7 +5,7 @@ report_comment: >
 
 report_section_order:
   BD:
-    order: 960
+    order: 970
   FOV:
     order: 950
   Posctrl_linearity:
@@ -52,6 +52,10 @@ report_section_order:
     order: 730
   No_HK_Norm_GEX_ENDO:
     order: 720
+  gene_heatmap:
+    order: 710
+  wo_HKnorm_gene_heatmap:
+    order: 700
   "nf-core-nanostring-methods-description":
     order: -1000
   software_versions:
@@ -236,8 +240,11 @@ custom_data:
     section_name: "Non-HK-Normalized count values for endogenous genes."
     description: "Non-Housekeeping-Normalized Endogenous gene count table, including available metadata."
   gene_heatmap:
-    section_name: "Heatmap for selected set of target genes"
-    description: "Normalized and log2+1 transformed Gene Expression for selected set of target genes."
+    section_name: "Count-Heatmap for all or selected set of target genes"
+    description: "Normalized and log2+1 transformed gene expression for all or selected set of target genes."
+  wo_HKnorm_gene_heatmap:
+    section_name: "Count-Heatmap for all or selected set of target genes (Non-HK-normalized)"
+    description: "Normalized and log2+1 transformed gene expression for all or selected set of target genes based on the Non-HK-normalized results."
   genescore_plage:
     section_name: "GeneScores"
     description: "Genescores computed with the PLAGE algorithm using the normalized gene expression values for all samples."
