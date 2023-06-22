@@ -14,6 +14,8 @@ and processes data using the following steps:
 - [Quality Control](#qualitycontrol) - compute QC metrics for NanoString data, assess data quality
 - [Normalize](#normalize) - compute normalized gene counts for given RCC files
 - [Annotate](#annotate) - annotate the normalized gene counts with metadata from samplesheet
+- [Gene Score](#gene-scores) - computes gene scores with user supplied YAML formatted gene sets
+- [Gene Heatmap](#gene-count-heatmaps) - visualizes gene counts in a heatmap format
 - [MultiQC](#multiqc) - aggregate report, describing results of the whole pipeline
 - [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
 
@@ -58,6 +60,19 @@ This holds the normalized and non-housekeeping-normalized annotated gene express
 - `*_normalized_counts_Norm_GEX_ENDO.tsv`: TSV table holding the normalized endogenous gene expression values with annotation.
 - `*_normalized_counts_wo_HKnorm_Norm_GEX_HK.tsv`: TSV table holding the non-HK-normalized endogenous gene expression values with annotation.
 - `*_normalized_counts_wo_HKnorm_Norm_GEX_ENDO.tsv`: TSV table holding the non-HK-normalized endogenous gene expression values with annotation.
+
+</details>
+
+### Gene Scores
+
+<details markdown="1">
+<summary>Output files</summary>
+
+This holds the outputs for any gene scores computed in the pipeline. The heatmap is also part of the MultiQC report as well as a small table that explains which genes were used by the algorithm of choice and which genes were not found in the input data.
+
+- `gene_scores/`
+- `signature_scores_mqc.txt`: Gene Scores for input data based on YAML configuration
+- `signature_scores_qc_mqc.txt`: QC information for the computed gene scores - gives you a hint if e.g. genes were missing from the input data
 
 </details>
 
