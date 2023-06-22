@@ -531,9 +531,9 @@ yaml_parsed <- read_yaml(gene_sets_to_compute)
 
 #Get GEX into shape for Nanostring pipeline
 counts <- read.table(counts_input, sep="\t", check.names=F, header=T) %>%
-  filter(`CodeClass` == "Endogenous") %>%
-  select(-`CodeClass`) %>%
-  column_to_rownames("Name")
+    filter(`CodeClass` == "Endogenous") %>%
+    select(-`CodeClass`) %>%
+    column_to_rownames("Name")
 
 # explicit signature check against expression matrix to generate an QC overview
 cs <- checkSignatures(counts, yaml_parsed)
