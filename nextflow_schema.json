@@ -76,6 +76,18 @@
                 }
             }
         },
+        "skipping_options": {
+            "title": "Skipping Options",
+            "type": "object",
+            "description": "Allows to specify options to skip parts of the pipeline",
+            "default": "",
+            "properties": {
+                "skip_heatmap": {
+                    "type": "boolean",
+                    "description": "Skip creating the heatmap"
+                }
+            }
+        },
         "reference_genome_options": {
             "title": "Reference genome options",
             "type": "object",
@@ -297,6 +309,9 @@
             "$ref": "#/definitions/gene_score_computation"
         },
         {
+            "$ref": "#/definitions/skipping_options"
+        },
+        {
             "$ref": "#/definitions/reference_genome_options"
         },
         {
@@ -308,11 +323,5 @@
         {
             "$ref": "#/definitions/generic_options"
         }
-    ],
-    "properties": {
-        "skip_heatmap": {
-            "type": "string",
-            "default": "false"
-        }
-    }
+    ]
 }
