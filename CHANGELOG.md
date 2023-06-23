@@ -7,9 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
+- [#37](https://github.com/nf-core/nanostring/pull/37) - Allow skipping heatmap creation [#38](https://github.com/nf-core/nanostring/issues/38)
+
 ### `Fixed`
 
-- [#37](https://github.com/nf-core/nanostring/pull/37) - Allow skipping heatmap creation [#38](https://github.com/nf-core/nanostring/issues/38)
 - [#37](https://github.com/nf-core/nanostring/pull/37) - Use unique rownames for Heatmap creation
 
 ### `Dependencies`
