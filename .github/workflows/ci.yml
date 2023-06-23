@@ -42,3 +42,7 @@ jobs:
       - name: Run pipeline with test data and gene scores
         run: |
           nextflow run ${GITHUB_WORKSPACE} -profile test_scores,docker --outdir ./results
+
+      - name: Run pipeline with test data and duplicate sample ids
+        run: |
+          nextflow run ${GITHUB_WORKSPACE} -profile test_samples,docker --outdir ./results
