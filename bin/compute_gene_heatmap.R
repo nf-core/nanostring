@@ -31,7 +31,7 @@ if (length(args) == 2) {
 counts_selected <- counts %>% dplyr::select(all_of(genes))
 
 #Add proper Rownames
-rownames(counts_selected) <- counts$SAMPLE_ID
+rownames(counts_selected) <- counts$RCC_FILE_NAME
 
 #sort dataframe by rownames to make it easier comparable across heatmaps
 counts_selected[order(row.names(counts_selected)), ]
