@@ -128,10 +128,13 @@ workflow NANOSTRING {
     //
     // MODULE: Compute gene-count heatmap for MultiQC report based on annotated (ENDO) counts
     //
-    CREATE_GENE_HEATMAP (
+    if(!params.skip_heatmap){
+        CREATE_GENE_HEATMAP (
         CREATE_ANNOTATED_TABLES.out.annotated_endo_data
-    )
-    ch_versions = ch_versions.mix(CREATE_GENE_HEATMAP.out.versions)
+        )
+        ch_versions = ch_versions.mix(CREATE_GENE_HEATMAP.out.versions)
+    }
+
 
     //
     // DUMP SOFTWARE VERSIONS

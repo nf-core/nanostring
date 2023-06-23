@@ -308,5 +308,11 @@
         {
             "$ref": "#/definitions/generic_options"
         }
-    ]
+    ],
+    "properties": {
+        "skip_heatmap": {
+            "type": "string",
+            "default": "false"
+        }
+    }
 }
