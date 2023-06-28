@@ -104,6 +104,9 @@ The pipeline will generate one heatmap each, for the Housekeeping-normalized and
 
 > ⚠️ If you want to use other metadata in your samplesheet than the one shown in the section [Full samplesheet](#full-samplesheet), please make sure to specify the `yml` file with all endogenous genes or a subset of it.
 
+### Normalization
+
+The normalization can be adjusted with the parameter `--normalization_method` and choosing either `GEO` or `GLM` as the method for normalization. The default is `GEO`. Future additions will incorporate possibilities to adjust further normalization parameters.
 ### Gene Scores
 
 The pipeline can compute gene scores for arbitrary sets of genes. It automatically checks for the set of desired genes to be present in the data, e.g. you cannot specify a set of genes that is not also present and measured in your nCounter experiment. Furthermore, the algorithm / method of choice can be adjusted - available options are: `plage`, `plage.dir`(directed PLAGE), `GSVA`, `singscore`, `ssgsea`, `median`, `mean`, `sams`.
