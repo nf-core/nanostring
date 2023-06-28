@@ -55,6 +55,22 @@
                 }
             }
         },
+        "normalization_parameters": {
+            "title": "Normalization Parameters",
+            "type": "object",
+            "description": "Parameters that influence normalization outcome",
+            "default": "",
+            "fa_icon": "fas fa-arrows-alt",
+            "properties": {
+                "normalization_method": {
+                    "type": "string",
+                    "default": "GEO",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "description": "The method to use for normalization of nCounter data.",
+                    "help_text": "Available options are `GEO` (default) or `GLM`."
+                }
+            }
+        },
         "gene_score_computation": {
             "title": "Gene Score Computation",
             "type": "object",
@@ -304,6 +320,9 @@
         },
         {
             "$ref": "#/definitions/processing_options"
+        },
+        {
+            "$ref": "#/definitions/normalization_parameters"
         },
         {
             "$ref": "#/definitions/gene_score_computation"

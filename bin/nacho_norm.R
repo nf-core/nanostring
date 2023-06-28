@@ -10,6 +10,7 @@ if (length(args) < 2) {
 }
 input_rcc_path <- args[1]
 input_samplesheet <- args[2]
+norm_method <- args[3]
 
 #Create filelist for NachoQC
 
@@ -18,7 +19,8 @@ list_of_rccs <- dir_ls(path = input_rcc_path, glob = "*.RCC")
 ####RealCode####
 nacho_data <- load_rcc(data_directory = input_rcc_path,
                     ssheet_csv = input_samplesheet,
-                    id_colname = "RCC_FILE_NAME")
+                    id_colname = "RCC_FILE_NAME",
+                    normalisation_method = norm_method)
 
 output_base <- "./"
 
