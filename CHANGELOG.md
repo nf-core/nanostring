@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
-- Allow users to specify normalizations: `GEO` (default) or `GLM`
+- Allow users to specify normalization method: `GEO` (default) or `GLM`
 
 ### `Fixed`
 
