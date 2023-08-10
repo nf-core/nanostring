@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
+- [x](https://github.com/nf-core/nanostring/pull/x) - Publish NACHO QC reports [#44](https://github.com/nf-core/nanostring/issues/44)
+
 ### `Dependencies`
 
 ### `Deprecated`
