@@ -3,13 +3,16 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v1.1.2dev
+## v1.1.2dev - [date]
 
 ### `Added`
 
-- Allow users to specify normalization method: `GEO` (default) or `GLM`
+- [#46](https://github.com/nf-core/nanostring/pull/46) - Update to nf-core template `2.9`
+- [#42](https://github.com/nf-core/nanostring/pull/42) - Allow users to specify normalization method: `GEO` (default) or `GLM`
 
 ### `Fixed`
+
+- [#46](https://github.com/nf-core/nanostring/pull/46) - Publish NACHO QC reports [#44](https://github.com/nf-core/nanostring/issues/44)
 
 ### `Dependencies`
 
