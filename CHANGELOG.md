@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
+- [x](https://github.com/nf-core/nanostring/pull/x) - Update to nf-core template `2.9`
 - Allow users to specify normalization method: `GEO` (default) or `GLM`
 
 ### `Fixed`
