@@ -13,8 +13,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Fixed`
 
 - [#46](https://github.com/nf-core/nanostring/pull/46) - Publish NACHO QC reports [#44](https://github.com/nf-core/nanostring/issues/44)
+- [#47](https://github.com/nf-core/nanostring/pull/47) - Update NACHO R package including bug fix [#45](https://github.com/nf-core/nanostring/issues/45)
 
 ### `Dependencies`
+
+| Dependency | Old version | New version |
+| ---------- | ----------- | ----------- |
+| `nacho`    | 2.0.4       | 2.0.5       |
 
 ### `Deprecated`
 
