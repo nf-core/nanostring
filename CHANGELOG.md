@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
-- [#49](https://github.com/nf-core/nanostring/pull/49) - Allow users to specify id column for heatmap [#39](https://github.com/nf-core/nanostring/issues/39)
+- [#48](https://github.com/nf-core/nanostring/pull/48) - Allow users to specify id column for heatmap [#39](https://github.com/nf-core/nanostring/issues/39)
 - [#46](https://github.com/nf-core/nanostring/pull/46) - Update to nf-core template `2.9`
 - [#42](https://github.com/nf-core/nanostring/pull/42) - Allow users to specify normalization method: `GEO` (default) or `GLM`
 
@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [#46](https://github.com/nf-core/nanostring/pull/46) - Publish `NACHO` QC reports [#44](https://github.com/nf-core/nanostring/issues/44)
 - [#47](https://github.com/nf-core/nanostring/pull/47) - Update `NACHO` R package including bug fix [#45](https://github.com/nf-core/nanostring/issues/45)
-- [#48](https://github.com/nf-core/nanostring/pull/48) - Set correct `conda` environment for `COMPUTE_GENE_SCORES` process
+- [#47](https://github.com/nf-core/nanostring/pull/47) - Set correct `conda` environment for `COMPUTE_GENE_SCORES` process
 
 ### `Dependencies`
 
