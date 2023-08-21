@@ -22,7 +22,7 @@ process CREATE_GENE_HEATMAP {
     def gene_filter = params.heatmap_genes_to_filter ?: ""
 
     """
-    compute_gene_heatmap.R $annotated_counts $gene_filter
+    compute_gene_heatmap.R $annotated_counts $gene_filter $params.heatmap_id_column
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

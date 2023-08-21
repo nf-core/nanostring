@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
+- [#49](https://github.com/nf-core/nanostring/pull/49) - Allow users to specify id column for heatmap [#39](https://github.com/nf-core/nanostring/issues/39)
 - [#46](https://github.com/nf-core/nanostring/pull/46) - Update to nf-core template `2.9`
 - [#42](https://github.com/nf-core/nanostring/pull/42) - Allow users to specify normalization method: `GEO` (default) or `GLM`
 

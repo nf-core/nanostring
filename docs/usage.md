@@ -105,6 +105,10 @@ The pipeline will generate one heatmap each, for the Housekeeping-normalized and
 
 > ⚠️ If you want to use other metadata in your samplesheet than the one shown in the section [Full samplesheet](#full-samplesheet), please make sure to specify the `yml` file with all endogenous genes or a subset of it.
 
+Per default, the `SAMPLE_ID` column will be used for the rows in the generated heatmap. Therefore, we expect these values to be unique. If this is not the case or if you want to use other row names for the heatmap anyway, you can specify this column, provided in the samplesheet, using the parameter `--heatmap_id_column`.
+
+You can also skip the heatmap generation step entirely by specifying the parameter `--skip_heatmap`.
+
 ### Normalization
 
 The normalization can be adjusted with the parameter `--normalization_method` and choosing either `GEO` or `GLM` as the method for normalization. The default is `GEO`. Future additions will incorporate possibilities to adjust further normalization parameters.
