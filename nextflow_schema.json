@@ -329,13 +329,6 @@
                     "description": "Validation of parameters in lenient more.",
                     "hidden": true,
                     "help_text": "Allows string values that are parseable as numbers or booleans. For further information see [JSONSchema docs](https://github.com/everit-org/json-schema#lenient-mode)."
-                },
-                "schema_ignore_params": {
-                    "type": "string",
-                    "default": "genomes",
-                    "description": "Ignore JSON schema validation of the following params",
-                    "fa_icon": "fas fa-ban",
-                    "hidden": true
                 }
             }
         }

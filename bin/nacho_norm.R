@@ -12,6 +12,8 @@ input_rcc_path <- args[1]
 input_samplesheet <- args[2]
 norm_method <- args[3]
 
+print(norm_method)
+
 #Create filelist for NachoQC
 
 list_of_rccs <- dir_ls(path = input_rcc_path, glob = "*.RCC")

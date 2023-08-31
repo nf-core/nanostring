@@ -20,8 +20,9 @@ process NACHO_NORMALIZE {
 
     script:
     def args = task.ext.args ?: ''
+
     """
-    nacho_norm.R . $sample_sheet ${params.normalization_method}
+    nacho_norm.R . $sample_sheet $args
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
