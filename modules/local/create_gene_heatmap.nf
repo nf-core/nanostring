@@ -8,6 +8,7 @@ process CREATE_GENE_HEATMAP {
 
     input:
     path annotated_counts
+    path heatmap_genes_to_filter
 
     output:
     path "*gene_heatmap_mqc.png", emit: gene_heatmap
@@ -20,7 +21,7 @@ process CREATE_GENE_HEATMAP {
     def args = task.ext.args ?: ''
 
     """
-    compute_gene_heatmap.R $annotated_counts $args
+    compute_gene_heatmap.R $annotated_counts $heatmap_genes_to_filter $args
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
