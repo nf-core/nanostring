@@ -58,5 +58,3 @@ nacho_data_no_hk <- load_rcc(data_directory = input_rcc_path,
 
 norm_counts_without_hks <- as.data.frame(get_counts(nacho_data_no_hk))
 write_tsv(norm_counts_without_hks, file = paste0(now, "_normalized_counts_wo_HKnorm.tsv"))
-
-
