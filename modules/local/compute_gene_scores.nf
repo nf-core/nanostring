@@ -21,7 +21,7 @@ process COMPUTE_GENE_SCORES {
     def args = task.ext.args ?: ''
 
     """
-    compute_gene_scores.R $geneset_yaml $counts $params.gene_score_method
+    compute_gene_scores.R $geneset_yaml $counts $args
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

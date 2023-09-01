@@ -47,19 +47,12 @@ now=format(Sys.time(), "%Y%m%d%H%M")
 norm_counts <- as.data.frame(get_counts(nacho_data))
 write_tsv(norm_counts, file = paste0(now, "_normalized_counts.tsv"))
 
-
 #Write out non-hk normalized counts too
 nacho_data_no_hk <- load_rcc(data_directory = input_rcc_path,
     ssheet_csv = input_samplesheet,
-    id_colname = "RCC_FILE_NAME")
+    id_colname = "RCC_FILE_NAME",
+    normalisation_method = norm_method,
+    housekeeping_norm = FALSE)
 
-#Perform normalization again but without HK (so only pos + negative controls are used)
-non_hk_normed_data <- normalise(nacho_data_no_hk,
-        nacho_data_no_hk[["housekeeping_genes"]],
-        housekeeping_norm = FALSE
-)
-
-norm_counts_without_hks <- as.data.frame(get_counts(non_hk_normed_data))
+norm_counts_without_hks <- as.data.frame(get_counts(nacho_data_no_hk))
 write_tsv(norm_counts_without_hks, file = paste0(now, "_normalized_counts_wo_HKnorm.tsv"))
-
-
