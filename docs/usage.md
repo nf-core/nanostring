@@ -56,7 +56,7 @@ An [example samplesheet](../assets/samplesheet.csv) has been provided with the p
 The typical command for running the pipeline is as follows:
 
 ```bash
-nextflow run nf-core/nanostring --input samplesheet.csv --outdir <OUTDIR> -profile docker
+nextflow run nf-core/nanostring --input ./samplesheet.csv --outdir ./results -profile docker
 ```
 
 This will launch the pipeline with the `docker` configuration profile. See below for more information about profiles.
@@ -75,7 +75,8 @@ If you wish to repeatedly use the same parameters for multiple runs, rather than
 Pipeline settings can be provided in a `yaml` or `json` file via `-params-file <file>`.
 
 > ⚠️ Do not use `-c <file>` to specify parameters as this will result in errors. Custom config files specified with `-c` must only be used for [tuning process resource specifications](https://nf-co.re/docs/usage/configuration#tuning-workflow-resources), other infrastructural tweaks (such as output directories), or module arguments (args).
-> The above pipeline run specified with a params file in yaml format:
+
+The above pipeline run specified with a params file in yaml format:
 
 ```bash
 nextflow run nf-core/nanostring -profile docker -params-file params.yaml
@@ -104,9 +105,17 @@ The pipeline will generate one heatmap each, for the Housekeeping-normalized and
 
 > ⚠️ If you want to use other metadata in your samplesheet than the one shown in the section [Full samplesheet](#full-samplesheet), please make sure to specify the `yml` file with all endogenous genes or a subset of it.
 
+Per default, the `SAMPLE_ID` column will be used for the rows in the generated heatmap. Therefore, we expect these values to be unique. If this is not the case or if you want to use other row names for the heatmap anyway, you can specify this column, provided in the samplesheet, using the parameter `--heatmap_id_column`.
+
+You can also skip the heatmap generation step entirely by specifying the parameter `--skip_heatmap`.
+
+### Normalization
+
+The normalization can be adjusted with the parameter `--normalization_method` and choosing either `GEO` or `GLM` as the method for normalization. The default is `GEO`. Future additions will incorporate possibilities to adjust further normalization parameters.
+
 ### Gene Scores
 
-The pipeline can compute gene scores for arbitrary sets of genes. It automatically checks for the set of desired genes to be present in the data, e.g. you cannot specify a set of genes that is not also present and measured in your nCounter experiment. Furthermore, the algorithm / method of choice can be adjusted - available options are: `plage`, `plage.dir`(directed PLAGE), `GSVA`, `singscore`, `ssgsea`, `median`, `mean`, `sams`.
+The pipeline can compute gene scores for arbitrary sets of genes. It automatically checks for the set of desired genes to be present in the data, e.g. you cannot specify a set of genes that is not also present and measured in your nCounter experiment. Furthermore, the algorithm / method of choice can be adjusted - available options are: `plage`, `plage.dir` (directed PLAGE), `GSVA`, `singscore`, `ssgsea`, `median`, `mean`, `sams`.
 The recommendation is to use PLAGE or PLAGE in the directed form (default) for Nanostring nCounter data. You can simply start the analysis by supplying an appropriate YAML description with the desired gene and the required genes, e.g. to compute the MPAS score, supply this as a yaml using the option `--gene_score_yaml <file>`:
 
 ```yaml
@@ -204,6 +213,24 @@ To use a different container from the default container or conda environment spe
 ### Custom Tool Arguments
 
 A pipeline might not always support every possible argument or option of a particular tool used in pipeline. Fortunately, nf-core pipelines provide some freedom to users to insert additional parameters that the pipeline does not include by default.
+
+To learn how to provide additional arguments to a particular tool of the pipeline, please see the [customising tool arguments](https://nf-co.re/docs/usage/configuration#customising-tool-arguments) section of the nf-core website.
+
+### nf-core/configs
+
+In most cases, you will only need to create a custom config as a one-off but if you and others within your organisation are likely to be running nf-core pipelines regularly and need to use the same settings regularly it may be a good idea to request that your custom config file is uploaded to the `nf-core/configs` git repository. Before you do this please can you test that the config file works with your pipeline of choice using the `-c` parameter. You can then create a pull request to the `nf-core/configs` repository with the addition of your config file, associated documentation file (see examples in [`nf-core/configs/docs`](https://github.com/nf-core/configs/tree/master/docs)), and amending [`nfcore_custom.config`](https://github.com/nf-core/configs/blob/master/nfcore_custom.config) to include your custom profile.
+
+See the main [Nextflow documentation](https://www.nextflow.io/docs/latest/config.html) for more information about creating your own configuration files.
+
+If you have any questions or issues please send us a message on [Slack](https://nf-co.re/join/slack) on the [`#configs` channel](https://nfcore.slack.com/channels/configs).
+
+## Azure Resource Requests
+
+To be used with the `azurebatch` profile by specifying the `-profile azurebatch`.
+We recommend providing a compute `params.vm_type` of `Standard_D16_v3` VMs by default but these options can be changed if required.
+
+Note that the choice of VM size depends on your quota and the overall workload during the analysis.
+For a thorough list, please refer the [Azure Sizes for virtual machines in Azure](https://docs.microsoft.com/en-us/azure/virtual-machines/sizes).
 
 ## Running in the background
 

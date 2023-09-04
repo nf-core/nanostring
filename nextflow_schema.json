@@ -15,9 +15,9 @@
                 "input": {
                     "type": "string",
                     "format": "file-path",
+                    "exists": true,
                     "mimetype": "text/csv",
                     "pattern": "^\\S+\\.csv$",
-                    "schema": "assets/schema_input.json",
                     "description": "Path to comma-separated file containing information about the samples in the experiment.",
                     "help_text": "You will need to create a design file with information about the samples in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row. See [usage docs](https://nf-co.re/nanostring/usage#samplesheet-input).",
                     "fa_icon": "fas fa-file-csv"
@@ -49,9 +49,30 @@
             "default": "",
             "fa_icon": "fas fa-exchange-alt",
             "properties": {
+                "heatmap_id_column": {
+                    "type": "string",
+                    "default": "SAMPLE_ID",
+                    "description": "The column used for heatmap generation, specifying the rows. The values in this column have to be unique."
+                },
                 "heatmap_genes_to_filter": {
                     "type": "string",
                     "description": "Path to yml file (list, one item per line) to specify which genes should be used for the gene-count heatmap."
+                }
+            }
+        },
+        "normalization_parameters": {
+            "title": "Normalization Parameters",
+            "type": "object",
+            "description": "Parameters that influence normalization outcome",
+            "default": "",
+            "fa_icon": "fas fa-arrows-alt",
+            "properties": {
+                "normalization_method": {
+                    "type": "string",
+                    "default": "GEO",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "description": "The method to use for normalization of nCounter data.",
+                    "help_text": "Available options are `GEO` (default) or `GLM`."
                 }
             }
         },
@@ -94,6 +115,12 @@
             "fa_icon": "fas fa-dna",
             "description": "Reference genome related files and options required for the workflow.",
             "properties": {
+                "genome": {
+                    "type": "string",
+                    "description": "Name of iGenomes reference.",
+                    "fa_icon": "fas fa-book",
+                    "help_text": "If using a reference genome configured in the pipeline using iGenomes, use this parameter to give the ID for the reference. This is then used to build the full paths for all required reference genome files e.g. `--genome GRCh38`. \n\nSee the [nf-core website docs](https://nf-co.re/usage/reference_genomes) for more details."
+                },
                 "igenomes_base": {
                     "type": "string",
                     "format": "directory-path",
@@ -188,7 +215,7 @@
                     "description": "Maximum amount of time that can be requested for any single job.",
                     "default": "240.h",
                     "fa_icon": "far fa-clock",
-                    "pattern": "^(\\d+\\.?\\s*(s|m|h|day)\\s*)+$",
+                    "pattern": "^(\\d+\\.?\\s*(s|m|h|d|day)\\s*)+$",
                     "hidden": true,
                     "help_text": "Use to set an upper-limit for the time requirement for each process. Should be a string in the format integer-unit e.g. `--max_time '2.h'`"
                 }
@@ -259,6 +286,7 @@
                 },
                 "multiqc_config": {
                     "type": "string",
+                    "format": "file-path",
                     "description": "Custom config file to supply to MultiQC.",
                     "fa_icon": "fas fa-cog",
                     "hidden": true
@@ -274,13 +302,6 @@
                     "description": "Custom MultiQC yaml file containing HTML including a methods description.",
                     "fa_icon": "fas fa-cog"
                 },
-                "tracedir": {
-                    "type": "string",
-                    "description": "Directory to keep pipeline Nextflow logs and reports.",
-                    "default": "${params.outdir}/pipeline_info",
-                    "fa_icon": "fas fa-cogs",
-                    "hidden": true
-                },
                 "validate_params": {
                     "type": "boolean",
                     "description": "Boolean whether to validate parameters against the schema at runtime",
@@ -288,12 +309,26 @@
                     "fa_icon": "fas fa-check-square",
                     "hidden": true
                 },
-                "show_hidden_params": {
+                "validationShowHiddenParams": {
                     "type": "boolean",
                     "fa_icon": "far fa-eye-slash",
                     "description": "Show all params when using `--help`",
                     "hidden": true,
                     "help_text": "By default, parameters set as _hidden_ in the schema are not shown on the command line when a user runs with `--help`. Specifying this option will tell the pipeline to show all parameters."
+                },
+                "validationFailUnrecognisedParams": {
+                    "type": "boolean",
+                    "fa_icon": "far fa-check-circle",
+                    "description": "Validation of parameters fails when an unrecognised parameter is found.",
+                    "hidden": true,
+                    "help_text": "By default, when an unrecognised parameter is found, it returns a warinig."
+                },
+                "validationLenientMode": {
+                    "type": "boolean",
+                    "fa_icon": "far fa-check-circle",
+                    "description": "Validation of parameters in lenient more.",
+                    "hidden": true,
+                    "help_text": "Allows string values that are parseable as numbers or booleans. For further information see [JSONSchema docs](https://github.com/everit-org/json-schema#lenient-mode)."
                 }
             }
         }
@@ -304,6 +339,9 @@
         },
         {
             "$ref": "#/definitions/processing_options"
+        },
+        {
+            "$ref": "#/definitions/normalization_parameters"
         },
         {
             "$ref": "#/definitions/gene_score_computation"

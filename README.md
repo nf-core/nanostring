@@ -58,22 +58,22 @@ nextflow run nf-core/nanostring \
 > provided by the `-c` Nextflow option can be used to provide any configuration _**except for parameters**_;
 > see [docs](https://nf-co.re/usage/configuration#custom-configuration-files).
 
-For more details, please refer to the [usage documentation](https://nf-co.re/nanostring/usage) and the [parameter documentation](https://nf-co.re/nanostring/parameters).
+For more details and further functionality, please refer to the [usage documentation](https://nf-co.re/nanostring/usage) and the [parameter documentation](https://nf-co.re/nanostring/parameters).
 
 ## Pipeline output
 
-To see the the results of a test run with a full size dataset refer to the [results](https://nf-co.re/nanostring/results) tab on the nf-core website pipeline page.
+To see the results of an example test run with a full size dataset refer to the [results](https://nf-co.re/nanostring/results) tab on the nf-core website pipeline page.
 For more details about the output files and reports, please refer to the
 [output documentation](https://nf-co.re/nanostring/output).
 
 ## Credits
 
-nf-core/nanostring was originally written by Alexander Peltzer & Christopher Mohr. Extensive support was provided from other co-authors on the scientific or technical input required for the pipeline:
+nf-core/nanostring was originally written by Peltzer, Alexander & Mohr, Christopher. Extensive support was provided from other co-authors on the scientific or technical input required for the pipeline:
 
-- Kai Stadermann
-- Matthias Zwick
-- Germán Leparc
-- Ramona Schmid
+- Stadermann, Kai
+- Zwick, Matthias
+- Leparc, Germán
+- Schmid, Ramona
 
 ## Contributions and Support
 

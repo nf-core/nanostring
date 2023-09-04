@@ -3,6 +3,30 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v1.2.0 - 2023-08-24 - Nanometre
+
+### `Added`
+
+- [#48](https://github.com/nf-core/nanostring/pull/48) - Allow users to specify id column for heatmap [#39](https://github.com/nf-core/nanostring/issues/39)
+- [#46](https://github.com/nf-core/nanostring/pull/46) - Update to nf-core template `2.9`
+- [#42](https://github.com/nf-core/nanostring/pull/42) - Allow users to specify normalization method: `GEO` (default) or `GLM`
+
+### `Fixed`
+
+- [#51](https://github.com/nf-core/nanostring/pull/51) - Prevent HK-normalization while loading counts
+- [#51](https://github.com/nf-core/nanostring/pull/51) - Use provided normalization method for Non-HK-normalized counts
+- [#46](https://github.com/nf-core/nanostring/pull/46) - Publish `NACHO` QC reports [#44](https://github.com/nf-core/nanostring/issues/44)
+- [#47](https://github.com/nf-core/nanostring/pull/47) - Update `NACHO` R package including bug fix [#45](https://github.com/nf-core/nanostring/issues/45)
+- [#47](https://github.com/nf-core/nanostring/pull/47) - Set correct `conda` environment for `COMPUTE_GENE_SCORES` process
+
+### `Dependencies`
+
+| Dependency | Old version | New version |
+| ---------- | ----------- | ----------- |
+| `nacho`    | 2.0.4       | 2.0.5       |
+
+### `Deprecated`
+
 ## v1.1.1 - 2023-06-23
 
 ### `Added`
