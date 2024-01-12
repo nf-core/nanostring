@@ -27,6 +27,10 @@ On release, automated continuous integration tests run the pipeline on a full-si
 3. Create count tables with provided metadata
 4. Present QC for NanoString data ([`MultiQC`](http://multiqc.info/))
 
+## Pipeline tubemap
+
+![](./assets/nf-core_nanostring_tubemap.png)
+
 ## Usage
 
 > **Note**
