@@ -83,7 +83,7 @@ For further information or help, don't hesitate to get in touch on the [Slack `#
 
 ## Citations
 
-If you use nf-core/nanostring for your analysis, please cite it using the following doi: [10.5281/zenodo.8028303](https://doi.org/10.5281/zenodo.8028303)
+If you use nf-core/nanostring for your analysis, please cite the publication: [nf-core/nanostring Bioinformatics](https://academic.oup.com/bioinformatics/advance-article/doi/10.1093/bioinformatics/btae019/7517109)
 
 An extensive list of references for the tools used by the pipeline can be found in the [`CITATIONS.md`](CITATIONS.md) file.
 
