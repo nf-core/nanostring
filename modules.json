@@ -16,9 +16,6 @@
                         "installed_by": ["modules"]
                     }
                 }
-            },
-            "subworkflows": {
-                "nf-core": {}
             }
         }
     }
