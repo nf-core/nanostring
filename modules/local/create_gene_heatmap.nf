@@ -26,8 +26,7 @@ process CREATE_GENE_HEATMAP {
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         r-base: \$(echo \$(R --version 2>&1) | sed 's/^.*R version //; s/ .*\$//')
-        r-nacho: \$(Rscript -e "library(NACHO); cat(as.character(packageVersion('NACHO')))")
-        r-tidyverse: \$(Rscript -e "library(tidyverse); cat(as.character(packageVersion('tidyverse')))")
+        r-dplyr: \$(Rscript -e "library(tidyverse); cat(as.character(packageVersion('dplyr')))")
         r-fs: \$(Rscript -e "library(fs); cat(as.character(packageVersion('fs')))")
     END_VERSIONS
     """

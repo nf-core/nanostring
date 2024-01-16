@@ -1,6 +1,6 @@
 #!/usr/bin/env Rscript
 library(dplyr)
-library(ggplot)
+library(ggplot2)
 library(fs)
 library(NACHO)
 
