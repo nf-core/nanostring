@@ -3,8 +3,8 @@ process NACHO_NORMALIZE {
 
     conda "r-nacho=2.0.6 r-dplyr=1.2.2 r-ggplot2=3.4.4 r-fs=1.6.2 r-readr=2.1.5 r-tidyr=1.3.0"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/mulled-v2-ed6134019c28ed5530e9bea65e9cc89f494bb5cd:c4cc262e4cdede1cd4a6e34e5794e1947da21da4-0' :
-        'biocontainers/mulled-v2-ed6134019c28ed5530e9bea65e9cc89f494bb5cd:c4cc262e4cdede1cd4a6e34e5794e1947da21da4-0' }"
+        'https://depot.galaxyproject.org/singularity/mulled-v2-9d27fb90b747ac2e521703d90daacce9cc1f33c5:98395a5d2e19da46499873cd2d76be73d6a0950d-0' :
+        'biocontainers/mulled-v2-9d27fb90b747ac2e521703d90daacce9cc1f33c5:98395a5d2e19da46499873cd2d76be73d6a0950d-0' }"
 
     input:
     path rcc_files
