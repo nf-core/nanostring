@@ -3,7 +3,7 @@ library(tidyr)
 library(dplyr)
 library(ggplot2)
 library(readr)
-
+library(stringr)
 
 ###Commandline Argument parsing###
 args = commandArgs(trailingOnly=TRUE)
