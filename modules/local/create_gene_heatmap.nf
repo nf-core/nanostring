@@ -3,8 +3,8 @@ process CREATE_GENE_HEATMAP {
 
     conda "r-dplyr=1.1.4 r-ggplot2=3.4.4 r-rlang=1.1.1 r-fs=1.6.2 bioconductor-complexheatmap=2.14.0 r-circlize=0.4.15 r-yaml=2.3.7 r-ragg=1.2.5"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/mulled-v2-68b3ca19fcb1f8b052324cb635ab60f8b17a3058:27c800678a1e9e56c8b44f6a997464300938abdc-0' :
-        'biocontainers/mulled-v2-68b3ca19fcb1f8b052324cb635ab60f8b17a3058:27c800678a1e9e56c8b44f6a997464300938abdc-0' }"
+        'https://depot.galaxyproject.org/singularity/mulled-v2-2e8e9d8610faa60024ab107974b3decf00600ddc:e99bc7b45df42fd6b3bd3e4019336741e068897b-0' :
+        'biocontainers/mulled-v2-2e8e9d8610faa60024ab107974b3decf00600ddc:e99bc7b45df42fd6b3bd3e4019336741e068897b-0' }"
 
     input:
     path annotated_counts

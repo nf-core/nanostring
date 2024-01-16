@@ -1,10 +1,10 @@
 process CREATE_ANNOTATED_TABLES {
     label 'process_single'
 
-    conda "r-tidyr=1.3.0 r-ggplot2=3.4.4 r-dplyr=1.1.4 r-stringr=1.5.0"
+    conda "r-tidyr=1.3.0 r-ggplot2=3.4.4 r-dplyr=1.1.4 r-stringr=1.5.0 r-readr=2.1.5s"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/mulled-v2-68b3ca19fcb1f8b052324cb635ab60f8b17a3058:27c800678a1e9e56c8b44f6a997464300938abdc-0' :
-        'biocontainers/mulled-v2-68b3ca19fcb1f8b052324cb635ab60f8b17a3058:27c800678a1e9e56c8b44f6a997464300938abdc-0' }"
+        'https://depot.galaxyproject.org/singularity/mulled-v2-12624087a73150ff0fdb8009e5ee560c862e4b99:ad0e6da297bbe6c1aac2b06486d7bda1f8579759-0' :
+        'biocontainers/mulled-v2-12624087a73150ff0fdb8009e5ee560c862e4b99:ad0e6da297bbe6c1aac2b06486d7bda1f8579759-0' }"
 
     input:
     path counts
