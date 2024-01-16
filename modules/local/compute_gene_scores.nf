@@ -3,8 +3,8 @@ process COMPUTE_GENE_SCORES {
 
     conda "r-yaml=2.3.7 r-ggplot2=3.4.4 r-dplyr=1.1.4 r-stringr=1.5.0 bioconductor-gsva=1.46.0 bioconductor-singscore=1.18.0 r-factominer=2.8.0 r-tibble=3.2.1"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/mulled-v2-f43a878749fc0c33d0317cb529764543592e229a:6a9b5265dee9ff070c50d067e68f8b1ba746c900-0' :
-        'biocontainers/mulled-v2-f43a878749fc0c33d0317cb529764543592e229a:6a9b5265dee9ff070c50d067e68f8b1ba746c900-0' }"
+        'https://depot.galaxyproject.org/singularity/mulled-v2-5e2e93b05458d61835a4bb4ba4f9be8090f6caf3:7acf4a4d3f5d785bf8eb10cb3d26ddd10ff20ca9-0' :
+        'biocontainers/mulled-v2-5e2e93b05458d61835a4bb4ba4f9be8090f6caf3:7acf4a4d3f5d785bf8eb10cb3d26ddd10ff20ca9-0' }"
 
     input:
     path counts
