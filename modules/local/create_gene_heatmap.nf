@@ -27,7 +27,13 @@ process CREATE_GENE_HEATMAP {
     "${task.process}":
         r-base: \$(echo \$(R --version 2>&1) | sed 's/^.*R version //; s/ .*\$//')
         r-dplyr: \$(Rscript -e "library(tidyverse); cat(as.character(packageVersion('dplyr')))")
+        r-ggplot2: \$(Rscript -e "library(ggplot2); cat(as.character(packageVersion('ggplot')))")
+        r-rlang: \$(Rscript -e "library(rlang); cat(as.character(packageVersion('rlang')))")
+        bioconductor-ComplexHeatmap: \$(Rscript -e "library(ComplexHeatmap); cat(as.character(packageVersion('ComplexHeatmap')))")
+        r-circlize: \$(Rscript -e "library(circlize); cat(as.character(packageVersion('circlize')))")
+        r-yaml: \$(Rscript -e "library(yaml); cat(as.character(packageVersion('yaml')))")
         r-fs: \$(Rscript -e "library(fs); cat(as.character(packageVersion('fs')))")
     END_VERSIONS
     """
 }
+

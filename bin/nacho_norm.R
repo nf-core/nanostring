@@ -4,6 +4,7 @@ library(ggplot2)
 library(fs)
 library(NACHO)
 library(readr)
+library(tidyr)
 
 ###Commandline Argument parsing###
 args = commandArgs(trailingOnly=TRUE)
