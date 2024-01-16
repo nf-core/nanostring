@@ -3,6 +3,7 @@ library(dplyr)
 library(ggplot2)
 library(fs)
 library(NACHO)
+library(readr)
 
 ###Commandline Argument parsing###
 args = commandArgs(trailingOnly=TRUE)
