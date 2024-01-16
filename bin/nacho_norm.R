@@ -1,5 +1,6 @@
 #!/usr/bin/env Rscript
-library(tidyverse)
+library(dplyr)
+library(ggplot)
 library(fs)
 library(NACHO)
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env Rscript
-library(tidyverse)
+library(tidyr)
+library(dplyr)
 library(ggplot2)
-library(rlang)
 
 
 ###Commandline Argument parsing###

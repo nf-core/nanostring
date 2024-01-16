@@ -1,12 +1,11 @@
 #!/usr/bin/env Rscript
-library(tidyverse)
+library(dplyr)
 library(ggplot2)
 library(fs)
 library(ComplexHeatmap)
 library(circlize)
 library(yaml)
 library(ragg)
-library(tidylog)
 
 ###Command line argument parsing###
 args = commandArgs(trailingOnly=TRUE)

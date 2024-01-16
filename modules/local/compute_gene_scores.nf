@@ -1,7 +1,7 @@
 process COMPUTE_GENE_SCORES {
     label 'process_single'
 
-    conda "r-yaml=2.3.7 r-ggplot2=3.4.2 r-tidylog=1.0.2 r-tidyverse=2.0.0 r-stringr=1.5.0 bioconductor-gsva=1.46.0 bioconductor-singscore=1.18.0 r-factominer=2.8.0"
+    conda "r-yaml=2.3.7 r-ggplot2=3.4.4 r-dplyr=1.1.4 r-stringr=1.5.0 bioconductor-gsva=1.46.0 bioconductor-singscore=1.18.0 r-factominer=2.8.0"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/mulled-v2-dfd42984f8ba1b1d0d13648f30430581dff51e82:2a27d1707e91426237b882a7ba5adec8724f9069-0' :
         'biocontainers/mulled-v2-dfd42984f8ba1b1d0d13648f30430581dff51e82:2a27d1707e91426237b882a7ba5adec8724f9069-0' }"
