@@ -1,10 +1,10 @@
 process COMPUTE_GENE_SCORES {
     label 'process_single'
 
-    conda "r-yaml=2.3.7 r-ggplot2=3.4.4 r-dplyr=1.1.4 r-stringr=1.5.0 bioconductor-gsva=1.46.0 bioconductor-singscore=1.18.0 r-factominer=2.8.0 r-tibble=3.2.1"
+    conda "r-yaml=2.3.7 r-ggplot2=3.4.4 r-dplyr=1.1.4 r-stringr=1.5.0 bioconductor-gsva=1.46.0 bioconductor-singscore=1.18.0 r-factominer=2.8.0 r-tibble=3.2.1 r-matrixstats=1.1.0"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/mulled-v2-5e2e93b05458d61835a4bb4ba4f9be8090f6caf3:7acf4a4d3f5d785bf8eb10cb3d26ddd10ff20ca9-0' :
-        'biocontainers/mulled-v2-5e2e93b05458d61835a4bb4ba4f9be8090f6caf3:7acf4a4d3f5d785bf8eb10cb3d26ddd10ff20ca9-0' }"
+        'https://depot.galaxyproject.org/singularity/mulled-v2-e6920e60d80922852a1b19630ebe16754cf5320d:75e2c0a29159bae8a964e43ae16a45c282fdf651-0' :
+        'biocontainers/mulled-v2-e6920e60d80922852a1b19630ebe16754cf5320d:75e2c0a29159bae8a964e43ae16a45c282fdf651-0' }"
 
     input:
     path counts
@@ -33,6 +33,7 @@ process COMPUTE_GENE_SCORES {
         r-yaml: \$(Rscript -e "library(yaml); cat(as.character(packageVersion('yaml')))")
         r-FactoMineR: \$(Rscript -e "library(FactoMineR); cat(as.character(packageVersion('FactoMineR')))")
         r-stringr: \$(Rscript -e "library(stringr); cat(as.character(packageVersion('stringr')))")
+        r-matrixstats: \$(Rscript -e "library(matrixstats); cat(as.character(packageVersion('matrixstats')))")
     END_VERSIONS
     """
 }

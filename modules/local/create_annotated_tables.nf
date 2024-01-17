@@ -30,7 +30,6 @@ process CREATE_ANNOTATED_TABLES {
         r-ggplot2: \$(Rscript -e "library(ggplot2); cat(as.character(packageVersion('ggplot')))")
         r-dplyr: \$(Rscript -e "library(dplyr); cat(as.character(packageVersion('dplyr')))")
         r-readr: \$(Rscript -e "library(readr); cat(as.character(packageVersion('readr')))")
-        r-fs: \$(Rscript -e "library(fs); cat(as.character(packageVersion('fs')))")
     END_VERSIONS
     """
 }

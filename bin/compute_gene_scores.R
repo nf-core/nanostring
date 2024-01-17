@@ -553,7 +553,8 @@ write.table(cs,
             append=TRUE,
             sep="\t",
             row.names = FALSE,
-            quote = FALSE, na="",
+            quote = FALSE,
+            na=""
             )
 
 ## Compute scores we need in our case
@@ -585,7 +586,8 @@ write.table(scores.df,
             append=TRUE,
             sep="\t",
             row.names = FALSE,
-            quote = FALSE, na=""
+            quote = FALSE,
+            na=""
 )
 
 
