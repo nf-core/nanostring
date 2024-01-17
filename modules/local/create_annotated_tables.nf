@@ -3,8 +3,8 @@ process CREATE_ANNOTATED_TABLES {
 
     conda "r-tidyr=1.3.0 r-ggplot2=3.4.4 r-dplyr=1.1.4 r-stringr=1.5.0 r-readr=2.1.5"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/mulled-v2-12624087a73150ff0fdb8009e5ee560c862e4b99:ad0e6da297bbe6c1aac2b06486d7bda1f8579759-0' :
-        'biocontainers/mulled-v2-12624087a73150ff0fdb8009e5ee560c862e4b99:ad0e6da297bbe6c1aac2b06486d7bda1f8579759-0' }"
+        'https://depot.galaxyproject.org/singularity/mulled-v2-5ff8b00c2d7f6173e034c115dfe295627ff99689:beb0ad5f49ec2904f79edffacd41bba38492e881-0' :
+        'biocontainers/mulled-v2-5ff8b00c2d7f6173e034c115dfe295627ff99689:beb0ad5f49ec2904f79edffacd41bba38492e881-0' }"
 
     input:
     path counts
