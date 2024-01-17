@@ -1,10 +1,10 @@
 process CREATE_GENE_HEATMAP {
     label 'process_single'
 
-    conda "r-nacho=2.0.5 r-tidyverse=2.0.0 r-ggplot2=3.4.2 r-rlang=1.1.1 r-tidylog=1.0.2 r-fs=1.6.2 bioconductor-complexheatmap=2.14.0 r-circlize=0.4.15 r-yaml=2.3.7 r-ragg=1.2.5 r-rcolorbrewer=1.1_3 r-pheatmap=1.0.12"
+    conda "r-dplyr=1.1.4 r-ggplot2=3.4.4 r-rlang=1.1.1 r-fs=1.6.2 bioconductor-complexheatmap=2.14.0 r-circlize=0.4.15 r-yaml=2.3.7 r-ragg=1.2.5"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/mulled-v2-68b3ca19fcb1f8b052324cb635ab60f8b17a3058:27c800678a1e9e56c8b44f6a997464300938abdc-0' :
-        'biocontainers/mulled-v2-68b3ca19fcb1f8b052324cb635ab60f8b17a3058:27c800678a1e9e56c8b44f6a997464300938abdc-0' }"
+        'https://depot.galaxyproject.org/singularity/mulled-v2-2e8e9d8610faa60024ab107974b3decf00600ddc:e99bc7b45df42fd6b3bd3e4019336741e068897b-0' :
+        'biocontainers/mulled-v2-2e8e9d8610faa60024ab107974b3decf00600ddc:e99bc7b45df42fd6b3bd3e4019336741e068897b-0' }"
 
     input:
     path annotated_counts
@@ -26,9 +26,14 @@ process CREATE_GENE_HEATMAP {
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         r-base: \$(echo \$(R --version 2>&1) | sed 's/^.*R version //; s/ .*\$//')
-        r-nacho: \$(Rscript -e "library(NACHO); cat(as.character(packageVersion('NACHO')))")
-        r-tidyverse: \$(Rscript -e "library(tidyverse); cat(as.character(packageVersion('tidyverse')))")
+        r-dplyr: \$(Rscript -e "library(tidyverse); cat(as.character(packageVersion('dplyr')))")
+        r-ggplot2: \$(Rscript -e "library(ggplot2); cat(as.character(packageVersion('ggplot')))")
+        r-rlang: \$(Rscript -e "library(rlang); cat(as.character(packageVersion('rlang')))")
+        bioconductor-ComplexHeatmap: \$(Rscript -e "library(ComplexHeatmap); cat(as.character(packageVersion('ComplexHeatmap')))")
+        r-circlize: \$(Rscript -e "library(circlize); cat(as.character(packageVersion('circlize')))")
+        r-yaml: \$(Rscript -e "library(yaml); cat(as.character(packageVersion('yaml')))")
         r-fs: \$(Rscript -e "library(fs); cat(as.character(packageVersion('fs')))")
     END_VERSIONS
     """
 }
+
