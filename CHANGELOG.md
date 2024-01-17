@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated to nf-core template 2.11.1
 - Granularized the containers for NACHO and Heatmaps
 
+### `Dependencies`
+
+| Dependency | Old version | New version |
+| ---------- | ----------- | ----------- |
+| `nacho`    | 2.0.5       | 2.0.6       |
+
 ## v1.2.0 - 2023-08-24 - Nanometre
 
 ### `Added`
