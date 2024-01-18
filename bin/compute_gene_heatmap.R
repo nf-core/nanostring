@@ -1,12 +1,11 @@
 #!/usr/bin/env Rscript
-library(tidyverse)
+library(dplyr)
 library(ggplot2)
 library(fs)
 library(ComplexHeatmap)
 library(circlize)
 library(yaml)
 library(ragg)
-library(tidylog)
 
 ###Command line argument parsing###
 args = commandArgs(trailingOnly=TRUE)
@@ -56,7 +55,7 @@ row.names(counts_matrix) <- counts[[id_col]]
 
 Heatmap(counts_matrix,
         name = "Gene-Count Heatmap",
-        column_title = "Gene (log2 +1)",
+        column_title = "Gene log2(count + 1)",
         row_order = order(row.names(counts_matrix)),
         row_title_rot = 90,
         row_title = "SampleID",

@@ -4,11 +4,11 @@
 library(singscore)
 library(GSVA)
 library(stringr)
-library(tidyverse)
-library(tidylog)
+library(dplyr)
 library(yaml)
 library(FactoMineR)
 library(stringr)
+library(tibble)
 
 ###Gene Set Functions
 
@@ -553,7 +553,8 @@ write.table(cs,
             append=TRUE,
             sep="\t",
             row.names = FALSE,
-            quote = FALSE, na="",
+            quote = FALSE,
+            na=""
             )
 
 ## Compute scores we need in our case
@@ -585,7 +586,8 @@ write.table(scores.df,
             append=TRUE,
             sep="\t",
             row.names = FALSE,
-            quote = FALSE, na=""
+            quote = FALSE,
+            na=""
 )
 
 

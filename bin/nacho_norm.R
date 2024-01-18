@@ -1,7 +1,10 @@
 #!/usr/bin/env Rscript
-library(tidyverse)
+library(dplyr)
+library(ggplot2)
 library(fs)
 library(NACHO)
+library(readr)
+library(tidyr)
 
 ###Commandline Argument parsing###
 args = commandArgs(trailingOnly=TRUE)

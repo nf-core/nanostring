@@ -3,6 +3,20 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v1.2.1 - 2024-01-18 - Nanometre
+
+### `Added`
+
+- [#55](https://github.com/nf-core/nanostring/pull/55) - Added the Bioinformatics publication to the citation list
+- [#55](https://github.com/nf-core/nanostring/pull/55) - Updated to nf-core template 2.11.1
+- [#58](https://github.com/nf-core/nanostring/pull/58) - Granularized the containers for NACHO and Heatmaps
+
+### `Dependencies`
+
+| Dependency | Old version | New version |
+| ---------- | ----------- | ----------- |
+| `nacho`    | 2.0.5       | 2.0.6       |
+
 ## v1.2.0 - 2023-08-24 - Nanometre
 
 ### `Added`
