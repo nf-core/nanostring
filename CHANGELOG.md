@@ -7,9 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
-- Added the Bioinformatics publication to the citation list
-- Updated to nf-core template 2.11.1
-- Granularized the containers for NACHO and Heatmaps
+- [#55](https://github.com/nf-core/nanostring/pull/55) - Added the Bioinformatics publication to the citation list
+- [#55](https://github.com/nf-core/nanostring/pull/55) - Updated to nf-core template 2.11.1
+- [#58](https://github.com/nf-core/nanostring/pull/58) - Granularized the containers for NACHO and Heatmaps
 
 ### `Dependencies`
 
