@@ -138,6 +138,7 @@ workflow NANOSTRING {
     if(!params.skip_heatmap){
         CREATE_GENE_HEATMAP (
         CREATE_ANNOTATED_TABLES.out.annotated_endo_data,
+        NORMALIZE.out.normalized_counts,
         ch_heatmap_genes_to_filter.toList()
         )
         ch_versions = ch_versions.mix(CREATE_GENE_HEATMAP.out.versions)
