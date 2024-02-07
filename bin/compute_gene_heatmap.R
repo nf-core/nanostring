@@ -24,9 +24,7 @@ if (length(args) == 4) {
     input_genes <- args[3]
     genes <- read_yaml(input_genes)
 } else {
-    genes <- read.table(input_counts, sep="\t", check.names = FALSE, header=TRUE, stringsAsFactors = FALSE) %>%
-      dplyr::filter(CodeClass == 'Endogenous') %>%
-      .$Name
+    genes <- read.table(input_counts, sep="\t", check.names = FALSE, header=TRUE, stringsAsFactors = FALSE) %>% dplyr::filter(CodeClass == 'Endogenous') %>% .$Name
 }
 
 #Select counts of interest
