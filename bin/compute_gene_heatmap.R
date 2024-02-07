@@ -10,21 +10,23 @@ library(ragg)
 ###Command line argument parsing###
 args = commandArgs(trailingOnly=TRUE)
 if (length(args) < 1) {
-    stop("Usage: compute_gene_heatmap.R <annotated_counts.tsv> <sample_id_col> or compute_gene_heatmap.R <annotated_counts.tsv> <genes.yaml> <sample_id_col>", call.=FALSE)
+    stop("Usage: compute_gene_heatmap.R <annotated_counts.tsv> <counts.tsv> <sample_id_col> or compute_gene_heatmap.R <annotated_counts.tsv> <counts.tsv> <genes.yaml> <sample_id_col>", call.=FALSE)
 }
-input_counts <- args[1]
-id_col       <- tail(args, 1)
+input_counts_annotated <- args[1]
+input_counts <- args[2]
+id_col <- tail(args, 1)
 
 #Read annotated counts
 # HEADER is always RCC_FILE + GENES + SAMPLE_ID and additional metadata such as GROUP TREATMENT OTHER_METADATA
-counts <- read.table(input_counts, sep="\t", check.names = FALSE, header=TRUE, stringsAsFactors = FALSE)
+counts <- read.table(input_counts_annotated, sep="\t", check.names = FALSE, header=TRUE, stringsAsFactors = FALSE)
 
-if (length(args) == 3) {
-    input_genes <- args[2]
+if (length(args) == 4) {
+    input_genes <- args[3]
     genes <- read_yaml(input_genes)
 } else {
-    gene_cols <- counts %>% dplyr::select(- any_of(c(unique(c("SAMPLE_ID", id_col)), "RCC_FILE", "TIME", "TREATMENT", "OTHER_METADATA")))
-    genes <- colnames(gene_cols)
+    genes <- read.table(input_counts, sep="\t", check.names = FALSE, header=TRUE, stringsAsFactors = FALSE) %>%
+      dplyr::filter(CodeClass == 'Endogenous') %>%
+      .$Name
 }
 
 #Select counts of interest
@@ -43,7 +45,7 @@ min_value <- min(colMin(counts_selected))
 
 #Save as PDF
 prefix <- ""
-if (grepl("wo_HKnorm",input_counts)) {
+if (grepl("wo_HKnorm", input_counts_annotated)) {
     prefix <- "wo_HKnorm_"
 }
 
