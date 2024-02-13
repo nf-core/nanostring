@@ -85,9 +85,9 @@
             "properties": {
                 "gene_score_method": {
                     "type": "string",
-                    "default": "PLAGE",
+                    "default": "plage.dir",
                     "fa_icon": "fas fa-adjust",
-                    "description": "This selects the algorithm for computing the respective gene score. Default is 'PLAGE'."
+                    "description": "This selects the algorithm for computing the respective gene score. Default is 'plage.dir'."
                 },
                 "gene_score_yaml": {
                     "type": "string",
