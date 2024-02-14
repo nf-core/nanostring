@@ -5,6 +5,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## v1.2.2dev - [date]
 
+- Template upgrade to 2.12.1
+
+### `Dependencies`
+
+| Dependency | Old version | New version |
+| ---------- | ----------- | ----------- |
+| `multiqc`  | 1.19        | 1.20        |
+
 ## v1.2.1 - 2024-01-18 - Nanometre
 
 ### `Added`
