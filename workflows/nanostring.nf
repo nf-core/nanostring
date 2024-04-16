@@ -59,11 +59,14 @@ workflow NANOSTRING {
     ch_versions = Channel.empty()
     ch_multiqc_files = Channel.empty()
 
+    samplesheet_path = params.input
+
     //
     // INPUT RCC FILES
     //
     ch_samplesheet
-        .map { meta, path -> path}.collect()
+        .map { meta, rcc_path -> rcc_path}
+        .collect()
         .set{ rcc_files }
 
     //
@@ -71,16 +74,17 @@ workflow NANOSTRING {
     //
     QUALITY_CONTROL (
         rcc_files,
-        ch_samplesheet
+        samplesheet_path
     )
-    ch_versions = ch_versions.mix(QUALITY_CONTROL.out.versions)
+    ch_versions      = ch_versions.mix(QUALITY_CONTROL.out.versions)
+    ch_multiqc_files = ch_multiqc_files.mix(QUALITY_CONTROL.out.nacho_qc_multiqc_metrics.collect())
 
     //
     // SUBWORKFLOW: Normalize data
     //
     NORMALIZE (
         rcc_files,
-        ch_samplesheet
+        samplesheet_path
     )
     ch_versions = ch_versions.mix(NORMALIZE.out.versions)
 
@@ -90,9 +94,10 @@ workflow NANOSTRING {
     //
     CREATE_ANNOTATED_TABLES (
         NORMALIZE.out.normalized_counts.mix(NORMALIZE.out.normalized_counts_wo_HK),
-        ch_samplesheet
+        samplesheet_path
     )
-    ch_versions = ch_versions.mix(CREATE_ANNOTATED_TABLES.out.versions)
+    ch_versions      = ch_versions.mix(CREATE_ANNOTATED_TABLES.out.versions)
+    ch_multiqc_files = ch_multiqc_files.mix(CREATE_ANNOTATED_TABLES.out.annotated_data_mqc.collect())
 
     //
     // MODULE: Compute gene scores for supplied YAML gene score file
@@ -101,7 +106,8 @@ workflow NANOSTRING {
         NORMALIZE.out.normalized_counts,
         ch_gene_score_config
     )
-    ch_versions = ch_versions.mix(COMPUTE_GENE_SCORES.out.versions)
+    ch_versions      = ch_versions.mix(COMPUTE_GENE_SCORES.out.versions)
+    ch_multiqc_files = ch_multiqc_files.mix(COMPUTE_GENE_SCORES.out.scores_for_mqc.collect())
 
     //
     // MODULE: Compute gene-count heatmap for MultiQC report based on annotated (ENDO) counts
@@ -136,10 +142,6 @@ workflow NANOSTRING {
     ch_multiqc_files                      = ch_multiqc_files.mix(ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
     ch_multiqc_files                      = ch_multiqc_files.mix(ch_collated_versions)
     ch_multiqc_files                      = ch_multiqc_files.mix(ch_methods_description.collectFile(name: 'methods_description_mqc.yaml', sort: false))
-    ch_multiqc_files                      = ch_multiqc_files.mix(QUALITY_CONTROL.out.nacho_qc_multiqc_metrics.collect())
-    ch_multiqc_files                      = ch_multiqc_files.mix(CUSTOM_DUMPSOFTWAREVERSIONS.out.mqc_yml.collect())
-    ch_multiqc_files                      = ch_multiqc_files.mix(COMPUTE_GENE_SCORES.out.scores_for_mqc.collect())
-    ch_multiqc_files                      = ch_multiqc_files.mix(CREATE_ANNOTATED_TABLES.out.annotated_data_mqc.collect())
 
     MULTIQC (
         ch_multiqc_files.collect(),
