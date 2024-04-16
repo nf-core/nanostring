@@ -43,6 +43,6 @@
                 "meta": ["other_metadata"]
             }
         },
-        "required": ["SAMPLE_ID", "RCC_FILE"]
+        "required": ["SAMPLE_ID", "RCC_FILE", "RCC_FILE_NAME"]
     }
 }

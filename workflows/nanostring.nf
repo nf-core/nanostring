@@ -53,13 +53,12 @@ workflow NANOSTRING {
 
     take:
     ch_samplesheet // channel: samplesheet read in from --input
+    samplesheet_path
 
     main:
 
     ch_versions = Channel.empty()
     ch_multiqc_files = Channel.empty()
-
-    samplesheet_path = params.input
 
     //
     // INPUT RCC FILES

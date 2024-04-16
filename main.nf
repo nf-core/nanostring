@@ -48,7 +48,8 @@ workflow NFCORE_NANOSTRING {
     // WORKFLOW: Run pipeline
     //
     NANOSTRING (
-        samplesheet
+        samplesheet,
+        Channel.from(file(params.input))
     )
 
     emit:
