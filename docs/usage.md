@@ -10,7 +10,7 @@ The **nf-core/nanostring** pipeline allows the analysis of NanoString data. The 
 
 ## Samplesheet input
 
-You will need to create a samplesheet with information about the samples you would like to analyse before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row as shown in the examples below.
+You will need to create a samplesheet with information about the samples you would like to analyze before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row as shown in the examples below.
 
 ```bash
 --input '[path to samplesheet file]'
@@ -21,10 +21,10 @@ You will need to create a samplesheet with information about the samples you wou
 The `sample` identifiers should be the same when you measured the same sample multiple times. Below is an example for the same sample measured twice:
 
 ```console
-RCC_FILE,SAMPLE_ID
-/path/to/sample1.RCC,sample1
-/path/to/sample2_1.RCC,sample2
-/path/to/sample2_2.RCC,sample2
+RCC_FILE,RCC_FILE_NAME,SAMPLE_ID
+/path/to/sample1.RCC,sample1.RCC,sample1
+/path/to/sample2_1.RCC,sample2_1.RCC,sample2
+/path/to/sample2_2.RCC,sample2_2.RCC,sample2
 ```
 
 ### Full samplesheet
@@ -32,8 +32,6 @@ RCC_FILE,SAMPLE_ID
 The samplesheet can have as many columns as you desire, however, there is a strict requirement for the two columns `RCC_FILE` and `SAMPLE_ID`.
 
 A final samplesheet with additional metadata may look something like the one below. This is for 3 samples. If you want to use additional metadata columns please follow the instructions provided in the section on [Gene-Count Heatmap](#gene-count-heatmap).
-
-If the column `RCC_FILE_NAME` is not specified, the pipeline will fill it automatically from the `RCC_FILE` column.
 
 ```console
 RCC_FILE,RCC_FILE_NAME,SAMPLE_ID,TIME,TREATMENT,INCLUDE,OTHER_METADATA
