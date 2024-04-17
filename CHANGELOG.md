@@ -5,7 +5,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## v1.2.2dev - [date]
 
-- Template upgrade to 2.12.1
+### `Added`
+
+- [#66](https://github.com/nf-core/nanostring/pull/66) - Updated to nf-core template 2.12.1
+- [#71](https://github.com/nf-core/nanostring/pull/71) - Updated to nf-core template 2.13.1
+
+### `Changed`
+
+- [#71](https://github.com/nf-core/nanostring/pull/71) - Made column `RCC_FILE_NAME` mandatory
 
 ### `Dependencies`
 
