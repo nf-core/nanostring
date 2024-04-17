@@ -31,7 +31,7 @@ RCC_FILE,RCC_FILE_NAME,SAMPLE_ID
 
 The samplesheet can have as many columns as you desire, however, there is a strict requirement for the two columns `RCC_FILE` and `SAMPLE_ID`.
 
-A final samplesheet with additional metadata may look something like the one below. This is for 3 samples. If you want to use additional metadata columns please follow the instructions provided in the section on [Gene-Count Heatmap](#gene-count-heatmap).
+A final samplesheet with additional metadata may look something like the one below. This is for three samples.
 
 ```console
 RCC_FILE,RCC_FILE_NAME,SAMPLE_ID,TIME,TREATMENT,INCLUDE,OTHER_METADATA
@@ -40,10 +40,11 @@ RCC_FILE,RCC_FILE_NAME,SAMPLE_ID,TIME,TREATMENT,INCLUDE,OTHER_METADATA
 /path/to/sample2_2.RCC,sample2_2.RCC,sample2,2,0,1,your metadata
 ```
 
-| Column      | Description                                                                                                                                          |
-| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `SAMPLE_ID` | Custom sample name. This entry will be identical for multiple measurements. Spaces in sample names are automatically converted to underscores (`_`). |
-| `RCC_FILE`  | Full path to RCC file of NanoString measurement.                                                                                                     |
+| Column          | Description                                                                                                                                          |
+| --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `SAMPLE_ID`     | Custom sample name. This entry will be identical for multiple measurements. Spaces in sample names are automatically converted to underscores (`_`). |
+| `RCC_FILE`      | Full path to RCC file of NanoString measurement.                                                                                                     |
+| `RCC_FILE_NAME` | File name of specified RCC file.                                                                                                                     |
 
 ---
 
@@ -103,8 +104,6 @@ The pipeline will generate one heatmap each, for the Housekeeping-normalized and
 ...
 ```
 
-> ⚠️ If you want to use other metadata in your samplesheet than the one shown in the section [Full samplesheet](#full-samplesheet), please make sure to specify the `yml` file with all endogenous genes or a subset of it.
-
 Per default, the `SAMPLE_ID` column will be used for the rows in the generated heatmap. Therefore, we expect these values to be unique. If this is not the case or if you want to use other row names for the heatmap anyway, you can specify this column, provided in the samplesheet, using the parameter `--heatmap_id_column`.
 
 You can also skip the heatmap generation step entirely by specifying the parameter `--skip_heatmap`.
@@ -147,7 +146,7 @@ First, go to the [nf-core/nanostring releases page](https://github.com/nf-core/n
 
 This version number will be logged in reports when you run the pipeline, so that you'll know what you used when you look back in the future. For example, at the bottom of the MultiQC reports.
 
-To further assist in reproducbility, you can use share and re-use [parameter files](#running-the-pipeline) to repeat pipeline runs with the same settings without having to write out a command with every single parameter.
+To further assist in reproducibility, you can use share and re-use [parameter files](#running-the-pipeline) to repeat pipeline runs with the same settings without having to write out a command with every single parameter.
 
 :::tip
 If you wish to share such profile (such as upload as supplementary material for academic publications), make sure to NOT include cluster specific paths to files, nor institutional specific profiles.
