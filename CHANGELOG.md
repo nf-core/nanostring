@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [#66](https://github.com/nf-core/nanostring/pull/66) - Updated to nf-core template 2.12.1
 - [#71](https://github.com/nf-core/nanostring/pull/71) - Updated to nf-core template 2.13.1
+- [#73](https://github.com/nf-core/nanostring/pull/73) - Updated to nf-core template 2.14.1
 
 ### `Changed`
 
@@ -18,7 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 | Dependency | Old version | New version |
 | ---------- | ----------- | ----------- |
-| `multiqc`  | 1.19        | 1.20        |
+| `multiqc`  | 1.19        | 1.22.1      |
 
 ## v1.2.1 - 2024-01-18 - Nanometre
 
