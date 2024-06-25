@@ -39,8 +39,12 @@ jobs:
         uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be # v1.3.1
 
       - name: Run pipeline with test data
-        # TODO nf-core: You can customise CI pipeline run tests as required
-        # For example: adding multiple test runs with different parameters
-        # Remember that you can parallelise this by using strategy.matrix
         run: |
           nextflow run ${GITHUB_WORKSPACE} -profile test,docker --outdir ./results
+      - name: Run pipeline with test data and gene scores
+        run: |
+          nextflow run ${GITHUB_WORKSPACE} -profile test_scores,docker --outdir ./results
+
+      - name: Run pipeline with test data and duplicate sample ids
+        run: |
+          nextflow run ${GITHUB_WORKSPACE} -profile test_samples,docker --outdir ./results

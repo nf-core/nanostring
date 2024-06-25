@@ -1,15 +1,47 @@
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    IMPORT MODULES / SUBWORKFLOWS / FUNCTIONS
+    IMPORT CONFIGS / FUNCTIONS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { FASTQC                 } from '../modules/nf-core/fastqc/main'
+ch_gene_score_config         = params.gene_score_yaml   ? Channel.fromPath( params.gene_score_yaml, checkIfExists: true ) : Channel.empty()
+ch_heatmap_genes_to_filter   = params.heatmap_genes_to_filter  ? Channel.fromPath( params.heatmap_genes_to_filter, checkIfExists: true ) : Channel.empty()
+
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    IMPORT LOCAL MODULES/SUBWORKFLOWS
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+
+//
+// SUBWORKFLOWS: Consisting of a mix of local and nf-core/modules
+//
+include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_nanostring_pipeline'
+include { QUALITY_CONTROL }        from '../subworkflows/local/quality_control'
+include { NORMALIZE }              from '../subworkflows/local/normalize'
+
+//
+// MODULES
+//
+include { CREATE_ANNOTATED_TABLES } from '../modules/local/create_annotated_tables'
+include { COMPUTE_GENE_SCORES     } from '../modules/local/compute_gene_scores'
+include { CREATE_GENE_HEATMAP     } from '../modules/local/create_gene_heatmap'
+
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    IMPORT NF-CORE MODULES/SUBWORKFLOWS
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+
+//
+// MODULE: Installed directly from nf-core/modules
+//
 include { MULTIQC                } from '../modules/nf-core/multiqc/main'
+
 include { paramsSummaryMap       } from 'plugin/nf-validation'
+
 include { paramsSummaryMultiqc   } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pipeline'
-include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_nanostring_pipeline'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -21,6 +53,7 @@ workflow NANOSTRING {
 
     take:
     ch_samplesheet // channel: samplesheet read in from --input
+    samplesheet_path
 
     main:
 
@@ -28,13 +61,65 @@ workflow NANOSTRING {
     ch_multiqc_files = Channel.empty()
 
     //
-    // MODULE: Run FastQC
+    // INPUT RCC FILES
     //
-    FASTQC (
-        ch_samplesheet
+    ch_samplesheet
+        .map { meta, rcc_path -> rcc_path}
+        .collect()
+        .set{ rcc_files }
+
+    //
+    // SUBWORKFLOW: Quality control of input files
+    //
+    QUALITY_CONTROL (
+        rcc_files,
+        samplesheet_path
     )
-    ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]})
-    ch_versions = ch_versions.mix(FASTQC.out.versions.first())
+    ch_versions      = ch_versions.mix(QUALITY_CONTROL.out.versions)
+    ch_multiqc_files = ch_multiqc_files.mix(QUALITY_CONTROL.out.nacho_qc_multiqc_metrics.collect())
+
+    //
+    // SUBWORKFLOW: Normalize data
+    //
+    NORMALIZE (
+        rcc_files,
+        samplesheet_path
+    )
+    ch_versions = ch_versions.mix(NORMALIZE.out.versions)
+
+
+    //
+    // MODULE: Annotate normalized counts with metadata from the samplesheet
+    //
+    CREATE_ANNOTATED_TABLES (
+        NORMALIZE.out.normalized_counts.mix(NORMALIZE.out.normalized_counts_wo_HK),
+        samplesheet_path
+    )
+    ch_versions      = ch_versions.mix(CREATE_ANNOTATED_TABLES.out.versions)
+    ch_multiqc_files = ch_multiqc_files.mix(CREATE_ANNOTATED_TABLES.out.annotated_data_mqc.collect())
+
+    //
+    // MODULE: Compute gene scores for supplied YAML gene score file
+    //
+    COMPUTE_GENE_SCORES(
+        NORMALIZE.out.normalized_counts,
+        ch_gene_score_config
+    )
+    ch_versions      = ch_versions.mix(COMPUTE_GENE_SCORES.out.versions)
+    ch_multiqc_files = ch_multiqc_files.mix(COMPUTE_GENE_SCORES.out.scores_for_mqc.collect())
+
+    //
+    // MODULE: Compute gene-count heatmap for MultiQC report based on annotated (ENDO) counts
+    //
+    if(!params.skip_heatmap){
+        CREATE_GENE_HEATMAP (
+        CREATE_ANNOTATED_TABLES.out.annotated_endo_data,
+        NORMALIZE.out.normalized_counts,
+        ch_heatmap_genes_to_filter.toList()
+        )
+        ch_versions       = ch_versions.mix(CREATE_GENE_HEATMAP.out.versions)
+        ch_multiqc_files  = ch_multiqc_files.mix(CREATE_GENE_HEATMAP.out.gene_heatmap.collect())
+    }
 
     //
     // Collate and save software versions
