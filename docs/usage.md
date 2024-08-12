@@ -10,7 +10,7 @@ The **nf-core/nanostring** pipeline allows the analysis of NanoString data. The 
 
 ## Samplesheet input
 
-You will need to create a samplesheet with information about the samples you would like to analyse before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row as shown in the examples below.
+You will need to create a samplesheet with information about the samples you would like to analyze before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row as shown in the examples below.
 
 ```bash
 --input '[path to samplesheet file]'
@@ -21,19 +21,17 @@ You will need to create a samplesheet with information about the samples you wou
 The `sample` identifiers should be the same when you measured the same sample multiple times. Below is an example for the same sample measured twice:
 
 ```console
-RCC_FILE,SAMPLE_ID
-/path/to/sample1.RCC,sample1
-/path/to/sample2_1.RCC,sample2
-/path/to/sample2_2.RCC,sample2
+RCC_FILE,RCC_FILE_NAME,SAMPLE_ID
+/path/to/sample1.RCC,sample1.RCC,sample1
+/path/to/sample2_1.RCC,sample2_1.RCC,sample2
+/path/to/sample2_2.RCC,sample2_2.RCC,sample2
 ```
 
 ### Full samplesheet
 
 The samplesheet can have as many columns as you desire, however, there is a strict requirement for the two columns `RCC_FILE` and `SAMPLE_ID`.
 
-A final samplesheet with additional metadata may look something like the one below. This is for 3 samples. If you want to use additional metadata columns please follow the instructions provided in the section on [Gene-Count Heatmap](#gene-count-heatmap).
-
-If the column `RCC_FILE_NAME` is not specified, the pipeline will fill it automatically from the `RCC_FILE` column.
+A final samplesheet with additional metadata may look something like the one below. This is for three samples.
 
 ```console
 RCC_FILE,RCC_FILE_NAME,SAMPLE_ID,TIME,TREATMENT,INCLUDE,OTHER_METADATA
@@ -42,10 +40,11 @@ RCC_FILE,RCC_FILE_NAME,SAMPLE_ID,TIME,TREATMENT,INCLUDE,OTHER_METADATA
 /path/to/sample2_2.RCC,sample2_2.RCC,sample2,2,0,1,your metadata
 ```
 
-| Column      | Description                                                                                                                                          |
-| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `SAMPLE_ID` | Custom sample name. This entry will be identical for multiple measurements. Spaces in sample names are automatically converted to underscores (`_`). |
-| `RCC_FILE`  | Full path to RCC file of NanoString measurement.                                                                                                     |
+| Column          | Description                                                                                                                                          |
+| --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `SAMPLE_ID`     | Custom sample name. This entry will be identical for multiple measurements. Spaces in sample names are automatically converted to underscores (`_`). |
+| `RCC_FILE`      | Full path to RCC file of NanoString measurement.                                                                                                     |
+| `RCC_FILE_NAME` | File name of specified RCC file.                                                                                                                     |
 
 ---
 
@@ -105,8 +104,6 @@ The pipeline will generate one heatmap each, for the Housekeeping-normalized and
 ...
 ```
 
-> ⚠️ If you want to use other metadata in your samplesheet than the one shown in the section [Full samplesheet](#full-samplesheet), please make sure to specify the `yml` file with all endogenous genes or a subset of it.
-
 Per default, the `SAMPLE_ID` column will be used for the rows in the generated heatmap. Therefore, we expect these values to be unique. If this is not the case or if you want to use other row names for the heatmap anyway, you can specify this column, provided in the samplesheet, using the parameter `--heatmap_id_column`.
 
 You can also skip the heatmap generation step entirely by specifying the parameter `--skip_heatmap`.
@@ -149,7 +146,7 @@ First, go to the [nf-core/nanostring releases page](https://github.com/nf-core/n
 
 This version number will be logged in reports when you run the pipeline, so that you'll know what you used when you look back in the future. For example, at the bottom of the MultiQC reports.
 
-To further assist in reproducbility, you can use share and re-use [parameter files](#running-the-pipeline) to repeat pipeline runs with the same settings without having to write out a command with every single parameter.
+To further assist in reproducibility, you can use share and re-use [parameter files](#running-the-pipeline) to repeat pipeline runs with the same settings without having to write out a command with every single parameter.
 
 :::tip
 If you wish to share such profile (such as upload as supplementary material for academic publications), make sure to NOT include cluster specific paths to files, nor institutional specific profiles.
@@ -193,6 +190,8 @@ If `-profile` is not specified, the pipeline will run locally and expect all sof
   - A generic configuration profile to be used with [Charliecloud](https://hpc.github.io/charliecloud/)
 - `apptainer`
   - A generic configuration profile to be used with [Apptainer](https://apptainer.org/)
+- `wave`
+  - A generic configuration profile to enable [Wave](https://seqera.io/wave/) containers. Use together with one of the above (requires Nextflow ` 24.03.0-edge` or later).
 - `conda`
   - A generic configuration profile to be used with [Conda](https://conda.io/docs/). Please only use Conda as a last resort i.e. when it's not possible to run the pipeline with Docker, Singularity, Podman, Shifter, Charliecloud, or Apptainer.
 
