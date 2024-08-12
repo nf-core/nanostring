@@ -3,6 +3,15 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## dev
+
+### `Dependencies`
+
+| Dependency             | Old version | New version |
+| ---------------------- | ----------- | ----------- |
+| `dumpsoftwareversions` | 1.19        | 1.20        |
+| `multiqc`              | 1.22.1      | 1.23        |
+
 ## v1.2.1 - 2024-01-18 - Nanometre
 
 ### `Added`
