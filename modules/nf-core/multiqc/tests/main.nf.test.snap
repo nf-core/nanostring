@@ -2,14 +2,14 @@
     "multiqc_versions_single": {
         "content": [
             [
-                "versions.yml:md5,87904cd321df21fac35d18f0fc01bb19"
+                "versions.yml:md5,d320d4c37e349c5588e07e7a31cd4186"
             ]
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nextflow": "23.10.1"
         },
-        "timestamp": "2024-07-10T12:41:34.562023"
+        "timestamp": "2024-02-14T09:28:51.744211298"
     },
     "multiqc_stub": {
         "content": [
@@ -17,25 +17,25 @@
                 "multiqc_report.html",
                 "multiqc_data",
                 "multiqc_plots",
-                "versions.yml:md5,87904cd321df21fac35d18f0fc01bb19"
+                "versions.yml:md5,d320d4c37e349c5588e07e7a31cd4186"
             ]
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nextflow": "23.10.1"
         },
-        "timestamp": "2024-07-10T11:27:11.933869532"
+        "timestamp": "2024-02-14T09:29:28.847433492"
     },
     "multiqc_versions_config": {
         "content": [
             [
-                "versions.yml:md5,87904cd321df21fac35d18f0fc01bb19"
+                "versions.yml:md5,d320d4c37e349c5588e07e7a31cd4186"
             ]
         ],
         "meta": {
             "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
+            "nextflow": "23.10.1"
         },
-        "timestamp": "2024-07-10T11:26:56.709849369"
+        "timestamp": "2024-02-14T09:29:13.223621555"
     }
 }
