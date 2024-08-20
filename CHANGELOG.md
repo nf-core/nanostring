@@ -19,7 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 | Dependency | Old version | New version |
 | ---------- | ----------- | ----------- |
-| `multiqc`  | 1.19        | 1.20        |
+| `multiqc`  | 1.19        | 1.24        |
 
 ## v1.2.1 - 2024-01-18 - Nanometre
 
