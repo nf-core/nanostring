@@ -3,7 +3,7 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v1.2.2dev - [date]
+## v1.2.2 - Nanometre patch
 
 ### `Added`
 
@@ -19,7 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 | Dependency | Old version | New version |
 | ---------- | ----------- | ----------- |
-| `multiqc`  | 1.19        | 1.20        |
+| `multiqc`  | 1.19        | 1.24.1      |
 
 ## v1.2.1 - 2024-01-18 - Nanometre
 
