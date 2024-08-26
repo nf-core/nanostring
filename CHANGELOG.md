@@ -3,13 +3,17 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v1.2.2 - Nanometre patch
+## v1.3.0 - 2024-08-26 - Micrometre
 
 ### `Added`
 
 - [#66](https://github.com/nf-core/nanostring/pull/66) - Updated to nf-core template 2.12.1
 - [#71](https://github.com/nf-core/nanostring/pull/71) - Updated to nf-core template 2.13.1
 - [#73](https://github.com/nf-core/nanostring/pull/73) - Updated to nf-core template 2.14.1
+
+### `Fixed`
+
+- [#65](https://github.com/nf-core/nanostring/pull/65) - Issue with `CREATE_GENE_HEATMAP` if no list of genes was provided
 
 ### `Changed`
 
