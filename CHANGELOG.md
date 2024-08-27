@@ -3,6 +3,29 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v1.3.0 - 2024-08-27 - Micrometre
+
+### `Added`
+
+- [#66](https://github.com/nf-core/nanostring/pull/66) - Updated to nf-core template 2.12.1
+- [#71](https://github.com/nf-core/nanostring/pull/71) - Updated to nf-core template 2.13.1
+- [#73](https://github.com/nf-core/nanostring/pull/73) - Updated to nf-core template 2.14.1
+
+### `Fixed`
+
+- [#65](https://github.com/nf-core/nanostring/pull/65) - Issue with `CREATE_GENE_HEATMAP` if no list of genes was provided
+
+### `Changed`
+
+- [#71](https://github.com/nf-core/nanostring/pull/71) - Made column `RCC_FILE_NAME` mandatory
+- [#78](https://github.com/nf-core/nanostring/pull/78) - Added Nanostring Tubemap original designfile to repository for future changes, fixed typo and removed version in picture
+
+### `Dependencies`
+
+| Dependency | Old version | New version |
+| ---------- | ----------- | ----------- |
+| `multiqc`  | 1.19        | 1.24.1      |
+
 ## v1.2.1 - 2024-01-18 - Nanometre
 
 ### `Added`
