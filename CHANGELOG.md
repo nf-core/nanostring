@@ -18,7 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Changed`
 
 - [#71](https://github.com/nf-core/nanostring/pull/71) - Made column `RCC_FILE_NAME` mandatory
-- Added Nanostring Tubemap original designfile to repository for future changes, fixed typo in document
+- [#78](https://github.com/nf-core/nanostring/pull/78) - Added Nanostring Tubemap original designfile to repository for future changes, fixed typo and removed version in picture
 
 ### `Dependencies`
 
