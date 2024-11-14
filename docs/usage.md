@@ -6,11 +6,11 @@
 
 ## Introduction
 
-<!-- TODO nf-core: Add documentation about anything specific to running your pipeline. For general topics, please point to (and add to) the main nf-core website. -->
+The **nf-core/nanostring** pipeline allows the analysis of NanoString data. The pipeline performs quality control, normalization and annotation of the obtained counts.
 
 ## Samplesheet input
 
-You will need to create a samplesheet with information about the samples you would like to analyse before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row as shown in the examples below.
+You will need to create a samplesheet with information about the samples you would like to analyze before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row as shown in the examples below.
 
 ```bash
 --input '[path to samplesheet file]'
@@ -18,37 +18,35 @@ You will need to create a samplesheet with information about the samples you wou
 
 ### Multiple runs of the same sample
 
-The `sample` identifiers have to be the same when you have re-sequenced the same sample more than once e.g. to increase sequencing depth. The pipeline will concatenate the raw reads before performing any downstream analysis. Below is an example for the same sample sequenced across 3 lanes:
+The `sample` identifiers should be the same when you measured the same sample multiple times. Below is an example for the same sample measured twice:
 
-```csv title="samplesheet.csv"
-sample,fastq_1,fastq_2
-CONTROL_REP1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz
-CONTROL_REP1,AEG588A1_S1_L003_R1_001.fastq.gz,AEG588A1_S1_L003_R2_001.fastq.gz
-CONTROL_REP1,AEG588A1_S1_L004_R1_001.fastq.gz,AEG588A1_S1_L004_R2_001.fastq.gz
+```console
+RCC_FILE,RCC_FILE_NAME,SAMPLE_ID
+/path/to/sample1.RCC,sample1.RCC,sample1
+/path/to/sample2_1.RCC,sample2_1.RCC,sample2
+/path/to/sample2_2.RCC,sample2_2.RCC,sample2
 ```
 
 ### Full samplesheet
 
-The pipeline will auto-detect whether a sample is single- or paired-end using the information provided in the samplesheet. The samplesheet can have as many columns as you desire, however, there is a strict requirement for the first 3 columns to match those defined in the table below.
+The samplesheet can have as many columns as you desire, however, there is a strict requirement for the two columns `RCC_FILE` and `SAMPLE_ID`.
 
-A final samplesheet file consisting of both single- and paired-end data may look something like the one below. This is for 6 samples, where `TREATMENT_REP3` has been sequenced twice.
+A final samplesheet with additional metadata may look something like the one below. This is for three samples.
 
-```csv title="samplesheet.csv"
-sample,fastq_1,fastq_2
-CONTROL_REP1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz
-CONTROL_REP2,AEG588A2_S2_L002_R1_001.fastq.gz,AEG588A2_S2_L002_R2_001.fastq.gz
-CONTROL_REP3,AEG588A3_S3_L002_R1_001.fastq.gz,AEG588A3_S3_L002_R2_001.fastq.gz
-TREATMENT_REP1,AEG588A4_S4_L003_R1_001.fastq.gz,
-TREATMENT_REP2,AEG588A5_S5_L003_R1_001.fastq.gz,
-TREATMENT_REP3,AEG588A6_S6_L003_R1_001.fastq.gz,
-TREATMENT_REP3,AEG588A6_S6_L004_R1_001.fastq.gz,
+```console
+RCC_FILE,RCC_FILE_NAME,SAMPLE_ID,TIME,TREATMENT,INCLUDE,OTHER_METADATA
+/path/to/sample1.RCC,sample1.RCC,sample1,1,0,1,your metadata
+/path/to/sample2_1.RCC,sample2_1.RCC,sample2,2,0,1,your metadata
+/path/to/sample2_2.RCC,sample2_2.RCC,sample2,2,0,1,your metadata
 ```
 
-| Column    | Description                                                                                                                                                                            |
-| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sample`  | Custom sample name. This entry will be identical for multiple sequencing libraries/runs from the same sample. Spaces in sample names are automatically converted to underscores (`_`). |
-| `fastq_1` | Full path to FastQ file for Illumina short reads 1. File has to be gzipped and have the extension ".fastq.gz" or ".fq.gz".                                                             |
-| `fastq_2` | Full path to FastQ file for Illumina short reads 2. File has to be gzipped and have the extension ".fastq.gz" or ".fq.gz".                                                             |
+| Column          | Description                                                                                                                                          |
+| --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `SAMPLE_ID`     | Custom sample name. This entry will be identical for multiple measurements. Spaces in sample names are automatically converted to underscores (`_`). |
+| `RCC_FILE`      | Full path to RCC file of NanoString measurement.                                                                                                     |
+| `RCC_FILE_NAME` | File name of specified RCC file.                                                                                                                     |
+
+---
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
 
@@ -57,7 +55,7 @@ An [example samplesheet](../assets/samplesheet.csv) has been provided with the p
 The typical command for running the pipeline is as follows:
 
 ```bash
-nextflow run nf-core/nanostring --input ./samplesheet.csv --outdir ./results --genome GRCh37 -profile docker
+nextflow run nf-core/nanostring --input ./samplesheet.csv --outdir ./results -profile docker
 ```
 
 This will launch the pipeline with the `docker` configuration profile. See below for more information about profiles.
@@ -90,11 +88,47 @@ with:
 ```yaml title="params.yaml"
 input: './samplesheet.csv'
 outdir: './results/'
-genome: 'GRCh37'
+input: 'data'
 <...>
 ```
 
 You can also generate such `YAML`/`JSON` files via [nf-core/launch](https://nf-co.re/launch).
+
+### Gene-Count Heatmap
+
+The pipeline will generate one heatmap each, for the Housekeeping-normalized and non-Housekeeping-normalized data. These heatmaps will also be included in the MultiQC report. Per default the heatmap will include all endogenous genes. If you want to generate the heatmap for a subset of genes, please specify a `yml` file using the parameter `--heatmap_genes_to_filter` with the following format:
+
+```
+- geneA
+- geneB
+...
+```
+
+Per default, the `SAMPLE_ID` column will be used for the rows in the generated heatmap. Therefore, we expect these values to be unique. If this is not the case or if you want to use other row names for the heatmap anyway, you can specify this column, provided in the samplesheet, using the parameter `--heatmap_id_column`.
+
+You can also skip the heatmap generation step entirely by specifying the parameter `--skip_heatmap`.
+
+### Normalization
+
+The normalization can be adjusted with the parameter `--normalization_method` and choosing either `GEO` or `GLM` as the method for normalization. The default is `GEO`. Future additions will incorporate possibilities to adjust further normalization parameters.
+
+### Gene Scores
+
+The pipeline can compute gene scores for arbitrary sets of genes. It automatically checks for the set of desired genes to be present in the data, e.g. you cannot specify a set of genes that is not also present and measured in your nCounter experiment. Furthermore, the algorithm / method of choice can be adjusted - available options are: `plage`, `plage.dir` (directed PLAGE), `GSVA`, `singscore`, `ssgsea`, `median`, `mean`, `sams`.
+The recommendation is to use PLAGE or PLAGE in the directed form (default) for Nanostring nCounter data. You can simply start the analysis by supplying an appropriate YAML description with the desired gene and the required genes, e.g. to compute the MPAS score, supply this as a yaml using the option `--gene_score_yaml <file>`:
+
+```yaml
+MPAS:
+  - PRY2
+  - SPRY4
+  - ETV4
+  - ETV5
+  - DUSP4
+  - DUSP6
+  - CCND1
+  - EPHA2
+  - EPHA4
+```
 
 ### Updating the pipeline
 
@@ -112,7 +146,7 @@ First, go to the [nf-core/nanostring releases page](https://github.com/nf-core/n
 
 This version number will be logged in reports when you run the pipeline, so that you'll know what you used when you look back in the future. For example, at the bottom of the MultiQC reports.
 
-To further assist in reproducbility, you can use share and re-use [parameter files](#running-the-pipeline) to repeat pipeline runs with the same settings without having to write out a command with every single parameter.
+To further assist in reproducibility, you can use share and re-use [parameter files](#running-the-pipeline) to repeat pipeline runs with the same settings without having to write out a command with every single parameter.
 
 :::tip
 If you wish to share such profile (such as upload as supplementary material for academic publications), make sure to NOT include cluster specific paths to files, nor institutional specific profiles.
