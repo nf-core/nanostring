@@ -1,5 +1,5 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/nf-core/nanostring/master/assets/schema_input.json",
     "title": "nf-core/nanostring pipeline - params.input schema",
     "description": "Schema for the file provided with params.input",
@@ -26,11 +26,11 @@
                 "meta": ["rcc_file_name"]
             },
             "TIME": {
-                "type": "string",
+                "type": ["string", "integer"],
                 "meta": ["time"]
             },
             "TREATMENT": {
-                "type": "string",
+                "type": ["string", "integer"],
                 "meta": ["treatment"]
             },
             "INCLUDE": {
