@@ -38,11 +38,9 @@ get_counts <- function(
     tidyr::pivot_wider(names_from = "RCC_FILE_NAME", values_from = "Count_Norm")
 }
 
-now=format(Sys.time(), "%Y%m%d%H%M")
-
 #Write out normalized counts
 norm_counts <- as.data.frame(get_counts(nacho_data))
-write_tsv(norm_counts, file = paste0(now, "_normalized_counts.tsv"))
+write_tsv(norm_counts, file = "normalized_counts.tsv")
 
 #Write out non-hk normalized counts too
 nacho_data_no_hk <- load_rcc(data_directory = input_rcc_path,
@@ -52,4 +50,4 @@ nacho_data_no_hk <- load_rcc(data_directory = input_rcc_path,
     housekeeping_norm = FALSE)
 
 norm_counts_without_hks <- as.data.frame(get_counts(nacho_data_no_hk))
-write_tsv(norm_counts_without_hks, file = paste0(now, "_normalized_counts_wo_HKnorm.tsv"))
+write_tsv(norm_counts_without_hks, file = "normalized_counts_wo_HKnorm.tsv")
