@@ -25,7 +25,8 @@ nextflow_workflow {
             assertAll(
                 { assert workflow.success},
                 { assert snapshot(
-                    workflow.out.nacho_qc_multiqc_metrics[0].collect { file(it).name }, //undeterministic .png and .txt mqc files
+                    workflow.out.nacho_qc_multiqc_metrics[0].collect { file(it).name }, //undeterministic .png mqc files
+                    workflow.out.nacho_qc_multiqc_metrics[0].findAll { file(it).name.endsWith('.txt') }, //stable .txt mqc files
                     workflow.out.versions
                     ).match()
                 }

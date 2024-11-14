@@ -25,7 +25,6 @@ nextflow_workflow {
             assertAll(
                 { assert workflow.success},
                 { assert snapshot(
-                    // workflow.out.nacho_qc_multiqc_metrics[0].collect { file(it).name }, //undeterministic .png and .txt mqc files
                     workflow.out.normalized_counts,
                     workflow.out.normalized_counts_wo_HK,
                     workflow.out.versions
