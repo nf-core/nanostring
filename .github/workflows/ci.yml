@@ -24,7 +24,7 @@ concurrency:
 
 jobs:
   test:
-    name: "${{ matrix.NXF_VER }} | ${{ matrix.profile }} | ${{ matrix.shard }}/6"
+    name: "${{ matrix.NXF_VER }} | ${{ matrix.profile }} | ${{ matrix.shard }}/3"
     # Only run on push if this is the nf-core dev branch (merged PRs)
     if: "${{ github.event_name != 'push' || (github.event_name == 'push' && github.repository == 'nf-core/nanostring') }}"
     runs-on: ubuntu-latest
