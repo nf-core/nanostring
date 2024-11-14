@@ -45,7 +45,7 @@ jobs:
             profile: "conda"
           - isMaster: false
             profile: "singularity"
-        shard: [1, 2, 3, 4, 5, 6]
+        shard: [1, 2, 3]
     steps:
       - name: Check out pipeline code
         uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4
@@ -99,11 +99,11 @@ jobs:
         with:
           version: ${{ env.NFT_VER }}
 
-      - name: Run Tests (Shard ${{ matrix.shard }}/6)
+      - name: Run Tests (Shard ${{ matrix.shard }}/3)
         run: |
           nf-test test \
               --ci \
-              --shard ${{ matrix.shard }}/6 \
+              --shard ${{ matrix.shard }}/3 \
               --changed-since HEAD^ \
               --profile "+${{ matrix.profile }}" \
               --filter pipeline \
