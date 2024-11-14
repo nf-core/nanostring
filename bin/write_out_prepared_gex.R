@@ -57,7 +57,7 @@ write.table(hk_annotated, file = paste0(now, "_", input_name, "_Norm_GEX_HK.tsv"
 write.table(endo_annotated, file = paste0(now, "_", input_name, "_Norm_GEX_ENDO.tsv"), sep="\t", quote = FALSE, col.names = TRUE, row.names=FALSE)
 
 prefix <- ""
-if (grepl("wo_HKnorm",input_name)) {
+if (grepl("wo_HKnorm", input_counts)) {
     prefix <- "No_HK_"
 }
 
