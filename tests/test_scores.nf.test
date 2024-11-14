@@ -1,12 +1,12 @@
 nextflow_pipeline {
 
-    name "Test Workflow main.nf - NANOSTRING (test)"
+    name "Test Workflow main.nf - NANOSTRING (test_scores)"
     script "../main.nf"
-    profile "+test"
-    tag "test"
+    profile "+test_scores"
+    tag "test_scores"
     tag "pipeline"
 
-    test("Test profile") {
+    test("test_scores profile") {
 
         when {
             params {

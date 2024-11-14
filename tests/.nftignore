@@ -24,5 +24,9 @@ multiqc/multiqc_plots/svg/Norm_GEX_ENDO-section-plot.svg
 multiqc/multiqc_plots/svg/Norm_GEX_HK-section-plot.svg
 multiqc/multiqc_plots/svg/normalized_qc-section-plot.svg
 multiqc/multiqc_report.html
+multiqc/multiqc_plots/pdf/nf-core-nanoflow-signature-score-qc-section-plot.pdf
+multiqc/multiqc_plots/pdf/nf-core-nanoflow-signature-score-section-plot.pdf
+multiqc/multiqc_plots/svg/nf-core-nanoflow-signature-score-qc-section-plot.svg
+multiqc/multiqc_plots/svg/nf-core-nanoflow-signature-score-section-plot.svg
 normalized_counts/*_normalized_counts.tsv
 normalized_counts/*_normalized_counts_wo_HKnorm.tsv
