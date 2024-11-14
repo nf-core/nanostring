@@ -2,10 +2,10 @@
     "test profile": {
         "content": [
             [
-                "202411141755_normalized_counts.tsv:md5,a0124c7a24bd04296f441d9ade82a05f"
+                "normalized_counts.tsv:md5,a0124c7a24bd04296f441d9ade82a05f"
             ],
             [
-                "202411141755_normalized_counts_wo_HKnorm.tsv:md5,5a2ce112c24e1b0d0f4cf3392111ef9e"
+                "normalized_counts_wo_HKnorm.tsv:md5,5a2ce112c24e1b0d0f4cf3392111ef9e"
             ],
             [
                 "versions.yml:md5,eacb31511724a946730536d6bb82ae6d"
@@ -15,6 +15,6 @@
             "nf-test": "0.9.0",
             "nextflow": "24.10.0"
         },
-        "timestamp": "2024-11-14T17:55:11.577000831"
+        "timestamp": "2024-11-14T23:22:51.717778934"
     }
 }
