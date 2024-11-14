@@ -70,26 +70,21 @@
                 "gene_heatmaps/gene_heatmap_mqc.png",
                 "multiqc",
                 "multiqc/multiqc_data",
-                "multiqc/multiqc_data/multiqc_Norm_GEX_ENDO-section-plot.txt",
-                "multiqc/multiqc_data/multiqc_Norm_GEX_HK-section-plot.txt",
+                "multiqc/multiqc_data/multiqc.log",
                 "multiqc/multiqc_data/multiqc_citations.txt",
                 "multiqc/multiqc_data/multiqc_data.json",
-                "multiqc/multiqc_data/multiqc_normalized_qc-section-plot.txt",
+                "multiqc/multiqc_data/multiqc_normalized_qc.txt",
+                "multiqc/multiqc_data/multiqc_normalized_qc_1.txt",
+                "multiqc/multiqc_data/multiqc_normalized_qc_2.txt",
                 "multiqc/multiqc_data/multiqc_software_versions.txt",
                 "multiqc/multiqc_data/multiqc_sources.txt",
                 "multiqc/multiqc_plots",
                 "multiqc/multiqc_plots/pdf",
-                "multiqc/multiqc_plots/pdf/Norm_GEX_ENDO-section-plot.pdf",
-                "multiqc/multiqc_plots/pdf/Norm_GEX_HK-section-plot.pdf",
-                "multiqc/multiqc_plots/pdf/normalized_qc-section-plot.pdf",
+                "multiqc/multiqc_plots/pdf/normalized_qc.pdf",
                 "multiqc/multiqc_plots/png",
-                "multiqc/multiqc_plots/png/Norm_GEX_ENDO-section-plot.png",
-                "multiqc/multiqc_plots/png/Norm_GEX_HK-section-plot.png",
-                "multiqc/multiqc_plots/png/normalized_qc-section-plot.png",
+                "multiqc/multiqc_plots/png/normalized_qc.png",
                 "multiqc/multiqc_plots/svg",
-                "multiqc/multiqc_plots/svg/Norm_GEX_ENDO-section-plot.svg",
-                "multiqc/multiqc_plots/svg/Norm_GEX_HK-section-plot.svg",
-                "multiqc/multiqc_plots/svg/normalized_qc-section-plot.svg",
+                "multiqc/multiqc_plots/svg/normalized_qc.svg",
                 "multiqc/multiqc_report.html",
                 "normalized_counts",
                 "pipeline_info",
@@ -107,15 +102,19 @@
                 "POSF_vs_NEGF_mqc.png:md5,0e1b5105e68a6e0c51471afce218abdb",
                 "plot_normf_mqc.png:md5,6ffd3c11f8f5ddfbd3715e1780b10b01",
                 "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
-                "multiqc_normalized_qc-section-plot.txt:md5,215491482edeafbe25c4ef5f3e3b0a70",
+                "multiqc_normalized_qc.txt:md5,215491482edeafbe25c4ef5f3e3b0a70",
+                "multiqc_normalized_qc_1.txt:md5,37174443be89fecb3d2de05bfa06169a",
+                "multiqc_normalized_qc_2.txt:md5,f3a2391a8d58570568edde41becc96bd",
                 "multiqc_sources.txt:md5,d2a044df39ce3c6abe5cdc2d67473490",
-                "normalized_qc-section-plot.png:md5,d78ef99dba9b62d7c79d9a97de4c2f5b"
+                "normalized_qc.pdf:md5,6d1c1a972601b9f7c88e256f209d1cfc",
+                "normalized_qc.png:md5,2ada659c997bf1a081ae5a18244a39c8",
+                "normalized_qc.svg:md5,c332f05785e1fee105085359760e25cd"
             ]
         ],
         "meta": {
             "nf-test": "0.9.0",
             "nextflow": "24.10.0"
         },
-        "timestamp": "2024-11-14T20:56:41.71767626"
+        "timestamp": "2024-11-14T21:44:19.720909036"
     }
 }
