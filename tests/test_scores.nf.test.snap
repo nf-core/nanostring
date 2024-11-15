@@ -77,10 +77,10 @@
                 "QC/NACHO/png/Posctrl_linearity_mqc.png",
                 "QC/NACHO/png/plot_normf_mqc.png",
                 "annotated_tables",
-                "annotated_tables/counts_wo_HKnorm_Norm_GEX_ENDO.tsv",
-                "annotated_tables/counts_wo_HKnorm_Norm_GEX_HK.tsv",
+                "annotated_tables/202411151804_normalized_counts_Norm_GEX_ENDO.tsv",
+                "annotated_tables/202411151804_normalized_counts_Norm_GEX_HK.tsv",
                 "gene_heatmaps",
-                "gene_heatmaps/wo_HKnorm_gene_heatmap_mqc.png",
+                "gene_heatmaps/gene_heatmap_mqc.png",
                 "gene_scores",
                 "gene_scores/signature_scores_mqc.txt",
                 "gene_scores/signature_scores_qc_mqc.txt",
@@ -111,8 +111,8 @@
                 "multiqc/multiqc_plots/svg/normalized_qc.svg",
                 "multiqc/multiqc_report.html",
                 "normalized_counts",
-                "normalized_counts/normalized_counts.tsv",
-                "normalized_counts/normalized_counts_wo_HKnorm.tsv",
+                "normalized_counts/202411151803_normalized_counts.tsv",
+                "normalized_counts/202411151803_normalized_counts_wo_HKnorm.tsv",
                 "pipeline_info",
                 "pipeline_info/nf_core_pipeline_software_mqc_versions.yml"
             ],
@@ -127,34 +127,30 @@
                 "PCAi_mqc.png:md5,2338d5fe0e447fc74d4969725546c136",
                 "POSF_vs_NEGF_mqc.png:md5,0e1b5105e68a6e0c51471afce218abdb",
                 "plot_normf_mqc.png:md5,6ffd3c11f8f5ddfbd3715e1780b10b01",
-                "counts_wo_HKnorm_Norm_GEX_ENDO.tsv:md5,45caebf57fde5411bccad03be090fc6e",
-                "counts_wo_HKnorm_Norm_GEX_HK.tsv:md5,aa40e508e4af63b0c180ce4066ae286e",
                 "signature_scores_mqc.txt:md5,315dc730c79b02067b542074eaeb07b9",
                 "signature_scores_qc_mqc.txt:md5,88ec48e1d7488357663557b378615923",
                 "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
                 "multiqc_nf-core-nanoflow-signature-score-qc.txt:md5,264129e69f1d0570bd7fd94ca9aea3c4",
                 "multiqc_nf-core-nanoflow-signature-score.txt:md5,e7bb23d867d5c31e6b714fbfe616bef5",
                 "multiqc_normalized_qc.txt:md5,215491482edeafbe25c4ef5f3e3b0a70",
-                "multiqc_normalized_qc_1.txt:md5,acfc5584cee1041046dcc10b6be0e5fa",
-                "multiqc_normalized_qc_2.txt:md5,a2f64456957bd1c9add20f899a6b96d5",
+                "multiqc_normalized_qc_1.txt:md5,37174443be89fecb3d2de05bfa06169a",
+                "multiqc_normalized_qc_2.txt:md5,f3a2391a8d58570568edde41becc96bd",
                 "multiqc_sources.txt:md5,d2a044df39ce3c6abe5cdc2d67473490",
-                "nf-core-nanoflow-signature-score-qc.pdf:md5,3a7e57a8628fe2a4a3b03a5bd6b4d7be",
-                "nf-core-nanoflow-signature-score.pdf:md5,c126928449e8d312ce42f3a73a19539a",
-                "normalized_qc.pdf:md5,0177bec6167888eb36942583b742acca",
+                "nf-core-nanoflow-signature-score-qc.pdf:md5,eba6a655ae9faa67b369d731492bf3fb",
+                "nf-core-nanoflow-signature-score.pdf:md5,eea93f2fb4d4c8e1c9dd422509bf7271",
+                "normalized_qc.pdf:md5,b3826d73ae58dc4e4b3ba323d792dcb3",
                 "nf-core-nanoflow-signature-score-qc.png:md5,f32f47d64387a57dd69a636c6e916a13",
                 "nf-core-nanoflow-signature-score.png:md5,1d3f933bed7b1b985679941e6cfd6ed8",
                 "normalized_qc.png:md5,2ada659c997bf1a081ae5a18244a39c8",
-                "nf-core-nanoflow-signature-score-qc.svg:md5,23d5760c63fa1122a3bb07fc3b88b11b",
-                "nf-core-nanoflow-signature-score.svg:md5,45ef426c47bac88b2ea77c3011d40d50",
-                "normalized_qc.svg:md5,b1768b2b3fc5f536a1538852c55e39e8",
-                "normalized_counts.tsv:md5,a0124c7a24bd04296f441d9ade82a05f",
-                "normalized_counts_wo_HKnorm.tsv:md5,5a2ce112c24e1b0d0f4cf3392111ef9e"
+                "nf-core-nanoflow-signature-score-qc.svg:md5,afa081c4402d7ddee795a83c8f519020",
+                "nf-core-nanoflow-signature-score.svg:md5,950f06b0f8ee1f11cee79e27f2e197a7",
+                "normalized_qc.svg:md5,32a2e0193815cbb1d5f9ab4b149d08dd"
             ]
         ],
         "meta": {
             "nf-test": "0.9.0",
             "nextflow": "24.10.0"
         },
-        "timestamp": "2024-11-15T17:47:25.188886782"
+        "timestamp": "2024-11-15T18:04:41.760741904"
     }
 }
