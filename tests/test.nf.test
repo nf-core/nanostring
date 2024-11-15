@@ -17,13 +17,7 @@ nextflow_pipeline {
         then {
             // stable_name: All files + folders in ${params.outdir}/ with a stable name
             // Ignore files with timestamps in their names
-            def stable_name = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: [
-                'pipeline_info/*.{html,json,txt}',
-                'annotated_tables/*_normalized_counts_Norm_GEX_ENDO.tsv',
-                'annotated_tables/*_normalized_counts_Norm_GEX_HK.tsv',
-                'normalized_counts/*_normalized_counts.tsv',
-                'normalized_counts/*_normalized_counts_wo_HKnorm.tsv'
-                ])
+            def stable_name = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: ['pipeline_info/*.{html,json,txt}'])
             // stable_path: All files in ${params.outdir}/ with stable content
             def stable_path = getAllFilesFromDir(params.outdir, ignoreFile: 'tests/.nftignore')
             assertAll(

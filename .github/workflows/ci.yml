@@ -35,17 +35,22 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        shard: [1, 2, 3, 4]
+        shard: [1, 2, 3]
         NXF_VER:
           - "24.04.2"
         profile: ["docker"]
     env:
-      SHARDS: "4"
+      SHARDS: "3"
     steps:
       - name: Check out pipeline code
         uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4
         with:
           fetch-depth: 0
+
+      - name: Log commit and branch
+        run: |
+          echo "Commit: $(git rev-parse HEAD)"
+          echo "Branch: $(git rev-parse --abbrev-ref HEAD)"
 
       - uses: actions/setup-python@v4
         with:
