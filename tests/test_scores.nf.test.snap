@@ -77,6 +77,8 @@
                 "QC/NACHO/png/Posctrl_linearity_mqc.png",
                 "QC/NACHO/png/plot_normf_mqc.png",
                 "annotated_tables",
+                "annotated_tables/counts_Norm_GEX_ENDO.tsv",
+                "annotated_tables/counts_Norm_GEX_HK.tsv",
                 "gene_heatmaps",
                 "gene_heatmaps/gene_heatmap_mqc.png",
                 "gene_scores",
@@ -109,6 +111,8 @@
                 "multiqc/multiqc_plots/svg/normalized_qc.svg",
                 "multiqc/multiqc_report.html",
                 "normalized_counts",
+                "normalized_counts/normalized_counts.tsv",
+                "normalized_counts/normalized_counts_wo_HKnorm.tsv",
                 "pipeline_info",
                 "pipeline_info/nf_core_pipeline_software_mqc_versions.yml"
             ],
@@ -123,6 +127,8 @@
                 "PCAi_mqc.png:md5,2338d5fe0e447fc74d4969725546c136",
                 "POSF_vs_NEGF_mqc.png:md5,0e1b5105e68a6e0c51471afce218abdb",
                 "plot_normf_mqc.png:md5,6ffd3c11f8f5ddfbd3715e1780b10b01",
+                "counts_Norm_GEX_ENDO.tsv:md5,5992886680cb6fc6f3e901e79752d544",
+                "counts_Norm_GEX_HK.tsv:md5,9d8a0503df864a82990648348131be21",
                 "signature_scores_mqc.txt:md5,315dc730c79b02067b542074eaeb07b9",
                 "signature_scores_qc_mqc.txt:md5,88ec48e1d7488357663557b378615923",
                 "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
@@ -132,21 +138,23 @@
                 "multiqc_normalized_qc_1.txt:md5,37174443be89fecb3d2de05bfa06169a",
                 "multiqc_normalized_qc_2.txt:md5,f3a2391a8d58570568edde41becc96bd",
                 "multiqc_sources.txt:md5,d2a044df39ce3c6abe5cdc2d67473490",
-                "nf-core-nanoflow-signature-score-qc.pdf:md5,016a1ec143ae88023bba68002828106f",
-                "nf-core-nanoflow-signature-score.pdf:md5,13f8cfa3964547e8823317b8a60e01a4",
-                "normalized_qc.pdf:md5,a21944b3215b4b0c9bce30930fb19ee4",
+                "nf-core-nanoflow-signature-score-qc.pdf:md5,613edcf8b5459bc41715c76aa9758e99",
+                "nf-core-nanoflow-signature-score.pdf:md5,6d6e1eef9e5ab34eb861bacb35906a0f",
+                "normalized_qc.pdf:md5,cc1e0c07414828f38d270b45b309abfe",
                 "nf-core-nanoflow-signature-score-qc.png:md5,f32f47d64387a57dd69a636c6e916a13",
                 "nf-core-nanoflow-signature-score.png:md5,1d3f933bed7b1b985679941e6cfd6ed8",
                 "normalized_qc.png:md5,2ada659c997bf1a081ae5a18244a39c8",
-                "nf-core-nanoflow-signature-score-qc.svg:md5,9433e5488de51cb0ac5633bc21c41be6",
-                "nf-core-nanoflow-signature-score.svg:md5,abe0fdb4e2fc92a25c9e5cd00f793d56",
-                "normalized_qc.svg:md5,1e7227b85daaac9048e41c951b03d39d"
+                "nf-core-nanoflow-signature-score-qc.svg:md5,5405333d8e8cc026761af31d96d11706",
+                "nf-core-nanoflow-signature-score.svg:md5,cebdd953ba5f6d6ede3f83ecdbea539a",
+                "normalized_qc.svg:md5,2f110b51f4d4f13590fff73d69556213",
+                "normalized_counts.tsv:md5,a0124c7a24bd04296f441d9ade82a05f",
+                "normalized_counts_wo_HKnorm.tsv:md5,5a2ce112c24e1b0d0f4cf3392111ef9e"
             ]
         ],
         "meta": {
             "nf-test": "0.9.0",
             "nextflow": "24.10.0"
         },
-        "timestamp": "2024-11-14T21:46:09.653699172"
+        "timestamp": "2024-11-15T16:05:44.679450487"
     }
 }
