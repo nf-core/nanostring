@@ -110,7 +110,6 @@ jobs:
           nf-test test \
               --ci \
               --tag ${{matrix.test_profile}} \
-              --changed-since HEAD^ \
               --profile "+${{ matrix.compute_profile }}" \
               --junitxml=test.xml \
               --debug --verbose
