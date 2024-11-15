@@ -112,9 +112,9 @@
                 "multiqc_normalized_qc_1.txt:md5,53d2c8086a696650333126a48f8b73b4",
                 "multiqc_normalized_qc_2.txt:md5,84dc9d73b9af0d54ed3485947f91190f",
                 "multiqc_sources.txt:md5,d2a044df39ce3c6abe5cdc2d67473490",
-                "normalized_qc.pdf:md5,06dc17e5eb79e8897e0ce78d15d6e83d",
+                "normalized_qc.pdf:md5,5eb3fab84e37619a1ee21ce3f7cdae38",
                 "normalized_qc.png:md5,2ada659c997bf1a081ae5a18244a39c8",
-                "normalized_qc.svg:md5,36db5fbaac464cf56f681fcaa41cd506",
+                "normalized_qc.svg:md5,5a85c2714077be478f361d115f169d2d",
                 "normalized_counts.tsv:md5,a0124c7a24bd04296f441d9ade82a05f",
                 "normalized_counts_wo_HKnorm.tsv:md5,5a2ce112c24e1b0d0f4cf3392111ef9e"
             ]
@@ -123,6 +123,6 @@
             "nf-test": "0.9.0",
             "nextflow": "24.10.0"
         },
-        "timestamp": "2024-11-15T16:04:49.359622144"
+        "timestamp": "2024-11-15T17:25:30.065645206"
     }
 }
