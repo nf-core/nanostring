@@ -107,7 +107,7 @@ jobs:
       - name: Run Tests (Shard ${{ matrix.shard }}/3)
         run: |
           nf-test test \
-              --ci \
+              --ci --debug \
               --shard ${{ matrix.shard }}/3 \
               --changed-since HEAD^ \
               --profile "+${{ matrix.profile }}" \
