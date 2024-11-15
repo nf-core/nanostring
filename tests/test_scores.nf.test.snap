@@ -131,22 +131,13 @@
                 "multiqc_normalized_qc.txt:md5,215491482edeafbe25c4ef5f3e3b0a70",
                 "multiqc_normalized_qc_1.txt:md5,37174443be89fecb3d2de05bfa06169a",
                 "multiqc_normalized_qc_2.txt:md5,f3a2391a8d58570568edde41becc96bd",
-                "multiqc_sources.txt:md5,d2a044df39ce3c6abe5cdc2d67473490",
-                "nf-core-nanoflow-signature-score-qc.pdf:md5,016a1ec143ae88023bba68002828106f",
-                "nf-core-nanoflow-signature-score.pdf:md5,13f8cfa3964547e8823317b8a60e01a4",
-                "normalized_qc.pdf:md5,a21944b3215b4b0c9bce30930fb19ee4",
-                "nf-core-nanoflow-signature-score-qc.png:md5,f32f47d64387a57dd69a636c6e916a13",
-                "nf-core-nanoflow-signature-score.png:md5,1d3f933bed7b1b985679941e6cfd6ed8",
-                "normalized_qc.png:md5,2ada659c997bf1a081ae5a18244a39c8",
-                "nf-core-nanoflow-signature-score-qc.svg:md5,9433e5488de51cb0ac5633bc21c41be6",
-                "nf-core-nanoflow-signature-score.svg:md5,abe0fdb4e2fc92a25c9e5cd00f793d56",
-                "normalized_qc.svg:md5,1e7227b85daaac9048e41c951b03d39d"
+                "multiqc_sources.txt:md5,d2a044df39ce3c6abe5cdc2d67473490"
             ]
         ],
         "meta": {
             "nf-test": "0.9.0",
             "nextflow": "24.10.0"
         },
-        "timestamp": "2024-11-14T21:46:09.653699172"
+        "timestamp": "2024-11-15T12:10:09.030105772"
     }
 }

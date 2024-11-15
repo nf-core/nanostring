@@ -9,9 +9,9 @@ QC/NACHO/png/Neg_mqc.png
 QC/NACHO/png/Pos_mqc.png
 QC/NACHO/png/Pos_vs_neg_mqc.png
 QC/NACHO/png/Posctrl_linearity_mqc.png
-annotated_tables/*_normalized_counts_*Norm_GEX_ENDO.tsv
-annotated_tables/*_normalized_counts_*Norm_GEX_HK.tsv
-gene_heatmaps/*gene_heatmap_mqc.png
+annotated_tables/*.tsv
+annotated_tables/*.tsv
+gene_heatmaps/*.png
 multiqc/multiqc_data/multiqc_*Norm_GEX_ENDO-section-plot.txt
 multiqc/multiqc_data/multiqc_*Norm_GEX_HK-section-plot.txt
 multiqc/multiqc_data/multiqc_data.json
@@ -23,6 +23,9 @@ multiqc/multiqc_plots/png/*Norm_GEX_HK-section-plot.png
 multiqc/multiqc_plots/svg/*Norm_GEX_ENDO-section-plot.svg
 multiqc/multiqc_plots/svg/*Norm_GEX_HK-section-plot.svg
 multiqc/multiqc_plots/svg/normalized_qc-section-plot.svg
+multiqc/multiqc_plots/pdf/*.pdf
+multiqc/multiqc_plots/png/*.png
+multiqc/multiqc_plots/svg/*.svg
 multiqc/multiqc_report.html
 multiqc/multiqc_data/multiqc.log
 multiqc/multiqc_data/multiqc_software_versions.txt
@@ -30,5 +33,5 @@ multiqc/multiqc_plots/pdf/nf-core-nanoflow-signature-score-qc-section-plot.pdf
 multiqc/multiqc_plots/pdf/nf-core-nanoflow-signature-score-section-plot.pdf
 multiqc/multiqc_plots/svg/nf-core-nanoflow-signature-score-qc-section-plot.svg
 multiqc/multiqc_plots/svg/nf-core-nanoflow-signature-score-section-plot.svg
-normalized_counts/*_normalized_counts.tsv
-normalized_counts/*_normalized_counts_wo_HKnorm.tsv
+normalized_counts/*.tsv
+normalized_counts/*.tsv

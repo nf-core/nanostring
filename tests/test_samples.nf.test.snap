@@ -105,16 +105,13 @@
                 "multiqc_normalized_qc.txt:md5,215491482edeafbe25c4ef5f3e3b0a70",
                 "multiqc_normalized_qc_1.txt:md5,53d2c8086a696650333126a48f8b73b4",
                 "multiqc_normalized_qc_2.txt:md5,84dc9d73b9af0d54ed3485947f91190f",
-                "multiqc_sources.txt:md5,d2a044df39ce3c6abe5cdc2d67473490",
-                "normalized_qc.pdf:md5,7c0df9c15ec0245788c5d8823519ce2f",
-                "normalized_qc.png:md5,2ada659c997bf1a081ae5a18244a39c8",
-                "normalized_qc.svg:md5,6f1ea8ba31a225fa61c2cb49782c19b5"
+                "multiqc_sources.txt:md5,d2a044df39ce3c6abe5cdc2d67473490"
             ]
         ],
         "meta": {
             "nf-test": "0.9.0",
             "nextflow": "24.10.0"
         },
-        "timestamp": "2024-11-14T21:45:09.454568326"
+        "timestamp": "2024-11-15T12:09:07.939418776"
     }
 }

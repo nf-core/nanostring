@@ -19,10 +19,10 @@ nextflow_pipeline {
             // Ignore files with timestamps in their names or with unstable prefix No_HK_
             def stable_name = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: [
                 'pipeline_info/*.{html,json,txt}',
-                'annotated_tables/*_normalized_counts_Norm_GEX_ENDO.tsv',
-                'annotated_tables/*_normalized_counts_Norm_GEX_HK.tsv',
-                'normalized_counts/*_normalized_counts.tsv',
-                'normalized_counts/*_normalized_counts_wo_HKnorm.tsv'
+                'annotated_tables/*.tsv',
+                'annotated_tables/*.tsv',
+                'normalized_counts/*.tsv',
+                'normalized_counts/*.tsv'
                 ])
             // stable_path: All files in ${params.outdir}/ with stable content
             def stable_path = getAllFilesFromDir(params.outdir, ignoreFile: 'tests/.nftignore')
