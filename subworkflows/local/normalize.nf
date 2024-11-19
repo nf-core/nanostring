@@ -2,7 +2,7 @@
 // Perform normalizations (currently using Nacho)
 //
 
-include { NACHO_NORMALIZE } from '../../modules/local/nacho/normalize'
+include { NACHO_NORMALIZE } from '../../modules/local/nacho/normalize/main'
 
 workflow NORMALIZE {
     take:
