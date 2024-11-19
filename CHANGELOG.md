@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Added`
 
 - [#94](https://github.com/nf-core/nanostring/pull/94) - Added nf-tests for local subworkflows normalize and quality_control.
+- [#102](https://github.com/nf-core/nanostring/pull/102) - Added nf-tests for local module create_gene_heatmap.
 
 ### `Fixed`
 

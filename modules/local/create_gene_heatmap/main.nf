@@ -1,7 +1,7 @@
 process CREATE_GENE_HEATMAP {
     label 'process_single'
 
-    conda "r-dplyr=1.1.4 r-ggplot2=3.4.4 r-rlang=1.1.1 r-fs=1.6.2 bioconductor-complexheatmap=2.14.0 r-circlize=0.4.15 r-yaml=2.3.7 r-ragg=1.2.5"
+    conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/mulled-v2-2e8e9d8610faa60024ab107974b3decf00600ddc:e99bc7b45df42fd6b3bd3e4019336741e068897b-0' :
         'biocontainers/mulled-v2-2e8e9d8610faa60024ab107974b3decf00600ddc:e99bc7b45df42fd6b3bd3e4019336741e068897b-0' }"

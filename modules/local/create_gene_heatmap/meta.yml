@@ -1,0 +1,43 @@
+name: create_gene_heatmap
+description: Generate a gene count heatmap based on annotated and filtered gene counts data.
+keywords:
+  - bioinformatics tools
+  - data visualization
+  - gene heatmap
+tools:
+  - create_gene_heatmap:
+      description: |
+        The create_gene_heatmap module generates a heatmap of gene counts.
+        It supports gene selection via additional files and provides a log-transformed visualization of the data.
+input:
+  - - annotated_counts:
+        type: file
+        description: |
+          A tab-separated file containing annotated counts.
+        pattern: "*ENDO.tsv"
+  - - counts:
+        type: file
+        description: |
+          A tab-separated file containing counts data for genes, used when no gene set YAML is provided.
+        pattern: "*normalized_counts.tsv"
+  - - heatmap_genes_to_filter:
+        type: file
+        description: |
+          "Path to yml file (list, one item per line) to specify which genes should be used for the gene-count heatmap."
+output:
+  - gene_heatmap:
+      - "*gene_heatmap_mqc.png":
+          type: file
+          description: |
+            A PNG image containing the gene count heatmap, suitable for inclusion in MultiQC reports.
+          pattern: "*gene_heatmap_mqc.png"
+  - versions:
+      - versions.yml:
+          type: file
+          description: File containing the software versions.
+          pattern: "versions.yml"
+authors:
+  - "@apeltzer"
+  - "@christopher-mohr"
+maintainers:
+  - "@nschcolnicov"

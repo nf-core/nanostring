@@ -1,0 +1,30 @@
+nextflow_process {
+
+    name "Test Process CREATE_GENE_HEATMAP"
+    script "../main.nf"
+    process "CREATE_GENE_HEATMAP"
+
+    tag "modules"
+    tag "modules_nfcore"
+    tag "CREATE_GENE_HEATMAP"
+
+    test("test profile") {
+
+        when {
+            process {
+                """
+                input[0] = file(params.pipelines_testdata_base_path + 'nanostring/modules_test_data/test_profile/normalized_counts.tsv', checkIfExists: true )
+                input[1] = file(params.pipelines_testdata_base_path + 'nanostring/modules_test_data/test_profile/counts_Norm_GEX_ENDO.tsv', checkIfExists: true )
+                input[2] = []
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out).match() },
+            )
+        }
+    }
+}
