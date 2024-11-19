@@ -2,9 +2,7 @@ process CREATE_GENE_HEATMAP {
     label 'process_single'
 
     conda "${moduleDir}/environment.yml"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/mulled-v2-2e8e9d8610faa60024ab107974b3decf00600ddc:e99bc7b45df42fd6b3bd3e4019336741e068897b-0' :
-        'biocontainers/mulled-v2-2e8e9d8610faa60024ab107974b3decf00600ddc:e99bc7b45df42fd6b3bd3e4019336741e068897b-0' }"
+    container "community.wave.seqera.io/library/bioconductor-complexheatmap_r-base_r-circlize_r-dplyr_pruned:58d1af3dbaeba617"
 
     input:
     path annotated_counts
@@ -27,8 +25,8 @@ process CREATE_GENE_HEATMAP {
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         r-base: \$(echo \$(R --version 2>&1) | sed 's/^.*R version //; s/ .*\$//')
-        r-dplyr: \$(Rscript -e "library(tidyverse); cat(as.character(packageVersion('dplyr')))")
-        r-ggplot2: \$(Rscript -e "library(ggplot2); cat(as.character(packageVersion('ggplot')))")
+        r-dplyr: \$(Rscript -e "library(dplyr); cat(as.character(packageVersion('dplyr')))")
+        r-ggplot2: \$(Rscript -e "library(ggplot2); cat(as.character(packageVersion('ggplot2')))")
         r-rlang: \$(Rscript -e "library(rlang); cat(as.character(packageVersion('rlang')))")
         bioconductor-ComplexHeatmap: \$(Rscript -e "library(ComplexHeatmap); cat(as.character(packageVersion('ComplexHeatmap')))")
         r-circlize: \$(Rscript -e "library(circlize); cat(as.character(packageVersion('circlize')))")

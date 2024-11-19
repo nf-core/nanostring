@@ -13,8 +13,8 @@ nextflow_process {
         when {
             process {
                 """
-                input[0] = file(params.pipelines_testdata_base_path + 'nanostring/modules_test_data/test_profile/normalized_counts.tsv', checkIfExists: true )
-                input[1] = file(params.pipelines_testdata_base_path + 'nanostring/modules_test_data/test_profile/counts_Norm_GEX_ENDO.tsv', checkIfExists: true )
+                input[0] = file(params.pipelines_testdata_base_path + 'nanostring/modules_test_data/test_profile/counts_Norm_GEX_ENDO.tsv', checkIfExists: true )
+                input[1] = file(params.pipelines_testdata_base_path + 'nanostring/modules_test_data/test_profile/normalized_counts.tsv', checkIfExists: true )
                 input[2] = []
                 """
             }
@@ -22,8 +22,12 @@ nextflow_process {
 
         then {
             assertAll(
-                { assert process.success },
-                { assert snapshot(process.out).match() },
+                { assert process.success},
+                { assert snapshot(
+                    process.out.gene_heatmap.collect { file(it).name }, //list unstable png files
+                    process.out.versions
+                    ).match()
+                }
             )
         }
     }
