@@ -1,0 +1,47 @@
+nextflow_process {
+
+    name "Test Process COMPUTE_GENE_SCORES"
+    script "../main.nf"
+    process "COMPUTE_GENE_SCORES"
+
+    tag "modules"
+    tag "modules_nfcore"
+    tag "compute_gene_scores"
+
+    test("test profile") {
+
+        setup {
+            run("NACHO_NORMALIZE") {
+                script "../../nacho/normalize.nf"
+                process {
+                    """
+                    input[0] = Channel.of(
+                        [
+                            file(params.pipelines_testdata_base_path + 'nanostring/RCC_files/salmon_01_01.RCC', checkIfExists: true),
+                            file(params.pipelines_testdata_base_path + 'nanostring/RCC_files/salmon_02_02.RCC', checkIfExists: true),
+                            file(params.pipelines_testdata_base_path + 'nanostring/RCC_files/salmon_03_03.RCC', checkIfExists: true),
+                            file(params.pipelines_testdata_base_path + 'nanostring/RCC_files/salmon_04_04.RCC', checkIfExists: true)
+                        ]
+                    )
+                    input[1] = file(params.pipelines_testdata_base_path + 'nanostring/samplesheets/samplesheet_test.csv', checkIfExists: true)
+                    """
+                }
+            }
+        }
+        when {
+            process {
+                """
+                input[0] = NACHO_NORMALIZE.out.normalized_counts
+                input[1] = file(params.pipelines_testdata_base_path + 'nanostring/gene_score_test.yaml', checkIfExists: true )
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out).match() },
+            )
+        }
+    }
+}

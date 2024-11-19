@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Added`
 
 - [#94](https://github.com/nf-core/nanostring/pull/94) - Added nf-tests for local subworkflows normalize and quality_control.
+- [#101](https://github.com/nf-core/nanostring/pull/101) - Added nf-test for local module compute_gene_scores.
 
 ### `Fixed`
 
