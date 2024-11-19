@@ -1,6 +1,7 @@
 process COMPUTE_GENE_SCORES {
     label 'process_single'
 
+    conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/mulled-v2-e6920e60d80922852a1b19630ebe16754cf5320d:75e2c0a29159bae8a964e43ae16a45c282fdf651-0' :
         'biocontainers/mulled-v2-e6920e60d80922852a1b19630ebe16754cf5320d:75e2c0a29159bae8a964e43ae16a45c282fdf651-0' }"
