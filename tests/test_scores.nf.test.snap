@@ -21,14 +21,14 @@
                     "r-readr": "2.1.5"
                 },
                 "CREATE_GENE_HEATMAP": {
-                    "r-base": "4.3.2",
-                    "r-dplyr": null,
-                    "r-ggplot2": null,
-                    "r-rlang": "1.1.3",
-                    "bioconductor-ComplexHeatmap": "2.18.0",
+                    "r-base": "4.2.3",
+                    "r-dplyr": "1.1.4",
+                    "r-ggplot2": "3.4.4",
+                    "r-rlang": "1.1.1",
+                    "bioconductor-ComplexHeatmap": "2.14.0",
                     "r-circlize": "0.4.15",
-                    "r-yaml": "2.3.7",
-                    "r-fs": "1.6.2"
+                    "r-yaml": "2.3.8",
+                    "r-fs": "1.6.4"
                 },
                 "NACHO_NORMALIZE": {
                     "r-base": "4.3.2",
@@ -139,8 +139,8 @@
         ],
         "meta": {
             "nf-test": "0.9.0",
-            "nextflow": "24.10.0"
+            "nextflow": "24.10.1"
         },
-        "timestamp": "2024-11-15T19:49:40.339567183"
+        "timestamp": "2024-11-19T21:26:05.626984239"
     }
 }
