@@ -3,9 +3,7 @@ process NACHO_NORMALIZE {
     label 'process_single'
 
     conda "${moduleDir}/environment.yml"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/mulled-v2-9d27fb90b747ac2e521703d90daacce9cc1f33c5:98395a5d2e19da46499873cd2d76be73d6a0950d-0' :
-        'biocontainers/mulled-v2-9d27fb90b747ac2e521703d90daacce9cc1f33c5:98395a5d2e19da46499873cd2d76be73d6a0950d-0' }"
+    container "community.wave.seqera.io/library/r-dplyr_r-fs_r-ggplot2_r-nacho_pruned:9bb487ee68105a77"
 
     input:
     path rcc_files
