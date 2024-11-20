@@ -1,5 +1,5 @@
 process NACHO_NORMALIZE {
-    tag '$sample_sheet'
+    tag "$sample_sheet"
     label 'process_single'
 
     conda "${moduleDir}/environment.yml"
