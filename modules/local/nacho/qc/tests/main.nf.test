@@ -1,0 +1,38 @@
+nextflow_process {
+
+    name "Test Process NACHO_QC"
+    script "../main.nf"
+    process "NACHO_QC"
+
+    test("Should run without failures") {
+
+        when {
+            process {
+                """
+                input[0] = Channel.of(
+                    [
+                        file(params.pipelines_testdata_base_path + 'nanostring/RCC_files/salmon_01_01.RCC', checkIfExists: true),
+                        file(params.pipelines_testdata_base_path + 'nanostring/RCC_files/salmon_02_02.RCC', checkIfExists: true),
+                        file(params.pipelines_testdata_base_path + 'nanostring/RCC_files/salmon_03_03.RCC', checkIfExists: true),
+                        file(params.pipelines_testdata_base_path + 'nanostring/RCC_files/salmon_04_04.RCC', checkIfExists: true)
+                    ]
+                )
+                input[1] = file(params.pipelines_testdata_base_path + 'nanostring/samplesheets/samplesheet_test.csv', checkIfExists: true)
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(
+                    process.out.nacho_qc_multiqc_metrics[0].collect { file(it).name }, //undeterministic .png mqc files
+                    process.out.nacho_qc_reports[0].collect { file(it).name }, //undeterministic .png mqc files
+                    process.out.nacho_qc_multiqc_metrics[0].findAll { file(it).name.endsWith('.txt') }, //stable .txt mqc files
+                    process.out.versions
+                    ).match()
+                }
+            )
+        }
+    }
+}
