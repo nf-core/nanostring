@@ -23,7 +23,7 @@ input:
   - - heatmap_genes_to_filter:
         type: file
         description: |
-          "Path to yml file (list, one item per line) to specify which genes should be used for the gene-count heatmap."
+          Path to yml file (list, one item per line) to specify which genes should be used for the gene-count heatmap.
 output:
   - gene_heatmap:
       - "*gene_heatmap_mqc.png":
