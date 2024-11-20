@@ -2,7 +2,7 @@
 // Perform quality control
 //
 
-include { NACHO_QC } from '../../../modules/local/nacho/qc'
+include { NACHO_QC } from '../../../modules/local/nacho/qc/main.nf'
 
 workflow QUALITY_CONTROL {
     take:
