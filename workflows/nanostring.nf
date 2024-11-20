@@ -23,7 +23,7 @@ include { NORMALIZE }              from '../subworkflows/local/normalize'
 //
 // MODULES
 //
-include { CREATE_ANNOTATED_TABLES } from '../modules/local/create_annotated_tables'
+include { CREATE_ANNOTATED_TABLES } from '../modules/local/nacho/create_annotated_tables/main'
 include { COMPUTE_GENE_SCORES     } from '../modules/local/compute_gene_scores'
 include { CREATE_GENE_HEATMAP     } from '../modules/local/create_gene_heatmap'
 
