@@ -1,0 +1,17 @@
+{
+    "test profile": {
+        "content": [
+            [
+                "gene_heatmap_mqc.png"
+            ],
+            [
+                "versions.yml:md5,ce9a0b1b0e476543f0a3ff5b93f6570b"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.10.1"
+        },
+        "timestamp": "2024-11-19T21:11:06.988380646"
+    }
+}
