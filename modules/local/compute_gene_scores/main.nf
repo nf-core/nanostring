@@ -1,7 +1,7 @@
 process COMPUTE_GENE_SCORES {
     label 'process_single'
 
-    conda "r-yaml=2.3.7 r-ggplot2=3.4.4 r-dplyr=1.1.4 r-stringr=1.5.0 bioconductor-gsva=1.46.0 bioconductor-singscore=1.18.0 r-factominer=2.8.0 r-tibble=3.2.1 r-matrixstats=1.1.0"
+    conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/mulled-v2-e6920e60d80922852a1b19630ebe16754cf5320d:75e2c0a29159bae8a964e43ae16a45c282fdf651-0' :
         'biocontainers/mulled-v2-e6920e60d80922852a1b19630ebe16754cf5320d:75e2c0a29159bae8a964e43ae16a45c282fdf651-0' }"
@@ -11,8 +11,8 @@ process COMPUTE_GENE_SCORES {
     path geneset_yaml
 
     output:
-    path "*.txt", emit: scores_for_mqc
-    path "versions.yml"           , emit: versions
+    path "*.txt"        , emit: scores_for_mqc
+    path "versions.yml" , emit: versions
 
     when:
     task.ext.when == null || task.ext.when
