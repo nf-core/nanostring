@@ -105,6 +105,11 @@ jobs:
         with:
           version: ${{ env.NFT_VER }}
 
+      - name: Print file header
+        run: |
+          echo "Header of the file modules/nf-core/multiqc/main.nf:"
+          head -n6 modules/nf-core/multiqc/main.nf
+
       - name: Run Tests (${{matrix.NXF_VER}} | ${{matrix.test_profile}} | ${{matrix.compute_profile}})
         run: |
           nf-test test \
