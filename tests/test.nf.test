@@ -2,7 +2,7 @@ nextflow_pipeline {
 
     name "Test Workflow main.nf - NANOSTRING (test)"
     script "../main.nf"
-    profile "+test"
+    profile "test"
     tag "test"
     tag "pipeline"
 
