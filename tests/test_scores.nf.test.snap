@@ -15,7 +15,7 @@
                     "r-matrixstats": null
                 },
                 "CREATE_ANNOTATED_TABLES": {
-                    "r-base": "4.3.2",
+                    "r-base": "4.3.3",
                     "r-ggplot2": null,
                     "r-dplyr": "1.1.4",
                     "r-readr": "2.1.5"
