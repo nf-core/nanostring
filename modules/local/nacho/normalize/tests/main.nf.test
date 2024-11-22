@@ -8,7 +8,6 @@ nextflow_process {
     test("Should run without failures") {
 
         when {
-
             process {
                 """
                 // RCC Files: Collect from sample sheet
@@ -30,4 +29,5 @@ nextflow_process {
             )
         }
     }
+
 }
