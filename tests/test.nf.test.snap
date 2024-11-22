@@ -4,7 +4,7 @@
             5,
             {
                 "CREATE_ANNOTATED_TABLES": {
-                    "r-base": "4.3.2",
+                    "r-base": "4.3.3",
                     "r-ggplot2": null,
                     "r-dplyr": "1.1.4",
                     "r-readr": "2.1.5"
@@ -115,6 +115,6 @@
             "nf-test": "0.9.0",
             "nextflow": "24.10.1"
         },
-        "timestamp": "2024-11-19T21:23:55.334879021"
+        "timestamp": "2024-11-21T12:52:19.83780821"
     }
 }
