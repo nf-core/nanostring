@@ -10,11 +10,10 @@ include { CREATE_GENE_HEATMAP     } from '../../../modules/local/create_gene_hea
 
 workflow COMPUTE_GENE_SCORES_HEATMAP {
     take:
-    normalized_counts      // channel: path(rcc files)
-    ch_gene_score_config   // file: /path/to/samplesheet.csv
-    annotated_endo_data
-    ch_heatmap_genes_to_filter
-
+    normalized_counts          // channel: [ normalized_counts.tsv ]
+    ch_gene_score_config       // channel: [ params.gene_score_yaml ]
+    annotated_endo_data        // channel: [ annotated_endo_data.tsv ]
+    ch_heatmap_genes_to_filter // channel: [ params.heatmap_genes_to_filter ]
 
     main:
     ch_versions = Channel.empty()
@@ -44,6 +43,6 @@ workflow COMPUTE_GENE_SCORES_HEATMAP {
     }
 
     emit:
-    versions                = ch_versions                 // channel: [ versions.yml ]
-    multiqc_files           = ch_multiqc_files
+    versions                = ch_versions      // channel: [ versions.yml ]
+    multiqc_files           = ch_multiqc_files // channel: [*mqc.txt, *gene_heatmap_mqc.png ]
 }

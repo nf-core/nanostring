@@ -3,22 +3,30 @@
         "content": [
             {
                 "0": [
+                    "versions.yml:md5,63b539ddb8d646a7cf480f3de2e47100",
+                    "versions.yml:md5,6fac9e04824b7752f45abd6b1d4ef0a9"
+                ],
+                "1": [
+                    [
+                        "gene_heatmap_mqc.png:md5,3472b2c3d92a326f82ea7b542163a6c3"
+                    ],
                     [
                         "signature_scores_mqc.txt:md5,315dc730c79b02067b542074eaeb07b9",
                         "signature_scores_qc_mqc.txt:md5,88ec48e1d7488357663557b378615923"
                     ]
                 ],
-                "1": [
-                    "versions.yml:md5,267e6a81e12563418edabbdaa1a5ef79"
-                ],
-                "scores_for_mqc": [
+                "multiqc_files": [
+                    [
+                        "gene_heatmap_mqc.png:md5,3472b2c3d92a326f82ea7b542163a6c3"
+                    ],
                     [
                         "signature_scores_mqc.txt:md5,315dc730c79b02067b542074eaeb07b9",
                         "signature_scores_qc_mqc.txt:md5,88ec48e1d7488357663557b378615923"
                     ]
                 ],
                 "versions": [
-                    "versions.yml:md5,267e6a81e12563418edabbdaa1a5ef79"
+                    "versions.yml:md5,63b539ddb8d646a7cf480f3de2e47100",
+                    "versions.yml:md5,6fac9e04824b7752f45abd6b1d4ef0a9"
                 ]
             }
         ],
@@ -26,6 +34,6 @@
             "nf-test": "0.9.0",
             "nextflow": "24.10.1"
         },
-        "timestamp": "2024-11-26T21:18:41.043683333"
+        "timestamp": "2024-11-26T21:32:37.651136335"
     }
 }

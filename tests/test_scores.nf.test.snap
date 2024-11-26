@@ -11,8 +11,7 @@
                     "r-GSVA": "1.46.0",
                     "r-yaml": "2.3.7",
                     "r-FactoMineR": 2.8,
-                    "r-stringr": "1.5.0",
-                    "r-matrixstats": null
+                    "r-stringr": "1.5.0"
                 },
                 "CREATE_ANNOTATED_TABLES": {
                     "r-base": "4.3.3",
@@ -145,6 +144,6 @@
             "nf-test": "0.9.0",
             "nextflow": "24.10.1"
         },
-        "timestamp": "2024-11-22T20:46:47.528746237"
+        "timestamp": "2024-11-26T21:54:00.804106997"
     }
 }

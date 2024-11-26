@@ -33,7 +33,6 @@ process COMPUTE_GENE_SCORES {
         r-yaml: \$(Rscript -e "library(yaml); cat(as.character(packageVersion('yaml')))")
         r-FactoMineR: \$(Rscript -e "library(FactoMineR); cat(as.character(packageVersion('FactoMineR')))")
         r-stringr: \$(Rscript -e "library(stringr); cat(as.character(packageVersion('stringr')))")
-        r-matrixstats: \$(Rscript -e "library(matrixstats); cat(as.character(packageVersion('matrixstats')))")
     END_VERSIONS
     """
 }

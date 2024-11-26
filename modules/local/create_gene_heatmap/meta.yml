@@ -7,7 +7,7 @@ keywords:
 tools:
   - create_gene_heatmap:
       description: |
-        The create_gene_heatmap module generates a heatmap of gene counts.
+        The create_gene_heatmap module generates a heatmap of gene counts using ComplexHeatmap R package.
         It supports gene selection via additional files and provides a log-transformed visualization of the data.
 input:
   - - annotated_counts:
