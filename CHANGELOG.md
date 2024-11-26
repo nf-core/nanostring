@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#101](https://github.com/nf-core/nanostring/pull/101) - Added nf-tests for local module `COMPUTE_GENE_SCORES`.
 - [#102](https://github.com/nf-core/nanostring/pull/102) - Added nf-tests for local module `CREATE_GENE_HEATMAP`.
 - [#103](https://github.com/nf-core/nanostring/pull/103) - Added nf-tests for local module `CREATE_ANNOTATED_TABLES`.
+- [#104](https://github.com/nf-core/nanostring/pull/104) - Update all nf-core modules and subworkflows.
 
 ### `Fixed`
 
