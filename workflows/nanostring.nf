@@ -16,9 +16,10 @@ ch_heatmap_genes_to_filter   = params.heatmap_genes_to_filter  ? Channel.fromPat
 //
 // SUBWORKFLOWS: Consisting of a mix of local and nf-core/modules
 //
-include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_nanostring_pipeline'
-include { QUALITY_CONTROL }        from '../subworkflows/local/quality_control'
-include { NORMALIZE }              from '../subworkflows/local/normalize'
+include { methodsDescriptionText      } from '../subworkflows/local/utils_nfcore_nanostring_pipeline'
+include { QUALITY_CONTROL             } from '../subworkflows/local/quality_control'
+include { NORMALIZE                   } from '../subworkflows/local/normalize'
+include { COMPUTE_GENE_SCORES_HEATMAP } from '../subworkflows/local/compute_gene_scores_heatmap'
 
 //
 // MODULES
@@ -98,27 +99,16 @@ workflow NANOSTRING {
     ch_multiqc_files = ch_multiqc_files.mix(CREATE_ANNOTATED_TABLES.out.annotated_data_mqc.collect())
 
     //
-    // MODULE: Compute gene scores for supplied YAML gene score file
+    // Run compute gene scores and plot heatmap
     //
-    COMPUTE_GENE_SCORES(
+    COMPUTE_GENE_SCORES_HEATMAP (
         NORMALIZE.out.normalized_counts,
-        ch_gene_score_config
-    )
-    ch_versions      = ch_versions.mix(COMPUTE_GENE_SCORES.out.versions)
-    ch_multiqc_files = ch_multiqc_files.mix(COMPUTE_GENE_SCORES.out.scores_for_mqc.collect())
-
-    //
-    // MODULE: Compute gene-count heatmap for MultiQC report based on annotated (ENDO) counts
-    //
-    if(!params.skip_heatmap){
-        CREATE_GENE_HEATMAP (
+        ch_gene_score_config,
         CREATE_ANNOTATED_TABLES.out.annotated_endo_data,
-        NORMALIZE.out.normalized_counts,
-        ch_heatmap_genes_to_filter.toList()
-        )
-        ch_versions       = ch_versions.mix(CREATE_GENE_HEATMAP.out.versions)
-        ch_multiqc_files  = ch_multiqc_files.mix(CREATE_GENE_HEATMAP.out.gene_heatmap.collect())
-    }
+        ch_heatmap_genes_to_filter
+    )
+    ch_versions      = ch_versions.mix(COMPUTE_GENE_SCORES_HEATMAP.out.versions)
+    ch_multiqc_files = ch_multiqc_files.mix(COMPUTE_GENE_SCORES_HEATMAP.out.multiqc_files)
 
     //
     // Collate and save software versions
