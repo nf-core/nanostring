@@ -28,7 +28,6 @@ if (length(args) == 4) {
 }
 
 #Select counts of interest
-print(counts)
 counts_selected <- counts %>% dplyr::select(all_of(genes))
 
 #log2+1
