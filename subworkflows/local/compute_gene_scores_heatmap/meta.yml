@@ -19,22 +19,22 @@ input:
   - - normalized_counts:
         type: file
         description: |
-          A normalized gene counts matrix in TSV format, used for both gene score calculation and heatmap generation.
+          A tab-separated file containing normalized gene expression counts for all genes both Endogenous and Housekeeping genes, depending on the normalization method chosen (genes as rows and samples as columns).
         pattern: "*normalized_counts.tsv"
-  - - ch_gene_score_config:
+  - - ch_gene_score_yaml:
         type: file
         description: |
-          This sets the YAML to be used for computing the gene scores. Needs both a name for each set of genes and respective genes to be selected.
+          Optional YAML file to be used for computing the gene scores. Needs both a name for each set of genes and respective genes to be selected.
         pattern: "*.yaml"
   - - annotated_endo_data:
         type: file
         description: |
-          A tab-separated file containing annotated counts.
+          A tab-separated file containing  normalized expression counts for the Endogenous genes (genes as columns and samples as rows).
         pattern: "*.tsv"
   - - ch_heatmap_genes_to_filter:
         type: file
         description: |
-          Path to yml file (list, one item per line) to specify which genes should be used for the gene-count heatmap.
+          Path to YAML file (list, one item per line) to specify which genes should be used for the gene-count heatmap.
         pattern: "*.yaml"
 output:
   - multiqc_files:

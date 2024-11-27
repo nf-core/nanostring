@@ -10,7 +10,7 @@ library(ragg)
 ###Command line argument parsing###
 args = commandArgs(trailingOnly=TRUE)
 if (length(args) < 1) {
-    stop("Usage: compute_gene_heatmap.R <annotated_counts.tsv> <counts.tsv> <sample_id_col> or compute_gene_heatmap.R <annotated_counts.tsv> <counts.tsv> <genes.yaml> <sample_id_col>", call.=FALSE)
+    stop("Usage: compute_gene_heatmap.R <annotated_endo_data.tsv> <normalized_counts.tsv> <sample_id_col> or compute_gene_heatmap.R <annotated_counts.tsv> <counts.tsv> <genes.yaml> <sample_id_col>", call.=FALSE)
 }
 input_counts_annotated <- args[1]
 input_counts <- args[2]
@@ -28,6 +28,7 @@ if (length(args) == 4) {
 }
 
 #Select counts of interest
+print(counts)
 counts_selected <- counts %>% dplyr::select(all_of(genes))
 
 #log2+1

@@ -57,7 +57,7 @@
                 },
                 "heatmap_genes_to_filter": {
                     "type": "string",
-                    "description": "Path to yml file (list, one item per line) to specify which genes should be used for the gene-count heatmap."
+                    "description": "Path to YAML file (list, one item per line) to specify which genes should be used for the gene-count heatmap."
                 }
             }
         },

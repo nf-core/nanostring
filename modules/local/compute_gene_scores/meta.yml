@@ -14,17 +14,27 @@ tools:
         Computes gene scores using various methods such as Singscore, GSVA, SSGSEA, PLAGE, and Samsscore.
         It includes multiple gene set transformations and scoring techniques.
 input:
-  - - counts:
+  - - meta:
+        type: map
+        description: |
+          Groovy Map containing sample information
+          e.g. [ id:'test' ]
+    - normalized_counts:
         type: file
         description: |
-          A matrix or data frame containing normalized gene counts data.
+          A tab-separated file containing normalized gene expression counts for all genes both Endogenous and Housekeeping genes, depending on the normalization method chosen (genes as rows and samples as columns).
         pattern: "*normalized_counts.tsv"
-  - - geneset_yaml:
+  - - gene_score_yaml:
         type: file
         description: |
-          This sets the YAML to be used for computing the gene scores. Needs both a name for each set of genes and respective genes to be selected.
+          Optional YAML file to be used for computing the gene scores. Needs both a name for each set of genes and respective genes to be selected.
 output:
   - scores_for_mqc:
+      - meta:
+        type: map
+        description: |
+          Groovy Map containing sample information
+          e.g. [ id:'test' ]
       - "*.txt":
         type: file
         description: |

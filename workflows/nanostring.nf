@@ -4,7 +4,7 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-ch_gene_score_config         = params.gene_score_yaml   ? Channel.fromPath( params.gene_score_yaml, checkIfExists: true ) : Channel.empty()
+ch_gene_score_yaml         = params.gene_score_yaml   ? Channel.fromPath( params.gene_score_yaml, checkIfExists: true ) : Channel.empty()
 ch_heatmap_genes_to_filter   = params.heatmap_genes_to_filter  ? Channel.fromPath( params.heatmap_genes_to_filter, checkIfExists: true ) : Channel.empty()
 
 /*
@@ -25,8 +25,6 @@ include { COMPUTE_GENE_SCORES_HEATMAP } from '../subworkflows/local/compute_gene
 // MODULES
 //
 include { CREATE_ANNOTATED_TABLES } from '../modules/local/create_annotated_tables'
-include { COMPUTE_GENE_SCORES     } from '../modules/local/compute_gene_scores'
-include { CREATE_GENE_HEATMAP     } from '../modules/local/create_gene_heatmap'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -101,10 +99,17 @@ workflow NANOSTRING {
     //
     // Run compute gene scores and plot heatmap
     //
+
+    // TODO: We need to add a meta map to the NORMALIZE and CREATE_ANNOTATED_TABLES processes
+    // Doesn't impact results because all results get colapsed into a single item
+    // Adding a temporary meta to the output channels so they can be joined afterwards.
+    ch_normalized_counts = NORMALIZE.out.normalized_counts.map{ it->[ [id:""], it ] }
+    ch_annotated_endo_data = CREATE_ANNOTATED_TABLES.out.annotated_endo_data.map{ it->[ [id:""], it ] }
+
     COMPUTE_GENE_SCORES_HEATMAP (
-        NORMALIZE.out.normalized_counts,
-        ch_gene_score_config,
-        CREATE_ANNOTATED_TABLES.out.annotated_endo_data,
+        ch_normalized_counts,
+        ch_annotated_endo_data,
+        ch_gene_score_yaml,
         ch_heatmap_genes_to_filter
     )
     ch_versions      = ch_versions.mix(COMPUTE_GENE_SCORES_HEATMAP.out.versions)
