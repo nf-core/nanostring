@@ -14,6 +14,7 @@ workflow COMPUTE_GENE_SCORES_HEATMAP {
     annotated_endo_data        // channel: [ meta, annotated_endo_data.tsv ]
     ch_gene_score_yaml         // channel: [ file(gene_score_yaml.yaml) ]
     ch_heatmap_genes_to_filter // channel: [ file(heatmap_genes_to_filter.yaml) ]
+    skip_heatmap               // boolean
 
     main:
     ch_versions = Channel.empty()
@@ -32,7 +33,7 @@ workflow COMPUTE_GENE_SCORES_HEATMAP {
     //
     // MODULE: Compute gene-count heatmap for MultiQC report based on annotated (ENDO) counts
     //
-    if(!params.skip_heatmap){
+    if(!skip_heatmap){
         ch_create_gene_heatmap_input = annotated_endo_data.join(normalized_counts)
         CREATE_GENE_HEATMAP (
             ch_create_gene_heatmap_input,

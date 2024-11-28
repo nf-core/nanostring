@@ -36,6 +36,10 @@ input:
         description: |
           Path to YAML file (list, one item per line) to specify which genes should be used for the gene-count heatmap.
         pattern: "*.yaml"
+  - - skip_heatmap:
+        type: boolean
+        description: |
+          Whether or not to skip heatmap generation.
 output:
   - multiqc_files:
       - "*.txt":

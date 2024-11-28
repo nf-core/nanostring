@@ -19,7 +19,11 @@ process CREATE_GENE_HEATMAP {
     def args = task.ext.args ?: ''
 
     """
-    compute_gene_heatmap.R $annotated_endo_data $normalized_counts $heatmap_genes_to_filter $args
+    compute_gene_heatmap.R \\
+    $annotated_endo_data \\
+    $normalized_counts \\
+    $heatmap_genes_to_filter \\
+    $args
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
