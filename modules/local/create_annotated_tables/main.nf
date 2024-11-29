@@ -6,14 +6,14 @@ process CREATE_ANNOTATED_TABLES {
     container "community.wave.seqera.io/library/r-dplyr_r-ggplot2_r-readr_r-stringr_r-tidyr:44c4e4fe69e11c2f"
 
     input:
-    path counts
-    path sample_sheet
+    tuple val(meta) , path(counts)
+    tuple val(meta2), path(sample_sheet)
 
     output:
-    path "*ENDO.tsv"   , emit: annotated_endo_data
-    path "*HK.tsv*"    , emit: annotated_hk_data
-    path "*_mqc.tsv"   , emit: annotated_data_mqc
-    path "versions.yml", emit: versions
+    tuple val(meta), path("*ENDO.tsv"), emit: annotated_endo_data
+    tuple val(meta), path("*HK.tsv*") , emit: annotated_hk_data
+    tuple val(meta), path("*_mqc.tsv"), emit: annotated_data_mqc
+    path "versions.yml"               , emit: versions
 
     when:
     task.ext.when == null || task.ext.when

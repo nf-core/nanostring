@@ -66,7 +66,7 @@ workflow NANOSTRING {
         .map { meta, rcc_path -> rcc_path}
         .collect()
         .map{ rcc_path ->
-            tuple( [id: "files"], rcc_path )
+            tuple( [ id: file(params.input).getName() ], rcc_path )
         }
         .set{ rcc_files }
 
@@ -88,30 +88,23 @@ workflow NANOSTRING {
         samplesheet_path
     )
     ch_versions         = ch_versions.mix(NORMALIZE.out.versions)
-    ch_normalized       = NORMALIZE.out.normalized_counts.map{ it[1] }
-    ch_normalized_wo_hk = NORMALIZE.out.normalized_counts_wo_HK.map{ it[1] }
+    ch_normalized       = NORMALIZE.out.normalized_counts
+    ch_normalized_wo_hk = NORMALIZE.out.normalized_counts_wo_HK
 
     //
     // MODULE: Annotate normalized counts with metadata from the samplesheet
     //
     CREATE_ANNOTATED_TABLES (
-        ch_normalized.mix(ch_normalized_wo_hk).toSortedList().flatten(),
-        samplesheet_path.map{it[1]}
+        ch_normalized.mix(ch_normalized_wo_hk).toSortedList{ a, b -> a[1].getName() <=> b[1].getName() }.flatMap(), // Order tuples (based on file name) to stabilize tests and reproducibility
+        samplesheet_path
     )
     ch_versions            = ch_versions.mix(CREATE_ANNOTATED_TABLES.out.versions)
-    ch_annotated_endo_data = CREATE_ANNOTATED_TABLES.out.annotated_endo_data.map{ it->[ [id:""], it ] }
-    ch_multiqc_files       = ch_multiqc_files.mix(CREATE_ANNOTATED_TABLES.out.annotated_data_mqc.collect())
+    ch_annotated_endo_data = CREATE_ANNOTATED_TABLES.out.annotated_endo_data
+    ch_multiqc_files       = ch_multiqc_files.mix(CREATE_ANNOTATED_TABLES.out.annotated_data_mqc.map{it[1]}.collect())
 
     //
     // Run compute gene scores and plot heatmap subworkflow
     //
-
-    // TODO: We need to add a meta map to the NORMALIZE and CREATE_ANNOTATED_TABLES processes
-    // Doesn't impact results because all results get colapsed into a single item
-    // Adding a temporary meta to the output channels so they can be joined afterwards.
-    // ch_normalized_counts = NORMALIZE.out.normalized_counts.map{ it->[ [id:""], it ] }
-    // ch_annotated_endo_data = CREATE_ANNOTATED_TABLES.out.annotated_endo_data.map{ it->[ [id:""], it ] }
-
     COMPUTE_GENE_SCORES_HEATMAP (
         ch_normalized,
         ch_annotated_endo_data,
