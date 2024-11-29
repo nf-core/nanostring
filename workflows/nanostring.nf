@@ -52,19 +52,23 @@ include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pi
 workflow NANOSTRING {
 
     take:
-    ch_samplesheet // channel: samplesheet read in from --input
+    ch_samplesheet      // channel: samplesheet read in from --input
     samplesheet_path
 
     main:
 
     ch_versions = Channel.empty()
     ch_multiqc_files = Channel.empty()
+
     //
     // INPUT RCC FILES
     //
     ch_samplesheet
         .map { meta, rcc_path -> rcc_path}
         .collect()
+        .map{ rcc_path ->
+            tuple( [id: "files"], rcc_path )
+        }
         .set{ rcc_files }
 
     //
@@ -84,15 +88,16 @@ workflow NANOSTRING {
         rcc_files,
         samplesheet_path
     )
-    ch_versions = ch_versions.mix(NORMALIZE.out.versions)
-
+    ch_versions         = ch_versions.mix(NORMALIZE.out.versions)
+    ch_normalized       = NORMALIZE.out.normalized_counts.map{ it[1] }
+    ch_normalized_wo_hk = NORMALIZE.out.normalized_counts_wo_HK.map{ it[1] }
 
     //
     // MODULE: Annotate normalized counts with metadata from the samplesheet
     //
     CREATE_ANNOTATED_TABLES (
-        NORMALIZE.out.normalized_counts.mix(NORMALIZE.out.normalized_counts_wo_HK).toSortedList().flatten(),
-        samplesheet_path
+        ch_normalized.mix(ch_normalized_wo_hk).toSortedList().flatten(),
+        samplesheet_path.map{it[1]}
     )
     ch_versions      = ch_versions.mix(CREATE_ANNOTATED_TABLES.out.versions)
     ch_multiqc_files = ch_multiqc_files.mix(CREATE_ANNOTATED_TABLES.out.annotated_data_mqc.collect())
@@ -101,7 +106,7 @@ workflow NANOSTRING {
     // MODULE: Compute gene scores for supplied YAML gene score file
     //
     COMPUTE_GENE_SCORES(
-        NORMALIZE.out.normalized_counts,
+        ch_normalized,
         ch_gene_score_config
     )
     ch_versions      = ch_versions.mix(COMPUTE_GENE_SCORES.out.versions)
@@ -113,7 +118,7 @@ workflow NANOSTRING {
     if(!params.skip_heatmap){
         CREATE_GENE_HEATMAP (
         CREATE_ANNOTATED_TABLES.out.annotated_endo_data,
-        NORMALIZE.out.normalized_counts,
+        ch_normalized,
         ch_heatmap_genes_to_filter.toList()
         )
         ch_versions       = ch_versions.mix(CREATE_GENE_HEATMAP.out.versions)

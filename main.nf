@@ -47,7 +47,7 @@ workflow NFCORE_NANOSTRING {
     //
     NANOSTRING (
         samplesheet,
-        Channel.from(file(params.input))
+        Channel.from(file(params.input)).map{ tuple( [id: 'samplesheet'], it) }
     )
     emit:
     multiqc_report = NANOSTRING.out.multiqc_report // channel: /path/to/multiqc_report.html
