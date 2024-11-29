@@ -4,7 +4,7 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-ch_gene_score_config         = params.gene_score_yaml   ? Channel.fromPath( params.gene_score_yaml, checkIfExists: true ) : Channel.empty()
+ch_gene_score_yaml         = params.gene_score_yaml   ? Channel.fromPath( params.gene_score_yaml, checkIfExists: true ) : Channel.empty()
 ch_heatmap_genes_to_filter   = params.heatmap_genes_to_filter  ? Channel.fromPath( params.heatmap_genes_to_filter, checkIfExists: true ) : Channel.empty()
 
 /*
@@ -16,16 +16,15 @@ ch_heatmap_genes_to_filter   = params.heatmap_genes_to_filter  ? Channel.fromPat
 //
 // SUBWORKFLOWS: Consisting of a mix of local and nf-core/modules
 //
-include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_nanostring_pipeline'
-include { QUALITY_CONTROL }        from '../subworkflows/local/quality_control'
-include { NORMALIZE }              from '../subworkflows/local/normalize'
+include { methodsDescriptionText      } from '../subworkflows/local/utils_nfcore_nanostring_pipeline'
+include { QUALITY_CONTROL             } from '../subworkflows/local/quality_control'
+include { NORMALIZE                   } from '../subworkflows/local/normalize'
+include { COMPUTE_GENE_SCORES_HEATMAP } from '../subworkflows/local/compute_gene_scores_heatmap'
 
 //
 // MODULES
 //
 include { CREATE_ANNOTATED_TABLES } from '../modules/local/create_annotated_tables'
-include { COMPUTE_GENE_SCORES     } from '../modules/local/compute_gene_scores'
-include { CREATE_GENE_HEATMAP     } from '../modules/local/create_gene_heatmap'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -99,31 +98,29 @@ workflow NANOSTRING {
         ch_normalized.mix(ch_normalized_wo_hk).toSortedList().flatten(),
         samplesheet_path.map{it[1]}
     )
-    ch_versions      = ch_versions.mix(CREATE_ANNOTATED_TABLES.out.versions)
-    ch_multiqc_files = ch_multiqc_files.mix(CREATE_ANNOTATED_TABLES.out.annotated_data_mqc.collect())
+    ch_versions            = ch_versions.mix(CREATE_ANNOTATED_TABLES.out.versions)
+    ch_annotated_endo_data = CREATE_ANNOTATED_TABLES.out.annotated_endo_data.map{ it->[ [id:""], it ] }
+    ch_multiqc_files       = ch_multiqc_files.mix(CREATE_ANNOTATED_TABLES.out.annotated_data_mqc.collect())
 
     //
-    // MODULE: Compute gene scores for supplied YAML gene score file
+    // Run compute gene scores and plot heatmap subworkflow
     //
-    COMPUTE_GENE_SCORES(
+
+    // TODO: We need to add a meta map to the NORMALIZE and CREATE_ANNOTATED_TABLES processes
+    // Doesn't impact results because all results get colapsed into a single item
+    // Adding a temporary meta to the output channels so they can be joined afterwards.
+    // ch_normalized_counts = NORMALIZE.out.normalized_counts.map{ it->[ [id:""], it ] }
+    // ch_annotated_endo_data = CREATE_ANNOTATED_TABLES.out.annotated_endo_data.map{ it->[ [id:""], it ] }
+
+    COMPUTE_GENE_SCORES_HEATMAP (
         ch_normalized,
-        ch_gene_score_config
+        ch_annotated_endo_data,
+        ch_gene_score_yaml,
+        ch_heatmap_genes_to_filter,
+        params.skip_heatmap
     )
-    ch_versions      = ch_versions.mix(COMPUTE_GENE_SCORES.out.versions)
-    ch_multiqc_files = ch_multiqc_files.mix(COMPUTE_GENE_SCORES.out.scores_for_mqc.collect())
-
-    //
-    // MODULE: Compute gene-count heatmap for MultiQC report based on annotated (ENDO) counts
-    //
-    if(!params.skip_heatmap){
-        CREATE_GENE_HEATMAP (
-        CREATE_ANNOTATED_TABLES.out.annotated_endo_data,
-        ch_normalized,
-        ch_heatmap_genes_to_filter.toList()
-        )
-        ch_versions       = ch_versions.mix(CREATE_GENE_HEATMAP.out.versions)
-        ch_multiqc_files  = ch_multiqc_files.mix(CREATE_GENE_HEATMAP.out.gene_heatmap.collect())
-    }
+    ch_versions      = ch_versions.mix(COMPUTE_GENE_SCORES_HEATMAP.out.versions)
+    ch_multiqc_files = ch_multiqc_files.mix(COMPUTE_GENE_SCORES_HEATMAP.out.multiqc_files)
 
     //
     // Collate and save software versions
