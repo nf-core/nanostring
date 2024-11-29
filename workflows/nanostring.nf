@@ -116,8 +116,7 @@ workflow NANOSTRING {
         ch_normalized,
         ch_annotated_endo_data,
         ch_gene_score_yaml,
-        ch_heatmap_genes_to_filter,
-        params.skip_heatmap
+        ch_heatmap_genes_to_filter
     )
     ch_versions      = ch_versions.mix(COMPUTE_GENE_SCORES_HEATMAP.out.versions)
     ch_multiqc_files = ch_multiqc_files.mix(COMPUTE_GENE_SCORES_HEATMAP.out.multiqc_files)
