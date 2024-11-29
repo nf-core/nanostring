@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#95](https://github.com/nf-core/nanostring/pull/95) - Add pipeline level nf-tests.
 - [#96](https://github.com/nf-core/nanostring/pull/96) - Remove timestamp suffix from nacho_norm.R and write_out_prepared_gex.R
 - [#114](https://github.com/nf-core/nanostring/pull/114) - Convert `CREATE_GENE_HEATMAP` and `COMPUTE_GENE_SCORES` to nf-core format and create a subworkflow for them.
+- [#117](https://github.com/nf-core/nanostring/pull/117) - Convert `NACHO_NORMALIZE` and `NACHO_QC` from local to nf-core modules.
 
 ### `Dependencies`
 
