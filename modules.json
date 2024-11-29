@@ -9,6 +9,16 @@
                         "branch": "master",
                         "git_sha": "fb387b16025333f6d66b88d6c48c3719f47b1637",
                         "installed_by": ["modules"]
+                    },
+                    "nacho/normalize": {
+                        "branch": "master",
+                        "git_sha": "8aa4eca73fb6245b1b69bada50e9c31687b4d660",
+                        "installed_by": ["modules"]
+                    },
+                    "nacho/qc": {
+                        "branch": "master",
+                        "git_sha": "06093bb4fd6d910b6167bc51abc40329b3b2c4f8",
+                        "installed_by": ["modules"]
                     }
                 }
             },
