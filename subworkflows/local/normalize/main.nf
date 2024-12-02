@@ -2,12 +2,12 @@
 // Perform normalizations (currently using Nacho)
 //
 
-include { NACHO_NORMALIZE } from '../../../modules/local/nacho/normalize/main'
+include { NACHO_NORMALIZE } from '../../../modules/nf-core/nacho/normalize/main'
 
 workflow NORMALIZE {
     take:
-    counts      // channel: path(rcc files)
-    samplesheet // file: /path/to/samplesheet.csv
+    counts      // channel: [ meta, [rcc files] ]
+    samplesheet // channel: [ meta, path/to/samplesheet.csv ]
 
     main:
     NACHO_NORMALIZE ( counts, samplesheet )
