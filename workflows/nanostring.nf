@@ -51,8 +51,8 @@ include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pi
 workflow NANOSTRING {
 
     take:
-    ch_samplesheet      // channel: samplesheet read in from --input
-    samplesheet_path
+    ch_samplesheet   // channel: [ meta, rcc_path ]
+    samplesheet_path // channel: [ meta, path/to/samplesheet ]
 
     main:
 
