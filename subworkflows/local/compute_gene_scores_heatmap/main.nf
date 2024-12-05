@@ -35,7 +35,7 @@ workflow COMPUTE_GENE_SCORES_HEATMAP {
     // MODULE: Compute gene-count heatmap for MultiQC report based on annotated (ENDO) counts
     //
     if( !skip_heatmap ){
-        ch_create_gene_heatmap_input = annotated_endo_data.join(normalized_counts)
+        ch_create_gene_heatmap_input = annotated_endo_data.combine(normalized_counts, by:0)
         CREATE_GENE_HEATMAP (
             ch_create_gene_heatmap_input,
             ch_heatmap_genes_to_filter.toList()

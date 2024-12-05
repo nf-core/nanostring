@@ -1,7 +1,7 @@
 {
     "test_scores profile": {
         "content": [
-            7,
+            8,
             {
                 "COMPUTE_GENE_SCORES": {
                     "r-base": "4.2.3",
@@ -83,6 +83,7 @@
                 "annotated_tables/counts_wo_HKnorm_Norm_GEX_ENDO.tsv",
                 "annotated_tables/counts_wo_HKnorm_Norm_GEX_HK.tsv",
                 "gene_heatmaps",
+                "gene_heatmaps/gene_heatmap_mqc.png",
                 "gene_heatmaps/wo_HKnorm_gene_heatmap_mqc.png",
                 "gene_scores",
                 "gene_scores/signature_scores_mqc.txt",
@@ -156,6 +157,6 @@
             "nf-test": "0.9.0",
             "nextflow": "24.10.2"
         },
-        "timestamp": "2024-12-04T19:36:07.582586731"
+        "timestamp": "2024-12-05T20:54:11.589815018"
     }
 }

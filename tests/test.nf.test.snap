@@ -1,7 +1,7 @@
 {
     "Test profile": {
         "content": [
-            6,
+            7,
             {
                 "CREATE_ANNOTATED_TABLES": {
                     "r-base": "4.3.3",
@@ -74,6 +74,7 @@
                 "annotated_tables/counts_wo_HKnorm_Norm_GEX_HK.tsv",
                 "gene_heatmaps",
                 "gene_heatmaps/gene_heatmap_mqc.png",
+                "gene_heatmaps/wo_HKnorm_gene_heatmap_mqc.png",
                 "multiqc",
                 "multiqc/multiqc_data",
                 "multiqc/multiqc_data/multiqc_No_HK_Norm_GEX_ENDO-section-plot.txt",
@@ -131,6 +132,6 @@
             "nf-test": "0.9.0",
             "nextflow": "24.10.2"
         },
-        "timestamp": "2024-12-04T19:31:44.160927799"
+        "timestamp": "2024-12-05T20:51:14.627637542"
     }
 }
