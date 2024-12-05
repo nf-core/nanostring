@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
-- [#117](https://github.com/nf-core/nanostring/pull/117) - Fix input samplesheet, convert it to value channel.
+- [#119 ](https://github.com/nf-core/nanostring/pull/119) - Fix input samplesheet, convert it to value channel. [#118](https://github.com/nf-core/nanostring/issues/118)
 
 ### `Changed`
 
