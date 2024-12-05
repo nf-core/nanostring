@@ -75,7 +75,7 @@ workflow NANOSTRING {
     //
     QUALITY_CONTROL (
         rcc_files,
-        samplesheet_path
+        samplesheet_path.first()
     )
     ch_versions      = ch_versions.mix(QUALITY_CONTROL.out.versions)
     ch_multiqc_files = ch_multiqc_files.mix(QUALITY_CONTROL.out.nacho_qc_multiqc_metrics.collect())
@@ -85,7 +85,7 @@ workflow NANOSTRING {
     //
     NORMALIZE (
         rcc_files,
-        samplesheet_path
+        samplesheet_path.first()
     )
     ch_versions         = ch_versions.mix(NORMALIZE.out.versions)
     ch_normalized       = NORMALIZE.out.normalized_counts
@@ -96,7 +96,7 @@ workflow NANOSTRING {
     //
     CREATE_ANNOTATED_TABLES (
         ch_normalized.mix(ch_normalized_wo_hk).toSortedList{ a, b -> a[1].getName() <=> b[1].getName() }.flatMap(), // Order tuples (based on file name) to stabilize tests and reproducibility
-        samplesheet_path
+        samplesheet_path.first()
     )
     ch_versions            = ch_versions.mix(CREATE_ANNOTATED_TABLES.out.versions)
     ch_annotated_endo_data = CREATE_ANNOTATED_TABLES.out.annotated_endo_data
