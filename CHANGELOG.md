@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
-- [#117](https://github.com/nf-core/nanostring/pull/117) - Fix input channels being consumed, convert them to value channels for `CREATE_ANNOTATED_TABLES` and `CREATE_GENE_HEATMAP`.
+- [#119](https://github.com/nf-core/nanostring/pull/119) - Fix input channels being consumed, convert them to value channels for `CREATE_ANNOTATED_TABLES` and `CREATE_GENE_HEATMAP`. [#118](https://github.com/nf-core/nanostring/issues/118)
 
 ### `Changed`
 
