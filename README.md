@@ -8,6 +8,7 @@
 [![GitHub Actions CI Status](https://github.com/nf-core/nanostring/actions/workflows/ci.yml/badge.svg)](https://github.com/nf-core/nanostring/actions/workflows/ci.yml)
 [![GitHub Actions Linting Status](https://github.com/nf-core/nanostring/actions/workflows/linting.yml/badge.svg)](https://github.com/nf-core/nanostring/actions/workflows/linting.yml)
 [![AWS CI](https://img.shields.io/badge/CI%20tests-full%20size-FF9900?labelColor=000000&logo=Amazon%20AWS)](https://nf-co.re/nanostring/results)
+[![nf-test](https://img.shields.io/badge/unit_tests-nf--test-337ab7.svg)](https://www.nf-test.com)
 [![Cite with Zenodo](http://img.shields.io/badge/DOI-10.5281/zenodo.8028303-1073c8?labelColor=000000)](https://doi.org/10.5281/zenodo.8028303)
 
 [![Nextflow](https://img.shields.io/badge/nextflow%20DSL2-%E2%89%A524.04.2-23aa62.svg)](https://www.nextflow.io/)
@@ -37,7 +38,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool
 
 ## Usage
 
-> **Note**
+> [!NOTE]
 > If you are new to Nextflow and nf-core, please refer to [this page](https://nf-co.re/docs/usage/installation) on how
 > to set-up Nextflow. Make sure to [test your setup](https://nf-co.re/docs/usage/introduction#how-to-run-a-pipeline)
 > with `-profile test` before running the workflow on actual data.
