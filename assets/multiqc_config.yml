@@ -68,7 +68,7 @@ disable_version_detection: true
 
 # Run only these modules
 run_modules:
-- custom_content
+  - custom_content
 
 custom_data:
   BD:
