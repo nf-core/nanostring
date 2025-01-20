@@ -10,11 +10,31 @@
 
 ## Pipeline tools
 
-- [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
-
-> Andrews, S. (2010). FastQC: A Quality Control Tool for High Throughput Sequence Data [Online].- [MultiQC](https://pubmed.ncbi.nlm.nih.gov/27312411/)
+- [MultiQC](https://pubmed.ncbi.nlm.nih.gov/27312411/)
 
 > Ewels P, Magnusson M, Lundin S, Käller M. MultiQC: summarize analysis results for multiple tools and samples in a single report. Bioinformatics. 2016 Oct 1;32(19):3047-8. doi: 10.1093/bioinformatics/btw354. Epub 2016 Jun 16. PubMed PMID: 27312411; PubMed Central PMCID: PMC5039924.
+
+- [NACHO](https://pubmed.ncbi.nlm.nih.gov/31504159/)
+
+  > Canouil M, Bouland GA, Bonnefond A, Froguel P, Hart L, Slieker R. NACHO: an R package for quality control of NanoString nCounter data. Bioinformatics. 2019 Aug 23;36(3), 970-971. doi: 10.1093/bioinformatics/btz647. PubMed PMID: 31504159; PubMed Central PMCID: PMC9883715.
+
+- [GSVA](https://link.springer.com/article/10.1186/1471-2105-14-7)
+
+  > Hänzelmann, Sonja, Robert Castelo, and Justin Guinney. "GSVA: gene set variation analysis for microarray and RNA-seq data." BMC bioinformatics 14 (2013): 1-15.
+
+- [SINGSCORE](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-018-2435-4)
+
+  > Foroutan, M., Bhuva, D.D., Lyu, R. et al. Single sample scoring of molecular phenotypes. BMC Bioinformatics 19, 404 (2018)
+
+- [PLAGE](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-6-225)
+
+  > Tomfohr J, Lu J, Kepler TB. Pathway level analysis of gene expression using singular value decomposition. BMC Bioinformatics. 2005;6:225.
+
+- [SSGSEA] (see GSVA)
+
+- [SAMS](https://www.pnas.org/doi/abs/10.1073/pnas.091062498)
+
+  > Tusher, Virginia Goss, Robert Tibshirani, and Gilbert Chu. "Significance analysis of microarrays applied to the ionizing radiation response." Proceedings of the National Academy of Sciences 98.9 (2001): 5116-5121.
 
 ## Software packaging/containerisation tools
 
