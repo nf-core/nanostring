@@ -131,7 +131,7 @@
                 "normalized_counts/normalized_counts.tsv",
                 "normalized_counts/normalized_counts_wo_HKnorm.tsv",
                 "pipeline_info",
-                "pipeline_info/nf_core_pipeline_software_mqc_versions.yml"
+                "pipeline_info/nf_core_nanostring_software_mqc_versions.yml"
             ],
             [
                 "hk_detected_mqc.txt:md5,61209383acc2abf6fc3ea309b5a5e094",
