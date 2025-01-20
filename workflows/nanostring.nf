@@ -1,14 +1,46 @@
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    IMPORT MODULES / SUBWORKFLOWS / FUNCTIONS
+    IMPORT CONFIGS / FUNCTIONS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
-include { FASTQC                 } from '../modules/nf-core/fastqc/main'
+
+ch_gene_score_yaml         = params.gene_score_yaml   ? Channel.fromPath( params.gene_score_yaml, checkIfExists: true ) : Channel.empty()
+ch_heatmap_genes_to_filter   = params.heatmap_genes_to_filter  ? Channel.fromPath( params.heatmap_genes_to_filter, checkIfExists: true ) : Channel.empty()
+
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    IMPORT LOCAL MODULES/SUBWORKFLOWS
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+
+//
+// SUBWORKFLOWS: Consisting of a mix of local and nf-core/modules
+//
+include { methodsDescriptionText      } from '../subworkflows/local/utils_nfcore_nanostring_pipeline'
+include { QUALITY_CONTROL             } from '../subworkflows/local/quality_control'
+include { NORMALIZE                   } from '../subworkflows/local/normalize'
+include { COMPUTE_GENE_SCORES_HEATMAP } from '../subworkflows/local/compute_gene_scores_heatmap'
+
+//
+// MODULES
+//
+include { CREATE_ANNOTATED_TABLES } from '../modules/local/create_annotated_tables'
+
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    IMPORT NF-CORE MODULES/SUBWORKFLOWS
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+
+//
+// MODULE: Installed directly from nf-core/modules
+//
 include { MULTIQC                } from '../modules/nf-core/multiqc/main'
+
 include { paramsSummaryMap       } from 'plugin/nf-schema'
+
 include { paramsSummaryMultiqc   } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pipeline'
-include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_nanostring_pipeline'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -19,19 +51,69 @@ include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_nano
 workflow NANOSTRING {
 
     take:
-    ch_samplesheet // channel: samplesheet read in from --input
+    ch_samplesheet   // channel: [ meta, rcc_path ]
+    samplesheet_path // channel: [ meta, path/to/samplesheet ]
+
     main:
 
     ch_versions = Channel.empty()
     ch_multiqc_files = Channel.empty()
+
     //
-    // MODULE: Run FastQC
+    // INPUT RCC FILES
     //
-    FASTQC (
-        ch_samplesheet
+    ch_samplesheet
+        .map { meta, rcc_path -> rcc_path}
+        .collect()
+        .map{ rcc_path ->
+            tuple( [ id: file(params.input).getName() ], rcc_path )
+        }
+        .set{ rcc_files }
+
+    //
+    // SUBWORKFLOW: Quality control of input files
+    //
+    QUALITY_CONTROL (
+        rcc_files,
+        samplesheet_path.first()
     )
-    ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]})
-    ch_versions = ch_versions.mix(FASTQC.out.versions.first())
+    ch_versions      = ch_versions.mix(QUALITY_CONTROL.out.versions)
+    ch_multiqc_files = ch_multiqc_files.mix(QUALITY_CONTROL.out.nacho_qc_multiqc_metrics.collect())
+
+    //
+    // SUBWORKFLOW: Normalize data
+    //
+    NORMALIZE (
+        rcc_files,
+        samplesheet_path.first()
+    )
+    ch_versions         = ch_versions.mix(NORMALIZE.out.versions)
+    ch_normalized       = NORMALIZE.out.normalized_counts
+    ch_normalized_wo_hk = NORMALIZE.out.normalized_counts_wo_HK
+
+    //
+    // MODULE: Annotate normalized counts with metadata from the samplesheet
+    //
+    CREATE_ANNOTATED_TABLES (
+        ch_normalized.mix(ch_normalized_wo_hk).toSortedList{ a, b -> a[1].getName() <=> b[1].getName() }.flatMap(), // Order tuples (based on file name) to stabilize tests and reproducibility
+        samplesheet_path.first()
+    )
+    ch_versions            = ch_versions.mix(CREATE_ANNOTATED_TABLES.out.versions)
+    ch_annotated_endo_data = CREATE_ANNOTATED_TABLES.out.annotated_endo_data
+    ch_multiqc_files       = ch_multiqc_files.mix(CREATE_ANNOTATED_TABLES.out.annotated_data_mqc.map{it[1]}.collect())
+
+    //
+    // Run compute gene scores and plot heatmap subworkflow
+    //
+    COMPUTE_GENE_SCORES_HEATMAP (
+        ch_normalized,
+        ch_annotated_endo_data,
+        ch_gene_score_yaml,
+        ch_heatmap_genes_to_filter,
+        params.skip_heatmap
+    )
+    ch_versions      = ch_versions.mix(COMPUTE_GENE_SCORES_HEATMAP.out.versions)
+    ch_multiqc_files = ch_multiqc_files.mix(COMPUTE_GENE_SCORES_HEATMAP.out.multiqc_files)
 
     //
     // Collate and save software versions
@@ -85,7 +167,8 @@ workflow NANOSTRING {
         []
     )
 
-    emit:multiqc_report = MULTIQC.out.report.toList() // channel: /path/to/multiqc_report.html
+    emit:
+    multiqc_report = MULTIQC.out.report.toList() // channel: /path/to/multiqc_report.html
     versions       = ch_versions                 // channel: [ path(versions.yml) ]
 
 }

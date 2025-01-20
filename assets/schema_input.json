@@ -7,27 +7,42 @@
     "items": {
         "type": "object",
         "properties": {
-            "sample": {
+            "SAMPLE_ID": {
                 "type": "string",
                 "pattern": "^\\S+$",
                 "errorMessage": "Sample name must be provided and cannot contain spaces",
                 "meta": ["id"]
             },
-            "fastq_1": {
+            "RCC_FILE": {
                 "type": "string",
                 "format": "file-path",
                 "exists": true,
-                "pattern": "^\\S+\\.f(ast)?q\\.gz$",
-                "errorMessage": "FastQ file for reads 1 must be provided, cannot contain spaces and must have extension '.fq.gz' or '.fastq.gz'"
+                "pattern": "^\\S+\\.RCC$",
+                "errorMessage": "RCC file must be provided, cannot contain spaces and must have extension '.RCC' or '.rcc'"
             },
-            "fastq_2": {
+            "RCC_FILE_NAME": {
                 "type": "string",
-                "format": "file-path",
-                "exists": true,
-                "pattern": "^\\S+\\.f(ast)?q\\.gz$",
-                "errorMessage": "FastQ file for reads 2 cannot contain spaces and must have extension '.fq.gz' or '.fastq.gz'"
+                "pattern": "^\\S+\\.RCC$",
+                "meta": ["rcc_file_name"]
+            },
+            "TIME": {
+                "type": ["string", "integer"],
+                "meta": ["time"]
+            },
+            "TREATMENT": {
+                "type": ["string", "integer"],
+                "meta": ["treatment"]
+            },
+            "INCLUDE": {
+                "type": "integer",
+                "enum": [0, 1],
+                "meta": ["include"]
+            },
+            "OTHER_METADATA": {
+                "type": "string",
+                "meta": ["other_metadata"]
             }
         },
-        "required": ["sample", "fastq_1"]
+        "required": ["SAMPLE_ID", "RCC_FILE", "RCC_FILE_NAME"]
     }
 }
