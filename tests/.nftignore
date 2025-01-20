@@ -12,6 +12,7 @@ QC/NACHO/png/Posctrl_linearity_mqc.png
 annotated_tables/*.tsv
 annotated_tables/*.tsv
 gene_heatmaps/*.png
+gene_scores/signature_scores_mqc.txt
 multiqc/multiqc_data/multiqc_*Norm_GEX_ENDO-section-plot.txt
 multiqc/multiqc_data/multiqc_*Norm_GEX_HK-section-plot.txt
 multiqc/multiqc_data/multiqc_data.json
@@ -29,6 +30,7 @@ multiqc/multiqc_plots/svg/*.svg
 multiqc/multiqc_report.html
 multiqc/multiqc_data/multiqc.log
 multiqc/multiqc_data/multiqc_software_versions.txt
+multiqc/multiqc_data/multiqc_nf-core-nanoflow-signature-score.txt
 multiqc/multiqc_plots/pdf/nf-core-nanoflow-signature-score-qc-section-plot.pdf
 multiqc/multiqc_plots/pdf/nf-core-nanoflow-signature-score-section-plot.pdf
 multiqc/multiqc_plots/svg/nf-core-nanoflow-signature-score-qc-section-plot.svg

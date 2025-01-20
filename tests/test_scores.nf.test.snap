@@ -145,7 +145,6 @@
                 "PCAi_mqc.png:md5,2338d5fe0e447fc74d4969725546c136",
                 "POSF_vs_NEGF_mqc.png:md5,0e1b5105e68a6e0c51471afce218abdb",
                 "plot_normf_mqc.png:md5,6ffd3c11f8f5ddfbd3715e1780b10b01",
-                "signature_scores_mqc.txt:md5,4fc5f5307a8ac1ed2fcd6852ce884347",
                 "signature_scores_qc_mqc.txt:md5,88ec48e1d7488357663557b378615923",
                 "multiqc_No_HK_Norm_GEX_ENDO.txt:md5,e2519ba9b3305506903ec7a5ab129273",
                 "multiqc_No_HK_Norm_GEX_HK.txt:md5,7e0c5b707084b96c8c9971b370efedda",
@@ -153,7 +152,6 @@
                 "multiqc_Norm_GEX_HK.txt:md5,1741444283470be6edcc00cae0b66935",
                 "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
                 "multiqc_nf-core-nanoflow-signature-score-qc.txt:md5,2c1f0d5341d41543aadcf85826222f73",
-                "multiqc_nf-core-nanoflow-signature-score.txt:md5,49db01247a31d3b2dc996cbcef44b68a",
                 "multiqc_normalized_qc.txt:md5,44a0350c527fe8735fc6b419536a78f5",
                 "multiqc_sources.txt:md5,d2a044df39ce3c6abe5cdc2d67473490"
             ]
@@ -162,6 +160,6 @@
             "nf-test": "0.9.0",
             "nextflow": "24.10.3"
         },
-        "timestamp": "2025-01-20T14:21:01.843005"
+        "timestamp": "2025-01-20T14:45:38.72428"
     }
 }
