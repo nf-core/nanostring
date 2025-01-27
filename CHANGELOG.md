@@ -3,6 +3,37 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v1.3.1 - 2025-01-20 - Micrometre patch
+
+### `Added`
+
+- [#94](https://github.com/nf-core/nanostring/pull/94) - Added nf-tests for local subworkflows `NORMALIZE` and `QUALITY_CONTROL`.
+- [#99](https://github.com/nf-core/nanostring/pull/99) - Added nf-tests for local module `NACHO_NORMALIZE`.
+- [#100](https://github.com/nf-core/nanostring/pull/100) - Added nf-tests for local module `NACHO_QC`.
+- [#101](https://github.com/nf-core/nanostring/pull/101) - Added nf-tests for local module `COMPUTE_GENE_SCORES`.
+- [#102](https://github.com/nf-core/nanostring/pull/102) - Added nf-tests for local module `CREATE_GENE_HEATMAP`.
+- [#103](https://github.com/nf-core/nanostring/pull/103) - Added nf-tests for local module `CREATE_ANNOTATED_TABLES`.
+- [#104](https://github.com/nf-core/nanostring/pull/104) - Update all nf-core modules and subworkflows.
+
+### `Fixed`
+
+- [#119](https://github.com/nf-core/nanostring/pull/119) - Fix input channels being consumed, convert them to value channels for `CREATE_ANNOTATED_TABLES` and `CREATE_GENE_HEATMAP`. [#118](https://github.com/nf-core/nanostring/issues/118)
+
+### `Changed`
+
+- [#82](https://github.com/nf-core/nanostring/pull/82) - Updated to nf-core template 3.0.2
+- [#95](https://github.com/nf-core/nanostring/pull/95) - Add pipeline level nf-tests.
+- [#96](https://github.com/nf-core/nanostring/pull/96) - Remove timestamp suffix from nacho_norm.R and write_out_prepared_gex.R
+- [#114](https://github.com/nf-core/nanostring/pull/114) - Convert `CREATE_GENE_HEATMAP` and `COMPUTE_GENE_SCORES` to nf-core format and create a subworkflow for them.
+- [#117](https://github.com/nf-core/nanostring/pull/117) - Convert `NACHO_NORMALIZE` and `NACHO_QC` from local to nf-core modules.
+- [#122](https://github.com/nf-core/nanostring/pull/122) - Updated to nf-core template 3.1.1
+
+### `Dependencies`
+
+| Dependency | Old version | New version |
+| ---------- | ----------- | ----------- |
+| `multiqc`  | 1.24.1      | 1.27        |
+
 ## v1.3.0 - 2024-08-27 - Micrometre
 
 ### `Added`
@@ -26,7 +57,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | ---------- | ----------- | ----------- |
 | `multiqc`  | 1.19        | 1.24.1      |
 
-## v1.2.1 - 2024-01-18 - Nanometre
+## v1.2.1 - 2024-01-18 - Nanometre patch
 
 ### `Added`
 
@@ -64,7 +95,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Deprecated`
 
-## v1.1.1 - 2023-06-23
+## v1.1.1 - 2023-06-23 - Picometre patch
 
 ### `Added`
 
@@ -87,9 +118,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
-### `Dependencies`
+### `Changed`
 
-### `Deprecated`
+- [#82](https://github.com/nf-core/nanostring/pull/82) - Updated to nf-core template 3.0.2
+
+### `Dependencies`
 
 ## v1.0.0 - 2023-06-12 - Femtometre
 
