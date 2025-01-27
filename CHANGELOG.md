@@ -32,7 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 | Dependency | Old version | New version |
 | ---------- | ----------- | ----------- |
-| `multiqc`  | 1.24.1      | 1.26        |
+| `multiqc`  | 1.24.1      | 1.27        |
 
 ## v1.3.0 - 2024-08-27 - Micrometre
 
