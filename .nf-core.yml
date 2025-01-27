@@ -1,4 +1,4 @@
-nf_core_version: 3.1.2
+nf_core_version: 3.2.0
 repository_type: pipeline
 template:
   author: Peltzer, Alexander & Mohr, Christopher
@@ -8,4 +8,4 @@ template:
   name: nanostring
   org: nf-core
   outdir: .
-  version: 1.3.1dev
+  version: 1.4.0dev
