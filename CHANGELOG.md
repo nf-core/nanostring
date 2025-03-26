@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Added`
 
 ### `Fixed`
-
+- [#133](https://github.com/nf-core/nanostring/pull/133/) - Improvements to JSON schema and minor linting changes
 ### `Dependencies`
 
 | Dependency | Old version | New version |
