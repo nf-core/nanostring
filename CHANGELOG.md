@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
+### `Changed`
+
+- [#136](https://github.com/nf-core/nanostring/pull/136) - Replaced `NORMALIZE` and `QUALITY_CONTROL` for its modules.
+
 ### `Dependencies`
 
 | Dependency | Old version | New version |
