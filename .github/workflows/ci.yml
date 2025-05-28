@@ -44,6 +44,7 @@ jobs:
         compute_profile:
           - "docker"
           - "singularity"
+          - "conda"
         isMaster:
           - ${{ github.base_ref == 'master' }}
         # Exclude conda and singularity on dev
