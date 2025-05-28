@@ -50,8 +50,6 @@ jobs:
         # Exclude conda and singularity on dev
         exclude:
           - isMaster: false
-            compute_profile: "conda"
-          - isMaster: false
             compute_profile: "singularity"
     steps:
       - name: Check out pipeline code
