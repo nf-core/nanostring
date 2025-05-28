@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
+- [#137](https://github.com/nf-core/nanostring/pull/137) - Make nanostring work with conda. Add conda ci profile.
+
 ### `Dependencies`
 
 | Dependency | Old version | New version |
