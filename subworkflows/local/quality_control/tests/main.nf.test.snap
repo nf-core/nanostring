@@ -17,22 +17,19 @@
                 "Pos_mqc.png",
                 "Pos_vs_neg_mqc.png",
                 "Posctrl_linearity_mqc.png",
-                "hk_detected_mqc.txt",
-                "normalized_qc_mqc.txt",
                 "plot_normf_mqc.png"
             ],
             [
-                "hk_detected_mqc.txt:md5,61209383acc2abf6fc3ea309b5a5e094",
-                "normalized_qc_mqc.txt:md5,9a0b015a28094a17331b12b08898da8e"
+                
             ],
             [
-                "versions.yml:md5,70a6cd228c2f2620a4484f46566b82d8"
+                "versions.yml:md5,d7bcd25bd728c155560d1a01bce761f8"
             ]
         ],
         "meta": {
-            "nf-test": "0.9.0",
-            "nextflow": "24.10.0"
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.6"
         },
-        "timestamp": "2024-11-14T23:23:53.609217672"
+        "timestamp": "2025-08-27T17:35:49.835996165"
     }
 }
