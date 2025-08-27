@@ -589,6 +589,3 @@ write.table(scores.df,
             quote = FALSE,
             na=""
 )
-
-
-
