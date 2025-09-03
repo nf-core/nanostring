@@ -26,7 +26,17 @@ nextflow_workflow {
         then {
             assertAll(
                 { assert workflow.success},
-                { assert snapshot(workflow.out).match() }
+                { assert snapshot(workflow.out.versions).match("versions") },
+                { assert workflow.out.multiqc_files.size() >= 1 },
+                { assert workflow.out.multiqc_files.flatten().any {
+                    file(it).name.contains("signature_scores")
+                }},
+                { assert workflow.out.multiqc_files.flatten().any {
+                    file(it).name.endsWith("_mqc.txt")
+                }},
+                { assert snapshot(
+                    workflow.out.multiqc_files.flatten().collect { file(it).name }.sort()
+                ).match("output_filenames_filter") }
             )
         }
     }
@@ -53,7 +63,17 @@ nextflow_workflow {
         then {
             assertAll(
                 { assert workflow.success},
-                { assert snapshot(workflow.out).match() }
+                { assert snapshot(workflow.out.versions).match("versions_filter") },
+                { assert workflow.out.multiqc_files.size() >= 1 },
+                { assert workflow.out.multiqc_files.flatten().any {
+                    file(it).name.contains("signature_scores")
+                }},
+                { assert workflow.out.multiqc_files.flatten().any {
+                    file(it).name.endsWith("_mqc.txt")
+                }},
+                { assert snapshot(
+                    workflow.out.multiqc_files.flatten().collect { file(it).name }.sort()
+                ).match("output_filenames") }
             )
         }
     }
