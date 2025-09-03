@@ -42,6 +42,7 @@ process COMPUTE_GENE_SCORES {
     stub:
     """
     touch scores_for_mqc.txt
+    touch signature_scores_qc_mqc.txt
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
