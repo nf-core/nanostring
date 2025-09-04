@@ -1,42 +1,14 @@
 {
     "test profile": {
         "content": [
-            {
-                "0": [
-                    [
-                        {
-                            "id": "test"
-                        },
-                        [
-                            "signature_scores_mqc.txt:md5,315dc730c79b02067b542074eaeb07b9",
-                            "signature_scores_qc_mqc.txt:md5,88ec48e1d7488357663557b378615923"
-                        ]
-                    ]
-                ],
-                "1": [
-                    "versions.yml:md5,267e6a81e12563418edabbdaa1a5ef79"
-                ],
-                "scores_for_mqc": [
-                    [
-                        {
-                            "id": "test"
-                        },
-                        [
-                            "signature_scores_mqc.txt:md5,315dc730c79b02067b542074eaeb07b9",
-                            "signature_scores_qc_mqc.txt:md5,88ec48e1d7488357663557b378615923"
-                        ]
-                    ]
-                ],
-                "versions": [
-                    "versions.yml:md5,267e6a81e12563418edabbdaa1a5ef79"
-                ]
-            }
+            "# id: nf-core-nanoflow-signature-score\n# section_name: 'Signature Scores'\n# description: 'Signature Scores: Algorithm: plage.dir'\n# plot_type: 'heatmap'\n# section_href: 'https://github.com/nf-core/nanoflow'\nsample\tsalmon_01_01.RCC\tsalmon_03_03.RCC\tsalmon_02_02.RCC\tsalmon_04_04.RCC\n1\t0.26\t0.60\t-0.75\t-0.12\n",
+            "# id: nf-core-nanoflow-signature-score-qc\n# section_name: 'Signature Score QC'\n# description: 'Compare Signatures to Expression Matrix'\n# plot_type: 'table'\n# section_href: 'https://github.com/nf-core/nanoflow'\ngeneset\tsize.geneset\tsize.missing\tsize.left\tgenes.missing\tgenes.used\ntestscore\t6\t1\t5\tG6PDH\tCB-2, HNF4, orexin, MT2, CART\n"
         ],
         "meta": {
             "nf-test": "0.9.2",
             "nextflow": "25.04.6"
         },
-        "timestamp": "2025-09-03T18:30:49.272399939"
+        "timestamp": "2025-09-04T13:10:59.407071654"
     },
     "stub": {
         "content": [
