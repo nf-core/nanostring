@@ -10,11 +10,17 @@ nextflow_process {
         when {
             process {
                 """
-                // Normalized file
-                input[0] = file(params.pipelines_testdata_base_path + 'nanostring/modules_test_data/test_profile/normalized_counts.tsv', checkIfExists: true)
+                // Normalized file with meta
+                input[0] = [
+                    [ id: 'test_sample' ],
+                    file(params.pipelines_testdata_base_path + 'nanostring/modules_test_data/test_profile/normalized_counts.tsv', checkIfExists: true)
+                ]
 
-                // Sample sheet
-                input[1] = file(params.pipelines_testdata_base_path + 'nanostring/samplesheets/samplesheet_test.csv', checkIfExists: true)
+                // Sample sheet with meta
+                input[1] = [
+                    [ id: 'test_sample' ],
+                    file(params.pipelines_testdata_base_path + 'nanostring/samplesheets/samplesheet_test.csv', checkIfExists: true)
+                ]
                 """
             }
         }
