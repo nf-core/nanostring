@@ -8,15 +8,22 @@ nextflow_workflow {
         when {
             workflow {
                 """
-                input[0] = Channel.of(
+                // Input 0: counts channel with meta and RCC files
+                input[0] = Channel.of([
+                    [ id: 'test_sample' ], // meta map
                     [
-                        file(params.pipelines_testdata_base_path + 'nanostring/RCC_files/salmon_01_01.RCC', checkIfExists: true),
-                        file(params.pipelines_testdata_base_path + 'nanostring/RCC_files/salmon_02_02.RCC', checkIfExists: true),
-                        file(params.pipelines_testdata_base_path + 'nanostring/RCC_files/salmon_03_03.RCC', checkIfExists: true),
-                        file(params.pipelines_testdata_base_path + 'nanostring/RCC_files/salmon_04_04.RCC', checkIfExists: true)
+                        file('https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/nanostring/RCC_files/salmon_01_01.RCC', checkIfExists: true),
+                        file('https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/nanostring/RCC_files/salmon_02_02.RCC', checkIfExists: true),
+                        file('https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/nanostring/RCC_files/salmon_03_03.RCC', checkIfExists: true),
+                        file('https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/nanostring/RCC_files/salmon_04_04.RCC', checkIfExists: true)
                     ]
-                )
-                input[1] = file(params.pipelines_testdata_base_path + 'nanostring/samplesheets/samplesheet_test.csv', checkIfExists: true)
+                ])
+
+                // Input 1: samplesheet channel with meta and file
+                input[1] = Channel.of([
+                    [ id: 'test_samplesheet' ], // meta map
+                    file('https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/nanostring/samplesheets/samplesheet_test.csv', checkIfExists: true)
+                ])
                 """
             }
         }
