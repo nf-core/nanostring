@@ -11,6 +11,10 @@ Initial release of nf-core/nanostring, created with the [nf-core](https://nf-co.
 
 ### `Fixed`
 
+### `Changed`
+
+- [#144](https://github.com/nf-core/nanostring/pull/144) - Updated to nf-core template 3.5.1
+
 ### `Dependencies`
 
 | Dependency | Old version | New version |
