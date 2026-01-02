@@ -10,7 +10,9 @@ Initial release of nf-core/nanostring, created with the [nf-core](https://nf-co.
 ### `Added`
 
 ### `Fixed`
+
 - [#133](https://github.com/nf-core/nanostring/pull/133/) - Improvements to JSON schema and minor linting changes
+
 ### `Dependencies`
 
 | Dependency | Old version | New version |
