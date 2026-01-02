@@ -90,7 +90,9 @@
                 "gene_scores/signature_scores_qc_mqc.txt",
                 "multiqc",
                 "multiqc/multiqc_data",
+                "multiqc/multiqc_data/llms-full.txt",
                 "multiqc/multiqc_data/multiqc.log",
+                "multiqc/multiqc_data/multiqc.parquet",
                 "multiqc/multiqc_data/multiqc_No_HK_Norm_GEX_ENDO.txt",
                 "multiqc/multiqc_data/multiqc_No_HK_Norm_GEX_HK.txt",
                 "multiqc/multiqc_data/multiqc_Norm_GEX_ENDO.txt",
@@ -157,9 +159,9 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.0",
-            "nextflow": "24.10.3"
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.2"
         },
-        "timestamp": "2025-01-27T12:59:01.626946"
+        "timestamp": "2026-01-02T17:34:57.706413173"
     }
 }
