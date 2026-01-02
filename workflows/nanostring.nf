@@ -56,14 +56,8 @@ workflow NANOSTRING {
 
     main:
 
-<<<<<<< HEAD
-    ch_versions = Channel.empty()
-    ch_multiqc_files = Channel.empty()
-
-=======
     ch_versions = channel.empty()
     ch_multiqc_files = channel.empty()
->>>>>>> origin/nf-core-template-merge-3.5.1
     //
     // INPUT RCC FILES
     //
