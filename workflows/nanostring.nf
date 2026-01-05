@@ -80,7 +80,7 @@ workflow NANOSTRING {
     )
     ch_versions      = ch_versions.mix(NACHO_QC.out.versions)
     ch_nacho_qc_multiqc_metrics = NACHO_QC.out.nacho_qc_png.map{it[1]}.mix(NACHO_QC.out.nacho_qc_txt.map{it[1]})
-    ch_multiqc_files = ch_multiqc_files.mix(nacho_qc_multiqc_metrics.collect())
+    ch_multiqc_files = ch_multiqc_files.mix(ch_nacho_qc_multiqc_metrics.collect())
 
     //
     // SUBWORKFLOW: Normalize data
