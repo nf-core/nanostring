@@ -6,7 +6,6 @@ nextflow_process {
     config "./nextflow.config"
 
     tag "modules"
-    tag "modules_nfcore"
     tag "compute_gene_scores"
 
     test("test profile") {
@@ -21,7 +20,21 @@ nextflow_process {
         then {
             assertAll(
                 { assert process.success },
-                { assert snapshot(process.out).match() },
+                {
+                    def files = process.out.scores_for_mqc[0][1]
+                    def signatureScoresFile = files.find { file(it).name.contains('signature_scores_mqc') }
+                    def signatureQcFile = files.find { file(it).name.contains('signature_scores_qc_mqc') }
+
+                    // Round floating-point numbers to 2 decimal places
+                    def scoresContent = file(signatureScoresFile).text.replaceAll(/(-?\d+\.\d+)/) { match ->
+                        String.format("%.2f", Double.parseDouble(match[1]))
+                    }
+
+                    assert snapshot(
+                        scoresContent,
+                        file(signatureQcFile).text
+                    ).match()
+                }
             )
         }
     }

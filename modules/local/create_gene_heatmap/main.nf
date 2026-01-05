@@ -56,4 +56,3 @@ process CREATE_GENE_HEATMAP {
     """
 
 }
-
