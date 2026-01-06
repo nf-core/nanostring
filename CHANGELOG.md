@@ -11,6 +11,10 @@ Initial release of nf-core/nanostring, created with the [nf-core](https://nf-co.
 
 ### `Fixed`
 
+### `Changed`
+
+- [#136](https://github.com/nf-core/nanostring/pull/136) - Replaced `NORMALIZE` and `QUALITY_CONTROL` for its modules.
+
 ### `Dependencies`
 
 | Dependency | Old version | New version |
