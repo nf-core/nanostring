@@ -59,6 +59,7 @@
                 "normalization_method": {
                     "type": "string",
                     "default": "GEO",
+                    "enum": ["GEO", "GLM"],
                     "fa_icon": "fas fa-compress-arrows-alt",
                     "description": "The method to use for normalization of nCounter data.",
                     "help_text": "Available options are `GEO` (default) or `GLM`."
