@@ -80,7 +80,7 @@
                     "description": "This selects the algorithm for computing the respective gene score. Default is 'plage.dir'."
                 },
                 "gene_score_yaml": {
-                    "type": "string",
+                    "format": "file-path",
                     "fa_icon": "fas fa-align-justify",
                     "help_text": "The YAML format is as such:\n\n```\nscore_name: \n    - GENE1\n    - GENE2\n    - GENE3\n```",
                     "description": "This sets the YAML to be used for computing the gene scores. Needs both a name for each set of genes and respective genes to be selected."
