@@ -17,8 +17,6 @@ ch_heatmap_genes_to_filter   = params.heatmap_genes_to_filter  ? Channel.fromPat
 // SUBWORKFLOWS: Consisting of a mix of local and nf-core/modules
 //
 include { methodsDescriptionText      } from '../subworkflows/local/utils_nfcore_nanostring_pipeline'
-include { QUALITY_CONTROL             } from '../subworkflows/local/quality_control'
-include { NORMALIZE                   } from '../subworkflows/local/normalize'
 include { COMPUTE_GENE_SCORES_HEATMAP } from '../subworkflows/local/compute_gene_scores_heatmap'
 
 //
@@ -36,11 +34,14 @@ include { CREATE_ANNOTATED_TABLES } from '../modules/local/create_annotated_tabl
 // MODULE: Installed directly from nf-core/modules
 //
 include { MULTIQC                } from '../modules/nf-core/multiqc/main'
+include { NACHO_NORMALIZE        } from '../modules/nf-core/nacho/normalize/main'
+include { NACHO_QC               } from '../modules/nf-core/nacho/qc/main'
 
 include { paramsSummaryMap       } from 'plugin/nf-schema'
 
 include { paramsSummaryMultiqc   } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pipeline'
+
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -72,23 +73,24 @@ workflow NANOSTRING {
     //
     // SUBWORKFLOW: Quality control of input files
     //
-    QUALITY_CONTROL (
+    NACHO_QC (
         rcc_files,
         samplesheet_path.first()
     )
-    ch_versions      = ch_versions.mix(QUALITY_CONTROL.out.versions)
-    ch_multiqc_files = ch_multiqc_files.mix(QUALITY_CONTROL.out.nacho_qc_multiqc_metrics.collect())
+    ch_versions      = ch_versions.mix(NACHO_QC.out.versions)
+    ch_nacho_qc_multiqc_metrics = NACHO_QC.out.nacho_qc_png.map{it[1]}.mix(NACHO_QC.out.nacho_qc_txt.map{it[1]})
+    ch_multiqc_files = ch_multiqc_files.mix(ch_nacho_qc_multiqc_metrics.collect())
 
     //
     // SUBWORKFLOW: Normalize data
     //
-    NORMALIZE (
+    NACHO_NORMALIZE (
         rcc_files,
         samplesheet_path.first()
     )
-    ch_versions         = ch_versions.mix(NORMALIZE.out.versions)
-    ch_normalized       = NORMALIZE.out.normalized_counts
-    ch_normalized_wo_hk = NORMALIZE.out.normalized_counts_wo_HK
+    ch_versions         = ch_versions.mix(NACHO_NORMALIZE.out.versions)
+    ch_normalized       = NACHO_NORMALIZE.out.normalized_counts
+    ch_normalized_wo_hk = NACHO_NORMALIZE.out.normalized_counts_wo_HK
 
     //
     // MODULE: Annotate normalized counts with metadata from the samplesheet
