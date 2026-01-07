@@ -20,23 +20,23 @@
                     "r-fs": "1.6.4"
                 },
                 "NACHO_NORMALIZE": {
-                    "r-base": "4.3.3",
+                    "r-base": "4.5.2",
                     "r-nacho": "2.0.6",
                     "r-dplyr": "1.1.4",
-                    "r-ggplot2": "3.4.4",
-                    "r-tidyr": "1.3.0",
-                    "r-readr": "2.1.5",
-                    "r-fs": "1.6.4",
+                    "r-ggplot2": "4.0.1",
+                    "r-tidyr": "1.3.2",
+                    "r-readr": "2.1.6",
+                    "r-fs": "1.6.6",
                     "r-optparse": "1.7.5"
                 },
                 "NACHO_QC": {
-                    "r-base": "4.3.3",
+                    "r-base": "4.5.2",
                     "r-nacho": "2.0.6",
                     "r-dplyr": "1.1.4",
-                    "r-ggplot2": "3.4.4",
-                    "r-tidyr": "1.3.0",
-                    "r-readr": "2.1.5",
-                    "r-fs": "1.6.4",
+                    "r-ggplot2": "4.0.1",
+                    "r-tidyr": "1.3.2",
+                    "r-readr": "2.1.6",
+                    "r-fs": "1.6.6",
                     "r-optparse": "1.7.5"
                 },
                 "Workflow": {
@@ -116,14 +116,14 @@
             [
                 "hk_detected_mqc.txt:md5,61209383acc2abf6fc3ea309b5a5e094",
                 "normalized_qc_mqc.txt:md5,9a0b015a28094a17331b12b08898da8e",
-                "AVG_vs_BD_mqc.png:md5,06ba42cbbbbbfebd04cdcc1e609f5945",
-                "AVG_vs_MED_mqc.png:md5,783d2149574bd725e595e1fadeb84927",
-                "HKF_mqc.png:md5,a21a91e53904e74a81da92eff0260816",
-                "PCA1_vs_PCA2_mqc.png:md5,a07d944ed0ed85f814143eebcf8ae507",
-                "PCA_mqc.png:md5,8e4456b730ab72f0dcd5ed1895660df8",
-                "PCAi_mqc.png:md5,2338d5fe0e447fc74d4969725546c136",
-                "POSF_vs_NEGF_mqc.png:md5,0e1b5105e68a6e0c51471afce218abdb",
-                "plot_normf_mqc.png:md5,6ffd3c11f8f5ddfbd3715e1780b10b01",
+                "AVG_vs_BD_mqc.png:md5,bb9b9f62aced21f1492728dc3bd4073d",
+                "AVG_vs_MED_mqc.png:md5,5a9964c49a28bb2317bcb2b3c641df60",
+                "HKF_mqc.png:md5,4e5d96401dc4ddda64b525b318684bee",
+                "PCA1_vs_PCA2_mqc.png:md5,c53b8445052326b29e5a113e5acaa6a1",
+                "PCA_mqc.png:md5,4525727ba53e3a70c079bb80cc63b828",
+                "PCAi_mqc.png:md5,43d90de5281d66f9a7a3076aa2b3a22a",
+                "POSF_vs_NEGF_mqc.png:md5,25d4e5bd752cfcc5b1ab9bb228791277",
+                "plot_normf_mqc.png:md5,f2eb790a42ddd98fd53276845e851095",
                 "multiqc_No_HK_Norm_GEX_ENDO.txt:md5,e2519ba9b3305506903ec7a5ab129273",
                 "multiqc_No_HK_Norm_GEX_HK.txt:md5,7e0c5b707084b96c8c9971b370efedda",
                 "multiqc_Norm_GEX_ENDO.txt:md5,e19c84ecced09ae16080bab597cf38d6",
@@ -134,9 +134,9 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.0",
-            "nextflow": "24.10.3"
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.2"
         },
-        "timestamp": "2025-01-27T12:55:41.435487"
+        "timestamp": "2026-01-07T20:53:04.391694928"
     }
 }
