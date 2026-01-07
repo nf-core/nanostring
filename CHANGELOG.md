@@ -14,6 +14,7 @@ Initial release of nf-core/nanostring, created with the [nf-core](https://nf-co.
 ### `Changed`
 
 - [#144](https://github.com/nf-core/nanostring/pull/144) - Updated to nf-core template 3.5.1
+- [#133](https://github.com/nf-core/nanostring/pull/133/) - Improvements to JSON schema and minor linting changes
 - [#136](https://github.com/nf-core/nanostring/pull/136) - Replaced `NORMALIZE` and `QUALITY_CONTROL` for its modules.
 
 ### `Dependencies`
