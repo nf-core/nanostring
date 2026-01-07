@@ -1,7 +1,6 @@
 {
     "-profile test": {
         "content": [
-            7,
             {
                 "CREATE_ANNOTATED_TABLES": {
                     "r-base": "4.3.3",
@@ -77,7 +76,9 @@
                 "gene_heatmaps/wo_HKnorm_gene_heatmap_mqc.png",
                 "multiqc",
                 "multiqc/multiqc_data",
+                "multiqc/multiqc_data/llms-full.txt",
                 "multiqc/multiqc_data/multiqc.log",
+                "multiqc/multiqc_data/multiqc.parquet",
                 "multiqc/multiqc_data/multiqc_No_HK_Norm_GEX_ENDO.txt",
                 "multiqc/multiqc_data/multiqc_No_HK_Norm_GEX_HK.txt",
                 "multiqc/multiqc_data/multiqc_Norm_GEX_ENDO.txt",
@@ -134,9 +135,9 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.6"
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.2"
         },
-        "timestamp": "2025-08-27T15:44:12.804371583"
+        "timestamp": "2026-01-02T17:29:43.978545736"
     }
 }
