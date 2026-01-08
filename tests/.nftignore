@@ -1,14 +1,7 @@
 pipeline_info/*.{html,json,txt,yml}
 QC/NACHO/NanoQC.html
 QC/NACHO/NanoQC_with_outliers.html
-QC/NACHO/png/BD_mqc.png
-QC/NACHO/png/FOV_mqc.png
-QC/NACHO/png/HK_mqc.png
-QC/NACHO/png/LOD_mqc.png
-QC/NACHO/png/Neg_mqc.png
-QC/NACHO/png/Pos_mqc.png
-QC/NACHO/png/Pos_vs_neg_mqc.png
-QC/NACHO/png/Posctrl_linearity_mqc.png
+QC/NACHO/png/*
 annotated_tables/*.tsv
 annotated_tables/*.tsv
 gene_heatmaps/*.png
