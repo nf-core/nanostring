@@ -12,12 +12,12 @@
                     },
                     "nacho/normalize": {
                         "branch": "master",
-                        "git_sha": "e69c465bede27c02ade4f0acec51f10732ebbe6d",
+                        "git_sha": "2589813c8933c0ec9b7e2210cacf17bd64806790",
                         "installed_by": ["modules"]
                     },
                     "nacho/qc": {
                         "branch": "master",
-                        "git_sha": "0e9cb409c32d3ec4f0d3804588e4778971c09b7e",
+                        "git_sha": "2589813c8933c0ec9b7e2210cacf17bd64806790",
                         "installed_by": ["modules"]
                     }
                 }

@@ -25,7 +25,7 @@ process NACHO_QC {
     nacho_qc.R \\
         --input_rcc_path input \\
         --input_samplesheet ${sample_sheet}
-    R -q -e 'sessionInfo()'
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         r-base: \$(echo \$(R --version 2>&1) | sed 's/^.*R version //; s/ .*\$//')
