@@ -21,6 +21,8 @@ multiqc/multiqc_plots/pdf/*.pdf
 multiqc/multiqc_plots/png/*.png
 multiqc/multiqc_plots/svg/*.svg
 multiqc/multiqc_report.html
+multiqc/multiqc_data/multiqc.parquet
+multiqc/multiqc_data/llms-full.txt
 multiqc/multiqc_data/multiqc.log
 multiqc/multiqc_data/multiqc_software_versions.txt
 multiqc/multiqc_data/multiqc_nf-core-nanoflow-signature-score.txt
