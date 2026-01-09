@@ -7,17 +7,17 @@
                 "nf-core": {
                     "multiqc": {
                         "branch": "master",
-                        "git_sha": "af27af1be706e6a2bb8fe454175b0cdf77f47b49",
+                        "git_sha": "5bdb098216aaf5df9c3b6343e6204cd932503c16",
                         "installed_by": ["modules"]
                     },
                     "nacho/normalize": {
                         "branch": "master",
-                        "git_sha": "e69c465bede27c02ade4f0acec51f10732ebbe6d",
+                        "git_sha": "d5416e7fb4d202b26a8ec9ebd3d2756907a16ec9",
                         "installed_by": ["modules"]
                     },
                     "nacho/qc": {
                         "branch": "master",
-                        "git_sha": "0e9cb409c32d3ec4f0d3804588e4778971c09b7e",
+                        "git_sha": "d5416e7fb4d202b26a8ec9ebd3d2756907a16ec9",
                         "installed_by": ["modules"]
                     }
                 }
