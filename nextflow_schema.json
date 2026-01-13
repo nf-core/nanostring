@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/nf-core/nanostring/master/nextflow_schema.json",
     "title": "nf-core/nanostring pipeline parameters",
-    "description": "A Nanostring nCounter analysis pipeline",
+    "description": "Nanostring nCounter analysis pipeline",
     "type": "object",
     "$defs": {
         "input_output_options": {
