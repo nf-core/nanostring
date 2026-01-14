@@ -4,8 +4,8 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-ch_gene_score_yaml         = params.gene_score_yaml   ? Channel.fromPath( params.gene_score_yaml, checkIfExists: true ) : Channel.empty()
-ch_heatmap_genes_to_filter   = params.heatmap_genes_to_filter  ? Channel.fromPath( params.heatmap_genes_to_filter, checkIfExists: true ) : Channel.empty()
+ch_gene_score_yaml           = params.gene_score_yaml ? channel.fromPath(params.gene_score_yaml, checkIfExists: true) : channel.empty()
+ch_heatmap_genes_to_filter   = params.heatmap_genes_to_filter  ? channel.fromPath( params.heatmap_genes_to_filter, checkIfExists: true ) : channel.empty()
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -63,7 +63,7 @@ workflow NANOSTRING {
     // INPUT RCC FILES
     //
     ch_samplesheet
-        .map { meta, rcc_path -> rcc_path}
+        .map { _meta, rcc_path -> rcc_path}
         .collect()
         .map{ rcc_path ->
             tuple( [ id: file(params.input).getName() ], rcc_path )
@@ -78,7 +78,7 @@ workflow NANOSTRING {
         samplesheet_path.first()
     )
     ch_versions      = ch_versions.mix(NACHO_QC.out.versions)
-    ch_nacho_qc_multiqc_metrics = NACHO_QC.out.nacho_qc_png.map{it[1]}.mix(NACHO_QC.out.nacho_qc_txt.map{it[1]})
+    ch_nacho_qc_multiqc_metrics = NACHO_QC.out.nacho_qc_png.map { png -> png[1] }.mix(NACHO_QC.out.nacho_qc_txt.map { txt -> txt[1] })
     ch_multiqc_files = ch_multiqc_files.mix(ch_nacho_qc_multiqc_metrics.collect())
 
     //
@@ -101,8 +101,7 @@ workflow NANOSTRING {
     )
     ch_versions            = ch_versions.mix(CREATE_ANNOTATED_TABLES.out.versions)
     ch_annotated_endo_data = CREATE_ANNOTATED_TABLES.out.annotated_endo_data
-    ch_multiqc_files       = ch_multiqc_files.mix(CREATE_ANNOTATED_TABLES.out.annotated_data_mqc.map{it[1]}.collect())
-
+    ch_multiqc_files       = ch_multiqc_files.mix(CREATE_ANNOTATED_TABLES.out.annotated_data_mqc.map { mqc -> mqc[1] }.collect())
     //
     // Run compute gene scores and plot heatmap subworkflow
     //
@@ -119,7 +118,7 @@ workflow NANOSTRING {
     //
     // Collate and save software versions
     //
-    def topic_versions = Channel.topic("versions")
+    def topic_versions = channel.topic("versions")
         .distinct()
         .branch { entry ->
             versions_file: entry instanceof Path
