@@ -96,6 +96,7 @@
                 "multiqc/multiqc_plots/pdf/Norm_GEX_HK.pdf",
                 "multiqc/multiqc_plots/pdf/normalized_qc.pdf",
                 "multiqc/multiqc_plots/png",
+                "multiqc/multiqc_plots/png/No_HK_Norm_GEX_ENDO.png",
                 "multiqc/multiqc_plots/png/No_HK_Norm_GEX_HK.png",
                 "multiqc/multiqc_plots/png/Norm_GEX_ENDO.png",
                 "multiqc/multiqc_plots/png/Norm_GEX_HK.png",
@@ -129,6 +130,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.2"
         },
-        "timestamp": "2026-01-14T18:34:22.699144131"
+        "timestamp": "2026-01-14T18:49:35.271884067"
     }
 }
