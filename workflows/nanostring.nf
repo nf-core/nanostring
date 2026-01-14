@@ -1,14 +1,5 @@
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    IMPORT CONFIGS / FUNCTIONS
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*/
-
-ch_gene_score_yaml           = params.gene_score_yaml ? channel.fromPath(params.gene_score_yaml, checkIfExists: true) : channel.empty()
-ch_heatmap_genes_to_filter   = params.heatmap_genes_to_filter  ? channel.fromPath( params.heatmap_genes_to_filter, checkIfExists: true ) : channel.empty()
-
-/*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     IMPORT LOCAL MODULES/SUBWORKFLOWS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
@@ -59,6 +50,7 @@ workflow NANOSTRING {
 
     ch_versions = channel.empty()
     ch_multiqc_files = channel.empty()
+
     //
     // INPUT RCC FILES
     //
@@ -105,6 +97,9 @@ workflow NANOSTRING {
     //
     // Run compute gene scores and plot heatmap subworkflow
     //
+    ch_gene_score_yaml           = params.gene_score_yaml ? channel.fromPath(params.gene_score_yaml, checkIfExists: true) : channel.empty()
+    ch_heatmap_genes_to_filter   = params.heatmap_genes_to_filter  ? channel.fromPath( params.heatmap_genes_to_filter, checkIfExists: true ) : channel.empty()
+
     COMPUTE_GENE_SCORES_HEATMAP (
         ch_normalized,
         ch_annotated_endo_data,
