@@ -12,12 +12,12 @@
                     },
                     "nacho/normalize": {
                         "branch": "master",
-                        "git_sha": "d5416e7fb4d202b26a8ec9ebd3d2756907a16ec9",
+                        "git_sha": "52e79713e687f07aa12d08cb8eb8c5c713d702a5",
                         "installed_by": ["modules"]
                     },
                     "nacho/qc": {
                         "branch": "master",
-                        "git_sha": "d5416e7fb4d202b26a8ec9ebd3d2756907a16ec9",
+                        "git_sha": "52e79713e687f07aa12d08cb8eb8c5c713d702a5",
                         "installed_by": ["modules"]
                     }
                 }
@@ -36,7 +36,7 @@
                     },
                     "utils_nfschema_plugin": {
                         "branch": "master",
-                        "git_sha": "e753770db613ce014b3c4bc94f6cba443427b726",
+                        "git_sha": "ff506dcada6fc826ed0c641dc2ed1e98f7345fbe",
                         "installed_by": ["subworkflows"]
                     }
                 }

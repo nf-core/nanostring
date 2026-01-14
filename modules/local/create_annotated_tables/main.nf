@@ -21,7 +21,7 @@ process CREATE_ANNOTATED_TABLES {
     script:
     def args = task.ext.args ?: ''
     """
-    write_out_prepared_gex.R $counts $sample_sheet
+    write_out_prepared_gex.R $counts $sample_sheet $args
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
@@ -33,7 +33,6 @@ process CREATE_ANNOTATED_TABLES {
     """
 
     stub:
-    def args = task.ext.args ?: ''
     """
     touch ENDO.tsv
     touch HK.tsv

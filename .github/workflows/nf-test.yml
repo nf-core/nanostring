@@ -73,7 +73,7 @@ jobs:
         isMain:
           - ${{ github.base_ref == 'master' || github.base_ref == 'main' }}
         NXF_VER:
-          - "25.04.0"
+          - "25.10.2"
           - "latest-everything"
     env:
       NXF_ANSI_LOG: false
