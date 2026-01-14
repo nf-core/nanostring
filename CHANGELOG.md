@@ -11,6 +11,8 @@ Initial release of nf-core/nanostring, created with the [nf-core](https://nf-co.
 
 ### `Fixed`
 
+- [#151](https://github.com/nf-core/nanostring/pull/151) - Updated modules and subworkflows, and follow nextflow's strict syntax.
+
 ### `Changed`
 
 - [#144](https://github.com/nf-core/nanostring/pull/144) - Updated to nf-core template 3.5.1
