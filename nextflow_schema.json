@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/nf-core/nanostring/master/nextflow_schema.json",
     "title": "nf-core/nanostring pipeline parameters",
-    "description": "A Nanostring nCounter analysis pipeline",
+    "description": "Nanostring nCounter analysis pipeline",
     "type": "object",
     "$defs": {
         "input_output_options": {
@@ -28,18 +28,6 @@
                     "format": "directory-path",
                     "description": "The output directory where the results will be saved. You have to use absolute paths to storage on Cloud infrastructure.",
                     "fa_icon": "fas fa-folder-open"
-                },
-                "email": {
-                    "type": "string",
-                    "description": "Email address for completion summary.",
-                    "fa_icon": "fas fa-envelope",
-                    "help_text": "Set this parameter to your e-mail address to get a summary e-mail with details of the run sent to you when the workflow exits. If set in your user config file (`~/.nextflow/config`) then you don't need to specify this on the command line for every run.",
-                    "pattern": "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$"
-                },
-                "multiqc_title": {
-                    "type": "string",
-                    "description": "MultiQC report title. Printed as page header, used for filename if not otherwise specified.",
-                    "fa_icon": "fas fa-file-signature"
                 }
             }
         },
@@ -71,6 +59,7 @@
                 "normalization_method": {
                     "type": "string",
                     "default": "GEO",
+                    "enum": ["GEO", "GLM"],
                     "fa_icon": "fas fa-compress-arrows-alt",
                     "description": "The method to use for normalization of nCounter data.",
                     "help_text": "Available options are `GEO` (default) or `GLM`."
@@ -91,7 +80,7 @@
                     "description": "This selects the algorithm for computing the respective gene score. Default is 'plage.dir'."
                 },
                 "gene_score_yaml": {
-                    "type": "string",
+                    "format": "file-path",
                     "fa_icon": "fas fa-align-justify",
                     "help_text": "The YAML format is as such:\n\n```\nscore_name: \n    - GENE1\n    - GENE2\n    - GENE3\n```",
                     "description": "This sets the YAML to be used for computing the gene scores. Needs both a name for each set of genes and respective genes to be selected."
@@ -209,6 +198,13 @@
                     "enum": ["symlink", "rellink", "link", "copy", "copyNoFollow", "move"],
                     "hidden": true
                 },
+                "email": {
+                    "type": "string",
+                    "description": "Email address for completion summary.",
+                    "fa_icon": "fas fa-envelope",
+                    "help_text": "Set this parameter to your e-mail address to get a summary e-mail with details of the run sent to you when the workflow exits. If set in your user config file (`~/.nextflow/config`) then you don't need to specify this on the command line for every run.",
+                    "pattern": "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$"
+                },
                 "email_on_fail": {
                     "type": "string",
                     "description": "Email address for completion summary, only when pipeline fails.",
@@ -243,6 +239,11 @@
                     "fa_icon": "fas fa-people-group",
                     "help_text": "Incoming hook URL for messaging service. Currently, MS Teams and Slack are supported.",
                     "hidden": true
+                },
+                "multiqc_title": {
+                    "type": "string",
+                    "description": "MultiQC report title. Printed as page header, used for filename if not otherwise specified.",
+                    "fa_icon": "fas fa-file-signature"
                 },
                 "multiqc_config": {
                     "type": "string",
@@ -281,6 +282,18 @@
                     "fa_icon": "far calendar",
                     "description": "Suffix to add to the trace report filename. Default is the date and time in the format yyyy-MM-dd_HH-mm-ss.",
                     "hidden": true
+                },
+                "help": {
+                    "type": ["boolean", "string"],
+                    "description": "Display the help message."
+                },
+                "help_full": {
+                    "type": "boolean",
+                    "description": "Display the full detailed help message."
+                },
+                "show_hidden": {
+                    "type": "boolean",
+                    "description": "Display hidden parameters in the help message (only works when --help or --help_full are provided)."
                 }
             }
         }

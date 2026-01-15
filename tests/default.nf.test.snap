@@ -1,7 +1,6 @@
 {
-    "Test profile": {
+    "-profile test": {
         "content": [
-            7,
             {
                 "CREATE_ANNOTATED_TABLES": {
                     "r-base": "4.3.3",
@@ -131,6 +130,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.2"
         },
-        "timestamp": "2026-01-14T17:35:43.587464854"
+        "timestamp": "2026-01-14T18:49:35.271884067"
     }
 }

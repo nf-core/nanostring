@@ -1,14 +1,5 @@
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    IMPORT CONFIGS / FUNCTIONS
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*/
-
-ch_gene_score_yaml         = params.gene_score_yaml   ? Channel.fromPath( params.gene_score_yaml, checkIfExists: true ) : Channel.empty()
-ch_heatmap_genes_to_filter   = params.heatmap_genes_to_filter  ? Channel.fromPath( params.heatmap_genes_to_filter, checkIfExists: true ) : Channel.empty()
-
-/*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     IMPORT LOCAL MODULES/SUBWORKFLOWS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
@@ -17,8 +8,6 @@ ch_heatmap_genes_to_filter   = params.heatmap_genes_to_filter  ? Channel.fromPat
 // SUBWORKFLOWS: Consisting of a mix of local and nf-core/modules
 //
 include { methodsDescriptionText      } from '../subworkflows/local/utils_nfcore_nanostring_pipeline'
-include { QUALITY_CONTROL             } from '../subworkflows/local/quality_control'
-include { NORMALIZE                   } from '../subworkflows/local/normalize'
 include { COMPUTE_GENE_SCORES_HEATMAP } from '../subworkflows/local/compute_gene_scores_heatmap'
 
 //
@@ -36,11 +25,14 @@ include { CREATE_ANNOTATED_TABLES } from '../modules/local/create_annotated_tabl
 // MODULE: Installed directly from nf-core/modules
 //
 include { MULTIQC                } from '../modules/nf-core/multiqc/main'
+include { NACHO_NORMALIZE        } from '../modules/nf-core/nacho/normalize/main'
+include { NACHO_QC               } from '../modules/nf-core/nacho/qc/main'
 
 include { paramsSummaryMap       } from 'plugin/nf-schema'
 
 include { paramsSummaryMultiqc   } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pipeline'
+
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -56,14 +48,14 @@ workflow NANOSTRING {
 
     main:
 
-    ch_versions = Channel.empty()
-    ch_multiqc_files = Channel.empty()
+    ch_versions = channel.empty()
+    ch_multiqc_files = channel.empty()
 
     //
     // INPUT RCC FILES
     //
     ch_samplesheet
-        .map { meta, rcc_path -> rcc_path}
+        .map { _meta, rcc_path -> rcc_path}
         .collect()
         .map{ rcc_path ->
             tuple( [ id: file(params.input).getName() ], rcc_path )
@@ -73,23 +65,24 @@ workflow NANOSTRING {
     //
     // SUBWORKFLOW: Quality control of input files
     //
-    QUALITY_CONTROL (
+    NACHO_QC (
         rcc_files,
         samplesheet_path.first()
     )
-    ch_versions      = ch_versions.mix(QUALITY_CONTROL.out.versions)
-    ch_multiqc_files = ch_multiqc_files.mix(QUALITY_CONTROL.out.nacho_qc_multiqc_metrics.collect())
+    ch_versions      = ch_versions.mix(NACHO_QC.out.versions)
+    ch_nacho_qc_multiqc_metrics = NACHO_QC.out.nacho_qc_png.map { png -> png[1] }.mix(NACHO_QC.out.nacho_qc_txt.map { txt -> txt[1] })
+    ch_multiqc_files = ch_multiqc_files.mix(ch_nacho_qc_multiqc_metrics.collect())
 
     //
     // SUBWORKFLOW: Normalize data
     //
-    NORMALIZE (
+    NACHO_NORMALIZE (
         rcc_files,
         samplesheet_path.first()
     )
-    ch_versions         = ch_versions.mix(NORMALIZE.out.versions)
-    ch_normalized       = NORMALIZE.out.normalized_counts
-    ch_normalized_wo_hk = NORMALIZE.out.normalized_counts_wo_HK
+    ch_versions         = ch_versions.mix(NACHO_NORMALIZE.out.versions)
+    ch_normalized       = NACHO_NORMALIZE.out.normalized_counts
+    ch_normalized_wo_hk = NACHO_NORMALIZE.out.normalized_counts_wo_HK
 
     //
     // MODULE: Annotate normalized counts with metadata from the samplesheet
@@ -100,11 +93,13 @@ workflow NANOSTRING {
     )
     ch_versions            = ch_versions.mix(CREATE_ANNOTATED_TABLES.out.versions)
     ch_annotated_endo_data = CREATE_ANNOTATED_TABLES.out.annotated_endo_data
-    ch_multiqc_files       = ch_multiqc_files.mix(CREATE_ANNOTATED_TABLES.out.annotated_data_mqc.map{it[1]}.collect())
-
+    ch_multiqc_files       = ch_multiqc_files.mix(CREATE_ANNOTATED_TABLES.out.annotated_data_mqc.map { mqc -> mqc[1] }.collect())
     //
     // Run compute gene scores and plot heatmap subworkflow
     //
+    ch_gene_score_yaml           = params.gene_score_yaml ? channel.fromPath(params.gene_score_yaml, checkIfExists: true) : channel.empty()
+    ch_heatmap_genes_to_filter   = params.heatmap_genes_to_filter  ? channel.fromPath( params.heatmap_genes_to_filter, checkIfExists: true ) : channel.empty()
+
     COMPUTE_GENE_SCORES_HEATMAP (
         ch_normalized,
         ch_annotated_endo_data,
@@ -118,7 +113,25 @@ workflow NANOSTRING {
     //
     // Collate and save software versions
     //
-    softwareVersionsToYAML(ch_versions)
+    def topic_versions = channel.topic("versions")
+        .distinct()
+        .branch { entry ->
+            versions_file: entry instanceof Path
+            versions_tuple: true
+        }
+
+    def topic_versions_string = topic_versions.versions_tuple
+        .map { process, tool, version ->
+            [ process[process.lastIndexOf(':')+1..-1], "  ${tool}: ${version}" ]
+        }
+        .groupTuple(by:0)
+        .map { process, tool_versions ->
+            tool_versions.unique().sort()
+            "${process}:\n${tool_versions.join('\n')}"
+        }
+
+    softwareVersionsToYAML(ch_versions.mix(topic_versions.versions_file))
+        .mix(topic_versions_string)
         .collectFile(
             storeDir: "${params.outdir}/pipeline_info",
             name: 'nf_core_'  +  'nanostring_software_'  + 'mqc_'  + 'versions.yml',
@@ -130,24 +143,24 @@ workflow NANOSTRING {
     //
     // MODULE: MultiQC
     //
-    ch_multiqc_config        = Channel.fromPath(
+    ch_multiqc_config        = channel.fromPath(
         "$projectDir/assets/multiqc_config.yml", checkIfExists: true)
     ch_multiqc_custom_config = params.multiqc_config ?
-        Channel.fromPath(params.multiqc_config, checkIfExists: true) :
-        Channel.empty()
+        channel.fromPath(params.multiqc_config, checkIfExists: true) :
+        channel.empty()
     ch_multiqc_logo          = params.multiqc_logo ?
-        Channel.fromPath(params.multiqc_logo, checkIfExists: true) :
-        Channel.empty()
+        channel.fromPath(params.multiqc_logo, checkIfExists: true) :
+        channel.empty()
 
     summary_params      = paramsSummaryMap(
         workflow, parameters_schema: "nextflow_schema.json")
-    ch_workflow_summary = Channel.value(paramsSummaryMultiqc(summary_params))
+    ch_workflow_summary = channel.value(paramsSummaryMultiqc(summary_params))
     ch_multiqc_files = ch_multiqc_files.mix(
         ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
     ch_multiqc_custom_methods_description = params.multiqc_methods_description ?
         file(params.multiqc_methods_description, checkIfExists: true) :
         file("$projectDir/assets/methods_description_template.yml", checkIfExists: true)
-    ch_methods_description                = Channel.value(
+    ch_methods_description                = channel.value(
         methodsDescriptionText(ch_multiqc_custom_methods_description))
 
     ch_multiqc_files = ch_multiqc_files.mix(ch_collated_versions)

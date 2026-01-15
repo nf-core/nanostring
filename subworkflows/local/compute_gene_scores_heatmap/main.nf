@@ -18,8 +18,8 @@ workflow COMPUTE_GENE_SCORES_HEATMAP {
     skip_heatmap               // boolean
 
     main:
-    ch_versions = Channel.empty()
-    ch_multiqc_files = Channel.empty()
+    ch_versions = channel.empty()
+    ch_multiqc_files = channel.empty()
 
     //
     // MODULE: Compute gene scores for supplied YAML gene score file
@@ -29,7 +29,7 @@ workflow COMPUTE_GENE_SCORES_HEATMAP {
         ch_gene_score_yaml
     )
     ch_versions      = ch_versions.mix(COMPUTE_GENE_SCORES.out.versions)
-    ch_multiqc_files = ch_multiqc_files.mix(COMPUTE_GENE_SCORES.out.scores_for_mqc.map{ meta, file -> file }.collect())
+    ch_multiqc_files = ch_multiqc_files.mix(COMPUTE_GENE_SCORES.out.scores_for_mqc.map{ _meta, file -> file }.collect())
 
     //
     // MODULE: Compute gene-count heatmap for MultiQC report based on annotated (ENDO) counts
@@ -41,7 +41,7 @@ workflow COMPUTE_GENE_SCORES_HEATMAP {
             ch_heatmap_genes_to_filter.toList()
         )
         ch_versions       = ch_versions.mix(CREATE_GENE_HEATMAP.out.versions)
-        ch_multiqc_files  = ch_multiqc_files.mix(CREATE_GENE_HEATMAP.out.gene_heatmap.map{ meta, file -> file }.collect())
+        ch_multiqc_files  = ch_multiqc_files.mix(CREATE_GENE_HEATMAP.out.gene_heatmap.map{ _meta, file -> file }.collect())
     }
 
     emit:

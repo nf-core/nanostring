@@ -5,7 +5,6 @@ nextflow_process {
     process "CREATE_GENE_HEATMAP"
 
     tag "modules"
-    tag "modules_nfcore"
     tag "CREATE_GENE_HEATMAP"
 
     test("test profile") {
