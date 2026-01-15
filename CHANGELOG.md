@@ -5,8 +5,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## v1.3.2 - 2026-01-15 - Micrometer patch 2
 
-### `Added`
-
 ### `Fixed`
 
 - [#151](https://github.com/nf-core/nanostring/pull/151) - Updated modules and subworkflows, and follow nextflow's strict syntax.
@@ -16,12 +14,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#144](https://github.com/nf-core/nanostring/pull/144) - Updated to nf-core template 3.5.1
 - [#133](https://github.com/nf-core/nanostring/pull/133/) - Improvements to JSON schema and minor linting changes
 - [#136](https://github.com/nf-core/nanostring/pull/136) - Replaced `NORMALIZE` and `QUALITY_CONTROL` for its modules.
-
-### `Dependencies`
-
-| Dependency | Old version | New version |
-| ---------- | ----------- | ----------- |
-|            |             |             |
 
 ## v1.3.1 - 2025-01-20 - Micrometre patch
 
