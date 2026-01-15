@@ -5,8 +5,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## v1.3.2 - 2026-01-15 - Micrometer patch 2
 
-Initial release of nf-core/nanostring, created with the [nf-core](https://nf-co.re/) template.
-
 ### `Added`
 
 ### `Fixed`
