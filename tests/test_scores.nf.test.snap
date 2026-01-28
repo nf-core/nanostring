@@ -4,14 +4,14 @@
             8,
             {
                 "COMPUTE_GENE_SCORES": {
-                    "r-base": "4.2.3",
+                    "r-base": "4.4.3",
                     "r-dplyr": "1.1.4",
-                    "r-tibble": "3.2.1",
-                    "r-singscore": "1.18.0",
-                    "r-GSVA": "1.46.0",
-                    "r-yaml": "2.3.7",
-                    "r-FactoMineR": 2.8,
-                    "r-stringr": "1.5.0"
+                    "r-tibble": "3.3.1",
+                    "r-singscore": "1.26.0",
+                    "r-GSVA": "2.0.0",
+                    "r-yaml": "2.3.12",
+                    "r-FactoMineR": 2.13,
+                    "r-stringr": "1.6.0"
                 },
                 "CREATE_ANNOTATED_TABLES": {
                     "r-base": "4.3.3",
@@ -154,6 +154,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.3"
         },
-        "timestamp": "2026-01-27T14:34:23.778267476"
+        "timestamp": "2026-01-28T20:50:21.912254781"
     }
 }
