@@ -170,7 +170,7 @@ calculateSSGSEAscores <- function(xp, genes, ...) {
     if(is.data.frame(xp)) xp.matrix <- as.matrix.data.frame(xp)
     if(is.matrix(xp)) xp.matrix <- xp
 
-    scores <- ssgsea(ssgseaParam(xp.matrix, genes.flat) ...)
+    scores <- gsva(ssgseaParam(xp.matrix, genes.flat) ...)
     return(scores)
 }
 
@@ -182,7 +182,7 @@ calculatePLAGEscores <- function(xp, genes, correct.dir=FALSE, ...) {
     if(is.data.frame(xp)) xp.matrix <- as.matrix.data.frame(xp)
     if(is.matrix(xp)) xp.matrix <- xp
 
-    plagescores <- plage(plageParam(xp.matrix, genes.flat), ...)
+    plagescores <- gsva(plageParam(xp.matrix, genes.flat), ...)
 
     if(correct.dir) {
         meanscores <- calculateMeanScores(xp.matrix, genes.flat)
