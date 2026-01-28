@@ -316,8 +316,7 @@ Samsscore <- function(xp, x, center_rows = TRUE, geom_mean = FALSE, ...) {
             geom_mean = geom_mean,
             ...
         )
-    }
-    if (is.list(x) && is.null(x$downSet)) {
+    } else if (is.list(x) && is.null(x$downSet)) {
         s <- sams_score(
             xp,
             up_genes = x$upSet,
