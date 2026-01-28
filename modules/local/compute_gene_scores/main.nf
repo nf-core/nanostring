@@ -2,7 +2,7 @@ process COMPUTE_GENE_SCORES {
     label 'process_single'
 
     conda "${moduleDir}/environment.yml"
-    container "community.wave.seqera.io/library/bioconductor-gsva_bioconductor-singscore_r-dplyr_r-factominer_pruned:8eae484473163370"
+    container "community.wave.seqera.io/library/bioconductor-gsva_bioconductor-singscore_r-dplyr_r-factominer_pruned:e6f1a5cd9110d36b"
 
     input:
     tuple val(meta), path(normalized_counts)
