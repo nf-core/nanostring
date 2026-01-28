@@ -9,7 +9,6 @@ library(yaml)
 library(FactoMineR)
 library(tibble)
 library(data.table)
-library(assertthat)
 library(ggplot2)
 
 ###Gene Set Functions
