@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
+- Addressed issues with latest GSVA function calls after GSVA >1.5.0 was introduced to be able to use gene score methods accordingly again
+- Updated the analysis dependencies in the local module for gene score computation to latest versions of the R Scripts
+- Removed container dependency on biocontainers and rather using Wave containers again
+
+### `Fixed`
+
 - [#151](https://github.com/nf-core/nanostring/pull/151) - Updated modules and subworkflows, and follow nextflow's strict syntax.
 
 ### `Changed`
