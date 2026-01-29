@@ -39,7 +39,7 @@
                     "r-optparse": "1.7.5"
                 },
                 "Workflow": {
-                    "nf-core/nanostring": "v1.3.3dev"
+                    "nf-core/nanostring": "v1.3.3"
                 }
             },
             [
@@ -130,6 +130,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.3"
         },
-        "timestamp": "2026-01-27T14:30:12.052623507"
+        "timestamp": "2026-01-29T17:48:49.687899114"
     }
 }
