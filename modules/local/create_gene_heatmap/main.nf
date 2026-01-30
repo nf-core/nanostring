@@ -2,7 +2,9 @@ process CREATE_GENE_HEATMAP {
     label 'process_single'
 
     conda "${moduleDir}/environment.yml"
-    container "community.wave.seqera.io/library/bioconductor-complexheatmap_r-base_r-circlize_r-dplyr_pruned:58d1af3dbaeba617"
+    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
+        'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/6e/6ea309ef90d7c4bc0ca890540b6ca67e08099a52a88d5142570a55a7ffc0897b/data' :
+        'community.wave.seqera.io/library/bioconductor-complexheatmap_r-circlize_r-dplyr_r-fs_pruned:c46ed9d375ae22ce' }"
 
     input:
     tuple val(meta), path(annotated_endo_data), path(normalized_counts)

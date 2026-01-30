@@ -2,7 +2,9 @@ process COMPUTE_GENE_SCORES {
     label 'process_single'
 
     conda "${moduleDir}/environment.yml"
-    container "community.wave.seqera.io/library/bioconductor-gsva_bioconductor-singscore_r-dplyr_r-factominer_pruned:e6f1a5cd9110d36b"
+    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
+        'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/88/880e5ac778d3985389c50f48135ab25eace11ea27e6a8267ecf350cf98f4f1ce/data' :
+        'community.wave.seqera.io/library/bioconductor-complexheatmap_r-base_r-circlize_r-dplyr_pruned:58d1af3dbaeba617' }"
 
     input:
     tuple val(meta), path(normalized_counts)
