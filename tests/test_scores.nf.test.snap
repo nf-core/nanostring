@@ -1,27 +1,18 @@
 {
     "test_scores profile": {
         "content": [
-            8,
+            7,
             {
-                "COMPUTE_GENE_SCORES": {
-                    "r-base": "4.5.2",
-                    "r-dplyr": "1.1.4",
-                    "r-tibble": "3.3.1",
-                    "r-singscore": "1.26.0",
-                    "r-GSVA": "2.0.0",
-                    "r-yaml": "2.3.12",
-                    "r-FactoMineR": 2.13,
-                    "r-stringr": "1.6.0"
-                },
                 "CREATE_ANNOTATED_TABLES": {
                     "r-base": "4.5.2",
+                    "r-ggplot2": null,
                     "r-dplyr": "1.1.4",
                     "r-readr": "2.1.6"
                 },
                 "CREATE_GENE_HEATMAP": {
                     "r-base": "4.4.3",
                     "r-dplyr": "1.1.4",
-                    "r-ggplot2": "4.0.2",
+                    "r-ggplot2": "4.0.1",
                     "r-rlang": "1.1.7",
                     "bioconductor-ComplexHeatmap": "2.22.0",
                     "r-circlize": "0.4.17",
@@ -84,9 +75,6 @@
                 "gene_heatmaps",
                 "gene_heatmaps/gene_heatmap_mqc.png",
                 "gene_heatmaps/wo_HKnorm_gene_heatmap_mqc.png",
-                "gene_scores",
-                "gene_scores/signature_scores_mqc.txt",
-                "gene_scores/signature_scores_qc_mqc.txt",
                 "multiqc",
                 "multiqc/multiqc_data",
                 "multiqc/multiqc_data/llms-full.txt",
@@ -98,8 +86,6 @@
                 "multiqc/multiqc_data/multiqc_Norm_GEX_HK.txt",
                 "multiqc/multiqc_data/multiqc_citations.txt",
                 "multiqc/multiqc_data/multiqc_data.json",
-                "multiqc/multiqc_data/multiqc_nf-core-nanoflow-signature-score-qc.txt",
-                "multiqc/multiqc_data/multiqc_nf-core-nanoflow-signature-score.txt",
                 "multiqc/multiqc_data/multiqc_normalized_qc.txt",
                 "multiqc/multiqc_data/multiqc_software_versions.txt",
                 "multiqc/multiqc_data/multiqc_sources.txt",
@@ -109,24 +95,18 @@
                 "multiqc/multiqc_plots/pdf/No_HK_Norm_GEX_HK.pdf",
                 "multiqc/multiqc_plots/pdf/Norm_GEX_ENDO.pdf",
                 "multiqc/multiqc_plots/pdf/Norm_GEX_HK.pdf",
-                "multiqc/multiqc_plots/pdf/nf-core-nanoflow-signature-score-qc.pdf",
-                "multiqc/multiqc_plots/pdf/nf-core-nanoflow-signature-score.pdf",
                 "multiqc/multiqc_plots/pdf/normalized_qc.pdf",
                 "multiqc/multiqc_plots/png",
                 "multiqc/multiqc_plots/png/No_HK_Norm_GEX_ENDO.png",
                 "multiqc/multiqc_plots/png/No_HK_Norm_GEX_HK.png",
                 "multiqc/multiqc_plots/png/Norm_GEX_ENDO.png",
                 "multiqc/multiqc_plots/png/Norm_GEX_HK.png",
-                "multiqc/multiqc_plots/png/nf-core-nanoflow-signature-score-qc.png",
-                "multiqc/multiqc_plots/png/nf-core-nanoflow-signature-score.png",
                 "multiqc/multiqc_plots/png/normalized_qc.png",
                 "multiqc/multiqc_plots/svg",
                 "multiqc/multiqc_plots/svg/No_HK_Norm_GEX_ENDO.svg",
                 "multiqc/multiqc_plots/svg/No_HK_Norm_GEX_HK.svg",
                 "multiqc/multiqc_plots/svg/Norm_GEX_ENDO.svg",
                 "multiqc/multiqc_plots/svg/Norm_GEX_HK.svg",
-                "multiqc/multiqc_plots/svg/nf-core-nanoflow-signature-score-qc.svg",
-                "multiqc/multiqc_plots/svg/nf-core-nanoflow-signature-score.svg",
                 "multiqc/multiqc_plots/svg/normalized_qc.svg",
                 "multiqc/multiqc_report.html",
                 "normalized_counts",
@@ -138,13 +118,11 @@
             [
                 "hk_detected_mqc.txt:md5,61209383acc2abf6fc3ea309b5a5e094",
                 "normalized_qc_mqc.txt:md5,9a0b015a28094a17331b12b08898da8e",
-                "signature_scores_qc_mqc.txt:md5,88ec48e1d7488357663557b378615923",
                 "multiqc_No_HK_Norm_GEX_ENDO.txt:md5,e2519ba9b3305506903ec7a5ab129273",
                 "multiqc_No_HK_Norm_GEX_HK.txt:md5,7e0c5b707084b96c8c9971b370efedda",
                 "multiqc_Norm_GEX_ENDO.txt:md5,e19c84ecced09ae16080bab597cf38d6",
                 "multiqc_Norm_GEX_HK.txt:md5,1741444283470be6edcc00cae0b66935",
                 "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
-                "multiqc_nf-core-nanoflow-signature-score-qc.txt:md5,2c1f0d5341d41543aadcf85826222f73",
                 "multiqc_normalized_qc.txt:md5,44a0350c527fe8735fc6b419536a78f5",
                 "multiqc_sources.txt:md5,d2a044df39ce3c6abe5cdc2d67473490"
             ]
@@ -153,6 +131,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.3"
         },
-        "timestamp": "2026-01-29T17:53:00.086359111"
+        "timestamp": "2026-01-30T14:14:34.862488715"
     }
 }
