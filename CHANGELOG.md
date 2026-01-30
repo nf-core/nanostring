@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Addressed issues with latest GSVA function calls after GSVA >1.5.0 was introduced to be able to use gene score methods accordingly again
 - [#156](https://github.com/nf-core/nanostring/pull/156) - Updated the analysis dependencies in the local module for gene score computation to latest versions of the R Scripts
 - [#155](https://github.com/nf-core/nanostring/pull/155) - Removed container dependency on biocontainers and rather using Wave containers again
+- [#161](https://github.com/nf-core/nanostring/pull/161) - Update container urls to use HTTPS for Singularity and update dependencies for other local modules too
 
 ## v1.3.2 - 2026-01-15 - Micrometer patch 2
 
