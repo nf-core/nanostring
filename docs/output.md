@@ -53,7 +53,7 @@ This holds the normalized gene expression data, normalized using NACHO (`bin/nac
 <details markdown="1">
 <summary>Output files</summary>
 
-This holds the normalized and non-housekeeping-normalized annotated gene expression data. There are two tables each - one for endogenous genes of interest, one for housekeeping genes. Annotation is performed using the custom script `bin/write_out_prepared_gex.R` in the pipeline. These tables are also part of the MultiQC report.
+This holds the normalized and non-housekeeping-normalized annotated gene expression data. There are two tables each - one for endogenous genes of interest, one for housekeeping genes. Annotation is performed using the custom script `write_out_prepared_gex.R` in the pipeline. These tables are also part of the MultiQC report.
 
 - `annotated_tables/`
 - `*_normalized_counts_Norm_GEX_HK.tsv`: TSV table holding all normalized housekeeping gene expression values with annotation.

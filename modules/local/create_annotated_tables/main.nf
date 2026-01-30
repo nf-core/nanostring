@@ -29,7 +29,6 @@ process CREATE_ANNOTATED_TABLES {
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         r-base: \$(echo \$(R --version 2>&1) | sed 's/^.*R version //; s/ .*\$//')
-        r-ggplot2: \$(Rscript -e "library(ggplot2); cat(as.character(packageVersion('ggplot')))")
         r-dplyr: \$(Rscript -e "library(dplyr); cat(as.character(packageVersion('dplyr')))")
         r-readr: \$(Rscript -e "library(readr); cat(as.character(packageVersion('readr')))")
     END_VERSIONS
@@ -44,7 +43,6 @@ process CREATE_ANNOTATED_TABLES {
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         r-base: \$(echo \$(R --version 2>&1) | sed 's/^.*R version //; s/ .*\$//')
-        r-ggplot2: \$(Rscript -e "library(ggplot2); cat(as.character(packageVersion('ggplot')))")
         r-dplyr: \$(Rscript -e "library(dplyr); cat(as.character(packageVersion('dplyr')))")
         r-readr: \$(Rscript -e "library(readr); cat(as.character(packageVersion('readr')))")
     END_VERSIONS

@@ -1,7 +1,6 @@
 #!/usr/bin/env Rscript
 library(tidyr)
 library(dplyr)
-library(ggplot2)
 library(readr)
 library(stringr)
 
