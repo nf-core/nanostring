@@ -5,14 +5,14 @@
                 "gene_heatmap_mqc.png"
             ],
             [
-                "versions.yml:md5,ce9a0b1b0e476543f0a3ff5b93f6570b"
+                "versions.yml:md5,c3a817ba44cb542fd95b1d3fc8aac36d"
             ]
         ],
         "meta": {
-            "nf-test": "0.9.0",
-            "nextflow": "24.10.1"
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.3"
         },
-        "timestamp": "2024-11-27T17:18:59.654958996"
+        "timestamp": "2026-01-30T11:11:20.305619188"
     },
     "stub": {
         "content": [
@@ -20,7 +20,7 @@
                 "gene_heatmap_mqc.png"
             ],
             [
-                "versions.yml:md5,ce9a0b1b0e476543f0a3ff5b93f6570b"
+                "versions.yml:md5,c3a817ba44cb542fd95b1d3fc8aac36d"
             ]
         ],
         "meta": {
@@ -35,7 +35,7 @@
                 "gene_heatmap_mqc.png"
             ],
             [
-                "versions.yml:md5,ce9a0b1b0e476543f0a3ff5b93f6570b"
+                "versions.yml:md5,c3a817ba44cb542fd95b1d3fc8aac36d"
             ]
         ],
         "meta": {

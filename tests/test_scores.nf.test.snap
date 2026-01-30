@@ -4,30 +4,30 @@
             8,
             {
                 "COMPUTE_GENE_SCORES": {
-                    "r-base": "4.2.3",
+                    "r-base": "4.4.3",
                     "r-dplyr": "1.1.4",
-                    "r-tibble": "3.2.1",
-                    "r-singscore": "1.18.0",
-                    "r-GSVA": "1.46.0",
-                    "r-yaml": "2.3.7",
-                    "r-FactoMineR": 2.8,
-                    "r-stringr": "1.5.0"
+                    "r-tibble": "3.3.1",
+                    "r-singscore": "1.26.0",
+                    "r-GSVA": "2.0.0",
+                    "r-yaml": "2.3.12",
+                    "r-FactoMineR": 2.13,
+                    "r-stringr": "1.6.0"
                 },
                 "CREATE_ANNOTATED_TABLES": {
-                    "r-base": "4.3.3",
+                    "r-base": "4.5.2",
                     "r-ggplot2": null,
                     "r-dplyr": "1.1.4",
-                    "r-readr": "2.1.5"
+                    "r-readr": "2.1.6"
                 },
                 "CREATE_GENE_HEATMAP": {
-                    "r-base": "4.2.3",
+                    "r-base": "4.4.3",
                     "r-dplyr": "1.1.4",
-                    "r-ggplot2": "3.4.4",
-                    "r-rlang": "1.1.1",
-                    "bioconductor-ComplexHeatmap": "2.14.0",
-                    "r-circlize": "0.4.15",
-                    "r-yaml": "2.3.8",
-                    "r-fs": "1.6.4"
+                    "r-ggplot2": "4.0.1",
+                    "r-rlang": "1.1.7",
+                    "bioconductor-ComplexHeatmap": "2.22.0",
+                    "r-circlize": "0.4.17",
+                    "r-yaml": "2.3.12",
+                    "r-fs": "1.6.6"
                 },
                 "NACHO_NORMALIZE": {
                     "r-base": "4.5.2",
@@ -50,7 +50,7 @@
                     "r-optparse": "1.7.5"
                 },
                 "Workflow": {
-                    "nf-core/nanostring": "v1.3.2"
+                    "nf-core/nanostring": "v1.3.3"
                 }
             },
             [
@@ -152,8 +152,8 @@
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.10.2"
+            "nextflow": "25.10.3"
         },
-        "timestamp": "2026-01-14T17:39:21.947737179"
+        "timestamp": "2026-01-30T14:51:51.372614059"
     }
 }

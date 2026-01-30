@@ -25,7 +25,7 @@
                     ]
                 ],
                 "1": [
-                    "versions.yml:md5,267e6a81e12563418edabbdaa1a5ef79"
+                    "versions.yml:md5,e3e9c4a42988d39a5d64477ffb44b256"
                 ],
                 "scores_for_mqc": [
                     [
@@ -39,14 +39,14 @@
                     ]
                 ],
                 "versions": [
-                    "versions.yml:md5,267e6a81e12563418edabbdaa1a5ef79"
+                    "versions.yml:md5,e3e9c4a42988d39a5d64477ffb44b256"
                 ]
             }
         ],
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.6"
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.3"
         },
-        "timestamp": "2025-09-03T18:36:23.840868438"
+        "timestamp": "2026-01-30T11:10:38.397673505"
     }
 }

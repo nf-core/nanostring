@@ -30,7 +30,7 @@
                     ]
                 ],
                 "3": [
-                    "versions.yml:md5,43b871def59fb08862ac85e636101fe5"
+                    "versions.yml:md5,5ac05a1939c1be596bd4432881927766"
                 ],
                 "annotated_data_mqc": [
                     [
@@ -60,14 +60,14 @@
                     ]
                 ],
                 "versions": [
-                    "versions.yml:md5,43b871def59fb08862ac85e636101fe5"
+                    "versions.yml:md5,5ac05a1939c1be596bd4432881927766"
                 ]
             }
         ],
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.6"
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.3"
         },
-        "timestamp": "2025-08-27T15:19:33.731479441"
+        "timestamp": "2026-01-30T11:10:55.699389493"
     }
 }
