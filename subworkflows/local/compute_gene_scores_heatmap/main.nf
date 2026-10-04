@@ -20,6 +20,7 @@ workflow COMPUTE_GENE_SCORES_HEATMAP {
     main:
     ch_versions = channel.empty()
     ch_multiqc_files = channel.empty()
+    ch_gene_heatmaps = channel.empty()
 
     //
     // MODULE: Compute gene scores for supplied YAML gene score file
@@ -41,10 +42,13 @@ workflow COMPUTE_GENE_SCORES_HEATMAP {
             ch_heatmap_genes_to_filter.toList()
         )
         ch_versions       = ch_versions.mix(CREATE_GENE_HEATMAP.out.versions)
+        ch_gene_heatmaps  = CREATE_GENE_HEATMAP.out.gene_heatmap
         ch_multiqc_files  = ch_multiqc_files.mix(CREATE_GENE_HEATMAP.out.gene_heatmap.map{ _meta, file -> file }.collect())
     }
 
     emit:
-    versions                = ch_versions      // channel: [ versions.yml ]
-    multiqc_files           = ch_multiqc_files // channel: [*mqc.txt, *gene_heatmap_mqc.png ]
+    versions                = ch_versions
+    multiqc_files           = ch_multiqc_files
+    gene_scores             = COMPUTE_GENE_SCORES.out.scores_for_mqc
+    gene_heatmaps           = ch_gene_heatmaps
 }
