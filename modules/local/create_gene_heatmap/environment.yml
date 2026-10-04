@@ -1,0 +1,12 @@
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - conda-forge::r-dplyr=1.1.4
+  - conda-forge::r-ggplot2=4.0.1
+  - conda-forge::r-rlang=1.1.7
+  - conda-forge::r-fs=1.6.6
+  - bioconda::bioconductor-complexheatmap=2.22.0
+  - conda-forge::r-circlize=0.4.17
+  - conda-forge::r-yaml=2.3.12
+  - conda-forge::r-ragg=1.5.0

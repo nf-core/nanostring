@@ -22,6 +22,7 @@ workflow UTILS_NFSCHEMA_PLUGIN {
     before_text         // string:   text to show before the help message and parameters summary
     after_text          // string:   text to show after the help message and parameters summary
     command             // string:   an example command of the pipeline
+    cli_typecast        // boolean:  whether to cast CLI parameters to schema types; null uses plugin defaults
     cli_typecast        // boolean:  whether to perform typecasting of CLI parameters. Set this to `null` to use the default behaviour
 
     main:

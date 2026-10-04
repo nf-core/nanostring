@@ -1,0 +1,100 @@
+{
+    "Salmon - RCC files": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "normalized_counts.tsv:md5,a0124c7a24bd04296f441d9ade82a05f"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "normalized_counts_wo_HKnorm.tsv:md5,5a2ce112c24e1b0d0f4cf3392111ef9e"
+                    ]
+                ],
+                "2": [
+                    "versions.yml:md5,fcf67579c623834286b1cf421e7601d0"
+                ],
+                "normalized_counts": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "normalized_counts.tsv:md5,a0124c7a24bd04296f441d9ade82a05f"
+                    ]
+                ],
+                "normalized_counts_wo_HK": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "normalized_counts_wo_HKnorm.tsv:md5,5a2ce112c24e1b0d0f4cf3392111ef9e"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,fcf67579c623834286b1cf421e7601d0"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.2"
+        },
+        "timestamp": "2026-01-08T16:29:50.924639854"
+    },
+    "Salmon - RCC files - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "normalized_counts.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "normalized_counts_wo_HKnorm.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "2": [
+                    "versions.yml:md5,fcf67579c623834286b1cf421e7601d0"
+                ],
+                "normalized_counts": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "normalized_counts.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "normalized_counts_wo_HK": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "normalized_counts_wo_HKnorm.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,fcf67579c623834286b1cf421e7601d0"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.2"
+        },
+        "timestamp": "2026-01-08T16:30:01.672023422"
+    }
+}

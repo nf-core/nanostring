@@ -15,7 +15,7 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { NANOSTRING  } from './workflows/nanostring'
+include { NANOSTRING              } from './workflows/nanostring'
 include { PIPELINE_INITIALISATION } from './subworkflows/local/utils_nfcore_nanostring_pipeline'
 include { PIPELINE_COMPLETION     } from './subworkflows/local/utils_nfcore_nanostring_pipeline'
 include { getGenomeAttribute      } from './subworkflows/local/utils_nfcore_nanostring_pipeline'
@@ -25,11 +25,6 @@ include { getGenomeAttribute      } from './subworkflows/local/utils_nfcore_nano
     GENOME PARAMETER VALUES
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
-
-// TODO nf-core: Remove this line if you don't need a FASTA file
-//   This is an example of how to use getGenomeAttribute() to fetch parameters
-//   from igenomes.config using `--genome`
-params.fasta = getGenomeAttribute('fasta')
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -52,10 +47,7 @@ workflow NFCORE_NANOSTRING {
     //
     NANOSTRING (
         samplesheet,
-        params.multiqc_config,
-        params.multiqc_logo,
-        params.multiqc_methods_description,
-        params.outdir,
+        channel.from(file(params.input)).map{ input -> tuple( [id: file(params.input).getName()], input) } // Add meta component to channel
     )
     emit:
     multiqc_report = NANOSTRING.out.multiqc_report // channel: /path/to/multiqc_report.html
@@ -99,6 +91,7 @@ workflow {
         params.plaintext_email,
         params.outdir,
         params.monochrome_logs,
+        params.hook_url,
         NFCORE_NANOSTRING.out.multiqc_report
     )
 }

@@ -1,0 +1,73 @@
+{
+    "Should run without failures": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test_sample"
+                        },
+                        "counts_Norm_GEX_ENDO.tsv:md5,5992886680cb6fc6f3e901e79752d544"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "test_sample"
+                        },
+                        "counts_Norm_GEX_HK.tsv:md5,9d8a0503df864a82990648348131be21"
+                    ]
+                ],
+                "2": [
+                    [
+                        {
+                            "id": "test_sample"
+                        },
+                        [
+                            "Norm_GEX_ENDO_mqc.tsv:md5,5992886680cb6fc6f3e901e79752d544",
+                            "Norm_GEX_HK_mqc.tsv:md5,9d8a0503df864a82990648348131be21"
+                        ]
+                    ]
+                ],
+                "3": [
+                    "versions.yml:md5,5ac05a1939c1be596bd4432881927766"
+                ],
+                "annotated_data_mqc": [
+                    [
+                        {
+                            "id": "test_sample"
+                        },
+                        [
+                            "Norm_GEX_ENDO_mqc.tsv:md5,5992886680cb6fc6f3e901e79752d544",
+                            "Norm_GEX_HK_mqc.tsv:md5,9d8a0503df864a82990648348131be21"
+                        ]
+                    ]
+                ],
+                "annotated_endo_data": [
+                    [
+                        {
+                            "id": "test_sample"
+                        },
+                        "counts_Norm_GEX_ENDO.tsv:md5,5992886680cb6fc6f3e901e79752d544"
+                    ]
+                ],
+                "annotated_hk_data": [
+                    [
+                        {
+                            "id": "test_sample"
+                        },
+                        "counts_Norm_GEX_HK.tsv:md5,9d8a0503df864a82990648348131be21"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,5ac05a1939c1be596bd4432881927766"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.3"
+        },
+        "timestamp": "2026-01-30T11:10:55.699389493"
+    }
+}
