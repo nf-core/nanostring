@@ -1,0 +1,25 @@
+Changes in component 'nf-core/multiqc'
+Changes in 'multiqc/environment.yml':
+--- modules/nf-core/multiqc/environment.yml
++++ modules/nf-core/multiqc/environment.yml
+@@ -5,3 +5,6 @@
+   - bioconda
+ dependencies:
+   - bioconda::multiqc=1.33
++  # Keep the Conda plot exporter on the Python/Plotly versions supported by Kaleido 0.2.1.
++  - conda-forge::python=3.12
++  - conda-forge::plotly=5.24.1
+
+'modules/nf-core/multiqc/main.nf' is unchanged
+'modules/nf-core/multiqc/meta.yml' is unchanged
+'modules/nf-core/multiqc/.conda-lock/linux_arm64-bd-d167b8012595a136_1.txt' was created
+'modules/nf-core/multiqc/.conda-lock/linux_arm64-bd-40bf3b435e89dc22_1.txt' was created
+'modules/nf-core/multiqc/.conda-lock/linux_amd64-bd-c17fb751507e9dfc_1.txt' was created
+'modules/nf-core/multiqc/.conda-lock/linux_arm64-bd-5c84a5000a226ab5_1.txt' was created
+'modules/nf-core/multiqc/.conda-lock/linux_amd64-bd-c1f4a7982b743963_1.txt' was created
+'modules/nf-core/multiqc/.conda-lock/linux_amd64-bd-db7c73dae76bc9e6_1.txt' was created
+'modules/nf-core/multiqc/tests/main.nf.test.snap' is unchanged
+'modules/nf-core/multiqc/tests/custom_prefix.config' is unchanged
+'modules/nf-core/multiqc/tests/main.nf.test' is unchanged
+'modules/nf-core/multiqc/tests/nextflow.config' is unchanged
+************************************************************

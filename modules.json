@@ -8,17 +8,20 @@
                     "multiqc": {
                         "branch": "master",
                         "git_sha": "80cba9452fb1e9bb79884976fa1ca0e671949aa2",
-                        "installed_by": ["modules"]
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/multiqc/multiqc.diff"
                     },
                     "nacho/normalize": {
                         "branch": "master",
                         "git_sha": "52e79713e687f07aa12d08cb8eb8c5c713d702a5",
-                        "installed_by": ["modules"]
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/nacho/normalize/nacho-normalize.diff"
                     },
                     "nacho/qc": {
                         "branch": "master",
                         "git_sha": "52e79713e687f07aa12d08cb8eb8c5c713d702a5",
-                        "installed_by": ["modules"]
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/nacho/qc/nacho-qc.diff"
                     }
                 }
             },
