@@ -22,13 +22,13 @@ workflow UTILS_NFSCHEMA_PLUGIN {
     before_text         // string:   text to show before the help message and parameters summary
     after_text          // string:   text to show after the help message and parameters summary
     command             // string:   an example command of the pipeline
-    cli_typecast        // boolean:  whether to cast CLI parameters to schema types; null uses plugin defaults
     cli_typecast        // boolean:  whether to perform typecasting of CLI parameters. Set this to `null` to use the default behaviour
 
     main:
 
     if(help || help_full) {
         help_options = [
+            parameter: (help instanceof String && help != "true") ? help : null,
             beforeText: before_text,
             afterText: after_text,
             command: command,
@@ -38,10 +38,8 @@ workflow UTILS_NFSCHEMA_PLUGIN {
         if(parameters_schema) {
             help_options << [parameters_schema: parameters_schema]
         }
-        log.info paramsHelp(
-            help_options,
-            (help instanceof String && help != "true") ? help : "",
-        )
+
+        log.info paramsHelp(help_options)
         exit 0
     }
 
@@ -55,7 +53,7 @@ workflow UTILS_NFSCHEMA_PLUGIN {
         summary_options << [parameters_schema: parameters_schema]
     }
     log.info before_text
-    log.info paramsSummaryLog(summary_options, input_workflow)
+    log.info paramsSummaryLog(summary_options)
     log.info after_text
 
     //
