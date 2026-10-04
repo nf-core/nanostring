@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Changed`
 
+- Updated to nf-core template 4.1.0 and migrated pipeline to Nextflow workflow outputs.
+
 ### `Dependencies`
 
 ## v1.3.3 - 2026-01-30 - Micrometer patch 3
