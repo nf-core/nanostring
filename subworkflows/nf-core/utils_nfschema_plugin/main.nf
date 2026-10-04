@@ -9,7 +9,7 @@ include { paramsHelp         } from 'plugin/nf-schema'
 workflow UTILS_NFSCHEMA_PLUGIN {
 
     take:
-    input_workflow      // workflow: the workflow object used by nf-schema to get metadata from the workflow
+    _input_workflow     // workflow: retained for compatibility; nf-schema reads workflow metadata internally
     validate_params     // boolean:  validate the parameters
     parameters_schema   // string:   path to the parameters JSON schema.
                         //           this has to be the same as the schema given to `validation.parametersSchema`
