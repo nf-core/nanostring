@@ -13,7 +13,6 @@ include { paramsSummaryMap          } from 'plugin/nf-schema'
 include { samplesheetToList         } from 'plugin/nf-schema'
 include { completionEmail           } from '../../nf-core/utils_nfcore_pipeline'
 include { completionSummary         } from '../../nf-core/utils_nfcore_pipeline'
-include { getWorkflowVersion         } from '../../nf-core/utils_nfcore_pipeline'
 include { UTILS_NFCORE_PIPELINE     } from '../../nf-core/utils_nfcore_pipeline'
 include { UTILS_NEXTFLOW_PIPELINE   } from '../../nf-core/utils_nextflow_pipeline'
 
@@ -124,7 +123,6 @@ workflow PIPELINE_COMPLETION {
     plaintext_email // boolean: Send plain-text email instead of HTML
     outdir          //    path: Path to output directory where results will be published
     monochrome_logs // boolean: Disable ANSI colour codes in log output
-    hook_url        //  string: hook URL for notifications
     multiqc_report  //  string: Path to MultiQC report
 
     main:
@@ -148,9 +146,6 @@ workflow PIPELINE_COMPLETION {
         }
 
         completionSummary(monochrome_logs)
-        if (hook_url) {
-            imNotification(summary_params, hook_url)
-        }
     }
 
     workflow.onError {
@@ -158,56 +153,6 @@ workflow PIPELINE_COMPLETION {
     }
 }
 
-
-// Pipeline-specific completion notification support retained from the previous
-// nf-core utility subworkflow interface.
-def imNotification(summary_params, hook_url) {
-    def summary = [:]
-    summary_params.keySet().sort().each { group ->
-        summary << summary_params[group]
-    }
-
-    def misc_fields = [
-        start: workflow.start,
-        complete: workflow.complete,
-        scriptfile: workflow.scriptFile,
-        scriptid: workflow.scriptId,
-        nxf_version: workflow.nextflow.version,
-        nxf_build: workflow.nextflow.build,
-        nxf_timestamp: workflow.nextflow.timestamp
-    ]
-    if (workflow.repository) misc_fields['repository'] = workflow.repository
-    if (workflow.commitId) misc_fields['commitid'] = workflow.commitId
-    if (workflow.revision) misc_fields['revision'] = workflow.revision
-
-    def msg_fields = [
-        version: getWorkflowVersion(),
-        runName: workflow.runName,
-        success: workflow.success,
-        dateComplete: workflow.complete,
-        duration: workflow.duration,
-        exitStatus: workflow.exitStatus,
-        errorMessage: workflow.errorMessage ?: 'None',
-        errorReport: workflow.errorReport ?: 'None',
-        commandLine: workflow.commandLine.replaceFirst(/ +--hook_url +[^ ]+/, ''),
-        projectDir: workflow.projectDir,
-        summary: summary << misc_fields
-    ]
-
-    def json_path = hook_url.contains('hooks.slack.com') ? 'slackreport.json' : 'adaptivecard.json'
-    def json_template = new groovy.text.GStringTemplateEngine().createTemplate(
-        new File("${workflow.projectDir}/assets/${json_path}")
-    ).make(msg_fields)
-    def post = new URL(hook_url).openConnection()
-    post.setRequestMethod('POST')
-    post.setDoOutput(true)
-    post.setRequestProperty('Content-Type', 'application/json')
-    post.getOutputStream().write(json_template.toString().getBytes('UTF-8'))
-    def post_rc = post.getResponseCode()
-    if (post_rc != 200) {
-        log.warn "Notification request returned HTTP ${post_rc}"
-    }
-}
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
