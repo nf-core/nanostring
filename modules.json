@@ -13,15 +13,13 @@
                     },
                     "nacho/normalize": {
                         "branch": "master",
-                        "git_sha": "52e79713e687f07aa12d08cb8eb8c5c713d702a5",
-                        "installed_by": ["modules"],
-                        "patch": "modules/nf-core/nacho/normalize/nacho-normalize.diff"
+                        "git_sha": "b999e6262a72a758d1b038160d095386f5c59e7f",
+                        "installed_by": ["modules"]
                     },
                     "nacho/qc": {
                         "branch": "master",
-                        "git_sha": "52e79713e687f07aa12d08cb8eb8c5c713d702a5",
-                        "installed_by": ["modules"],
-                        "patch": "modules/nf-core/nacho/qc/nacho-qc.diff"
+                        "git_sha": "b999e6262a72a758d1b038160d095386f5c59e7f",
+                        "installed_by": ["modules"]
                     }
                 }
             },
