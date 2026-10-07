@@ -19,7 +19,7 @@ concurrency:
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  NFT_VER: "0.9.3"
+  NFT_VER: "0.9.4"
   NFT_WORKDIR: "~"
   NXF_ANSI_LOG: false
   NXF_SINGULARITY_CACHEDIR: ${{ github.workspace }}/.singularity
@@ -41,7 +41,7 @@ jobs:
           rm -rf ./* || true
           rm -rf ./.??* || true
           ls -la ./
-      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           fetch-depth: 0
 
@@ -73,14 +73,14 @@ jobs:
         isMain:
           - ${{ github.base_ref == 'master' || github.base_ref == 'main' }}
         NXF_VER:
-          - "25.10.2"
+          - "26.04.0"
           - "latest-everything"
     env:
       NXF_ANSI_LOG: false
       TOTAL_SHARDS: ${{ needs.nf-test-changes.outputs.total_shards }}
 
     steps:
-      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           fetch-depth: 0
 
