@@ -3,6 +3,7 @@ work/
 data/
 results/
 .DS_Store
+.vscode/settings.json
 testing/
 testing*
 *.pyc
