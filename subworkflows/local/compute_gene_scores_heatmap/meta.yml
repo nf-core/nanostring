@@ -52,6 +52,18 @@ output:
           description: |
             A PNG image of the gene heatmap, formatted for inclusion in MultiQC reports.
           pattern: "*gene_heatmap_mqc.png"
+  - gene_scores:
+      - "*.txt":
+          type: file
+          description: |
+            Files containing calculated gene scores.
+          pattern: "*.txt"
+  - gene_heatmaps:
+      - "*gene_heatmap_mqc.png":
+          type: file
+          description: |
+            PNG images of gene count heatmaps formatted for inclusion in MultiQC reports.
+          pattern: "*gene_heatmap_mqc.png"
   - versions:
       - versions.yml:
           type: file
