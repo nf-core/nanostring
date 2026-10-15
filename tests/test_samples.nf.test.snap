@@ -20,24 +20,24 @@
                     "r-fs": "1.6.6"
                 },
                 "NACHO_NORMALIZE": {
-                    "r-base": "4.5.2",
-                    "r-nacho": "2.0.6",
-                    "r-dplyr": "1.1.4",
-                    "r-ggplot2": "4.0.1",
+                    "r-base": "4.5.1",
+                    "r-nfcore.utils": "0.0.3",
+                    "r-nacho": "2.0.7",
+                    "r-dplyr": "1.2.1",
+                    "r-ggplot2": "4.0.3",
                     "r-tidyr": "1.3.2",
-                    "r-readr": "2.1.6",
-                    "r-fs": "1.6.6",
-                    "r-optparse": "1.7.5"
+                    "r-readr": "2.2.0",
+                    "r-fs": "2.1.0"
                 },
                 "NACHO_QC": {
-                    "r-base": "4.5.2",
-                    "r-nacho": "2.0.6",
-                    "r-dplyr": "1.1.4",
-                    "r-ggplot2": "4.0.1",
+                    "r-base": "4.5.1",
+                    "r-nfcore.utils": "0.0.3",
+                    "r-nacho": "2.0.7",
+                    "r-dplyr": "1.2.1",
+                    "r-ggplot2": "4.0.3",
                     "r-tidyr": "1.3.2",
-                    "r-readr": "2.1.6",
-                    "r-fs": "1.6.6",
-                    "r-optparse": "1.7.5"
+                    "r-readr": "2.2.0",
+                    "r-fs": "2.1.0"
                 },
                 "Workflow": {
                     "nf-core/nanostring": "v1.3.4dev"
@@ -117,20 +117,20 @@
             ],
             [
                 "hk_detected_mqc.txt:md5,61209383acc2abf6fc3ea309b5a5e094",
-                "normalized_qc_mqc.txt:md5,9a0b015a28094a17331b12b08898da8e",
-                "multiqc_No_HK_Norm_GEX_ENDO.txt:md5,ebd78401fb548c820ee7e678d2d2aec4",
+                "normalized_qc_mqc.txt:md5,e9f9c9342d7abf167b02a0147cfcd9be",
+                "multiqc_No_HK_Norm_GEX_ENDO.txt:md5,fa27b17100660b9a16cc9aeb158f6103",
                 "multiqc_No_HK_Norm_GEX_HK.txt:md5,0e65e55682d5a7e3879f62de630ab2aa",
-                "multiqc_Norm_GEX_ENDO.txt:md5,11388cd9088a4f902a6b8fe499f0c379",
+                "multiqc_Norm_GEX_ENDO.txt:md5,d3020057bd8cb44ecbb1b400ca12816d",
                 "multiqc_Norm_GEX_HK.txt:md5,784a91d6ada77b737f52233734b67afb",
                 "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
-                "multiqc_normalized_qc.txt:md5,44a0350c527fe8735fc6b419536a78f5",
+                "multiqc_normalized_qc.txt:md5,520d3a6680375c41365bdd8837af00cd",
                 "multiqc_sources.txt:md5,d2a044df39ce3c6abe5cdc2d67473490"
             ]
         ],
+        "timestamp": "2026-09-30T17:13:15.850857675",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.10.3"
-        },
-        "timestamp": "2026-01-30T16:46:54.190977583"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.6"
+        }
     }
 }
