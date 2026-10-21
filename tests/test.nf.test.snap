@@ -123,8 +123,7 @@
                 "multiqc_Norm_GEX_ENDO.txt:md5,75f44b352b09c71e0266eb995f4b0282",
                 "multiqc_Norm_GEX_HK.txt:md5,1741444283470be6edcc00cae0b66935",
                 "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
-                "multiqc_normalized_qc.txt:md5,520d3a6680375c41365bdd8837af00cd",
-                "multiqc_sources.txt:md5,d2a044df39ce3c6abe5cdc2d67473490"
+                "multiqc_normalized_qc.txt:md5,520d3a6680375c41365bdd8837af00cd"
             ]
         ],
         "timestamp": "2026-09-30T17:12:03.350347578",
