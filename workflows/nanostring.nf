@@ -149,14 +149,9 @@ workflow NANOSTRING {
     //
     // MODULE: MultiQC
     //
-    ch_multiqc_config        = channel.fromPath(
-        "$projectDir/assets/multiqc_config.yml", checkIfExists: true)
-    ch_multiqc_custom_config = params.multiqc_config ?
-        channel.fromPath(params.multiqc_config, checkIfExists: true) :
-        channel.empty()
-    ch_multiqc_logo          = params.multiqc_logo ?
-        channel.fromPath(params.multiqc_logo, checkIfExists: true) :
-        channel.empty()
+    multiqc_config = [file("$projectDir/assets/multiqc_config.yml", checkIfExists: true)] +
+        (params.multiqc_config ? [file(params.multiqc_config, checkIfExists: true)] : [])
+    multiqc_logo = params.multiqc_logo ? file(params.multiqc_logo, checkIfExists: true) : []
 
     summary_params      = paramsSummaryMap(
         parameters_schema: "nextflow_schema.json")
@@ -178,12 +173,9 @@ workflow NANOSTRING {
     )
 
     MULTIQC (
-        ch_multiqc_files.collect(),
-        ch_multiqc_config.toList(),
-        ch_multiqc_custom_config.toList(),
-        ch_multiqc_logo.toList(),
-        [],
-        []
+        ch_multiqc_files.collect().map { files ->
+            tuple([id: 'multiqc'], files, multiqc_config, multiqc_logo, [], [])
+        }
     )
 
     emit:
@@ -196,9 +188,9 @@ workflow NANOSTRING {
     annotated_hk_data   = ch_annotated_hk_data
     gene_scores         = ch_gene_scores
     gene_heatmaps       = ch_gene_heatmaps
-    multiqc_report      = MULTIQC.out.report.toList()
-    multiqc_data        = MULTIQC.out.data
-    multiqc_plots       = MULTIQC.out.plots
+    multiqc_report      = MULTIQC.out.report.map { _meta, report -> report }.toList()
+    multiqc_data        = MULTIQC.out.data.map { _meta, data -> data }
+    multiqc_plots       = MULTIQC.out.plots.map { _meta, plots -> plots }
     software_versions   = ch_collated_versions
     versions            = ch_versions
 

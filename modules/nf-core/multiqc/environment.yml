@@ -4,7 +4,4 @@ channels:
   - conda-forge
   - bioconda
 dependencies:
-  - bioconda::multiqc=1.33
-  # Keep the Conda plot exporter on the Python/Plotly versions supported by Kaleido 0.2.1.
-  - conda-forge::python=3.12
-  - conda-forge::plotly=5.24.1
+  - bioconda::multiqc=1.35
