@@ -3,6 +3,18 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v1.4.0 - 2026-10-23 - Millimetre
+
+### `Fixed`
+
+### `Changed`
+
+- [#179](https://github.com/nf-core/nanostring/pull/177) - Added remaining aspects related to Multiqc from nf-core template 4.1.0.
+- [#177](https://github.com/nf-core/nanostring/pull/177) - Updated to nf-core template 4.1.0 and migrated pipeline to Nextflow workflow outputs.
+- [#175](https://github.com/nf-core/nanostring/pull/175) - Updated to NACHO v2.0.7.
+
+### `Dependencies`
+
 ## v1.3.3 - 2026-01-30 - Micrometer patch 3
 
 ### `Fixed`

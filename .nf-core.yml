@@ -5,7 +5,7 @@ lint:
     - .github/workflows/branch.yml
   files_exist:
     - .github/workflows/linting_comment.yml
-nf_core_version: 3.5.1
+nf_core_version: 4.1.0
 repository_type: pipeline
 template:
   author: Peltzer, Alexander & Mohr, Christopher
@@ -15,4 +15,4 @@ template:
   name: nanostring
   org: nf-core
   outdir: .
-  version: 1.3.3
+  version: 1.4.0

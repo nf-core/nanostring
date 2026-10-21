@@ -50,6 +50,7 @@ workflow NANOSTRING {
 
     ch_versions = channel.empty()
     ch_multiqc_files = channel.empty()
+    ch_gene_heatmaps = channel.empty()
 
     //
     // INPUT RCC FILES
@@ -70,6 +71,9 @@ workflow NANOSTRING {
         samplesheet_path.first()
     )
     ch_versions      = ch_versions.mix(NACHO_QC.out.versions)
+    ch_nacho_qc_html = NACHO_QC.out.nacho_qc_reports
+    ch_nacho_qc_png  = NACHO_QC.out.nacho_qc_png
+    ch_nacho_qc_txt  = NACHO_QC.out.nacho_qc_txt
     ch_nacho_qc_multiqc_metrics = NACHO_QC.out.nacho_qc_png.map { png -> png[1] }.mix(NACHO_QC.out.nacho_qc_txt.map { txt -> txt[1] })
     ch_multiqc_files = ch_multiqc_files.mix(ch_nacho_qc_multiqc_metrics.collect())
 
@@ -93,6 +97,7 @@ workflow NANOSTRING {
     )
     ch_versions            = ch_versions.mix(CREATE_ANNOTATED_TABLES.out.versions)
     ch_annotated_endo_data = CREATE_ANNOTATED_TABLES.out.annotated_endo_data
+    ch_annotated_hk_data   = CREATE_ANNOTATED_TABLES.out.annotated_hk_data
     ch_multiqc_files       = ch_multiqc_files.mix(CREATE_ANNOTATED_TABLES.out.annotated_data_mqc.map { mqc -> mqc[1] }.collect())
     //
     // Run compute gene scores and plot heatmap subworkflow
@@ -108,6 +113,8 @@ workflow NANOSTRING {
         params.skip_heatmap
     )
     ch_versions      = ch_versions.mix(COMPUTE_GENE_SCORES_HEATMAP.out.versions)
+    ch_gene_scores   = COMPUTE_GENE_SCORES_HEATMAP.out.gene_scores
+    ch_gene_heatmaps = COMPUTE_GENE_SCORES_HEATMAP.out.gene_heatmaps
     ch_multiqc_files = ch_multiqc_files.mix(COMPUTE_GENE_SCORES_HEATMAP.out.multiqc_files)
 
     //
@@ -133,7 +140,6 @@ workflow NANOSTRING {
     softwareVersionsToYAML(ch_versions.mix(topic_versions.versions_file))
         .mix(topic_versions_string)
         .collectFile(
-            storeDir: "${params.outdir}/pipeline_info",
             name: 'nf_core_'  +  'nanostring_software_'  + 'mqc_'  + 'versions.yml',
             sort: true,
             newLine: true
@@ -143,17 +149,12 @@ workflow NANOSTRING {
     //
     // MODULE: MultiQC
     //
-    ch_multiqc_config        = channel.fromPath(
-        "$projectDir/assets/multiqc_config.yml", checkIfExists: true)
-    ch_multiqc_custom_config = params.multiqc_config ?
-        channel.fromPath(params.multiqc_config, checkIfExists: true) :
-        channel.empty()
-    ch_multiqc_logo          = params.multiqc_logo ?
-        channel.fromPath(params.multiqc_logo, checkIfExists: true) :
-        channel.empty()
+    multiqc_config = [file("$projectDir/assets/multiqc_config.yml", checkIfExists: true)] +
+        (params.multiqc_config ? [file(params.multiqc_config, checkIfExists: true)] : [])
+    multiqc_logo = params.multiqc_logo ? file(params.multiqc_logo, checkIfExists: true) : []
 
     summary_params      = paramsSummaryMap(
-        workflow, parameters_schema: "nextflow_schema.json")
+        parameters_schema: "nextflow_schema.json")
     ch_workflow_summary = channel.value(paramsSummaryMultiqc(summary_params))
     ch_multiqc_files = ch_multiqc_files.mix(
         ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
@@ -172,17 +173,26 @@ workflow NANOSTRING {
     )
 
     MULTIQC (
-        ch_multiqc_files.collect(),
-        ch_multiqc_config.toList(),
-        ch_multiqc_custom_config.toList(),
-        ch_multiqc_logo.toList(),
-        [],
-        []
+        ch_multiqc_files.collect().map { files ->
+            tuple([id: 'multiqc'], files, multiqc_config, multiqc_logo, [], [])
+        }
     )
 
     emit:
-    multiqc_report = MULTIQC.out.report.toList() // channel: /path/to/multiqc_report.html
-    versions       = ch_versions                 // channel: [ path(versions.yml) ]
+    nacho_qc_html       = ch_nacho_qc_html
+    nacho_qc_png        = ch_nacho_qc_png
+    nacho_qc_txt        = ch_nacho_qc_txt
+    normalized_counts   = ch_normalized
+    normalized_counts_wo_hk = ch_normalized_wo_hk
+    annotated_endo_data = ch_annotated_endo_data
+    annotated_hk_data   = ch_annotated_hk_data
+    gene_scores         = ch_gene_scores
+    gene_heatmaps       = ch_gene_heatmaps
+    multiqc_report      = MULTIQC.out.report.map { _meta, report -> report }.toList()
+    multiqc_data        = MULTIQC.out.data.map { _meta, data -> data }
+    multiqc_plots       = MULTIQC.out.plots.map { _meta, plots -> plots }
+    software_versions   = ch_collated_versions
+    versions            = ch_versions
 
 }
 

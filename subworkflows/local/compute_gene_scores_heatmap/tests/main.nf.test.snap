@@ -6,11 +6,11 @@
                 "versions.yml:md5,fada5495f572217c5a3bf98050dba293"
             ]
         ],
+        "timestamp": "2025-09-03T13:05:55.67538203",
         "meta": {
             "nf-test": "0.9.2",
             "nextflow": "25.04.6"
-        },
-        "timestamp": "2025-09-03T13:05:55.67538203"
+        }
     },
     "stub": {
         "content": [
@@ -28,6 +28,44 @@
                         "signature_scores_qc_mqc.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
+                "2": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        [
+                            "scores_for_mqc.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                            "signature_scores_qc_mqc.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ]
+                    ]
+                ],
+                "3": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "gene_heatmap_mqc.png:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "gene_heatmaps": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "gene_heatmap_mqc.png:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "gene_scores": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        [
+                            "scores_for_mqc.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                            "signature_scores_qc_mqc.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ]
+                    ]
+                ],
                 "multiqc_files": [
                     [
                         "gene_heatmap_mqc.png:md5,d41d8cd98f00b204e9800998ecf8427e"
@@ -43,11 +81,11 @@
                 ]
             }
         ],
+        "timestamp": "2026-10-04T16:14:34.241440815",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.6"
-        },
-        "timestamp": "2025-09-03T18:40:05.990702299"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.0"
+        }
     },
     "output_filenames_filter": {
         "content": [
@@ -57,24 +95,24 @@
                 "signature_scores_qc_mqc.txt"
             ]
         ],
+        "timestamp": "2025-09-03T13:11:31.831749055",
         "meta": {
             "nf-test": "0.9.2",
             "nextflow": "25.04.6"
-        },
-        "timestamp": "2025-09-03T13:11:31.831749055"
+        }
     },
     "versions_filter": {
         "content": [
             [
-                    "versions.yml:md5,39e2f90ec64507b913750e195418b2f8",
-                    "versions.yml:md5,fada5495f572217c5a3bf98050dba293"
+                "versions.yml:md5,39e2f90ec64507b913750e195418b2f8",
+                "versions.yml:md5,fada5495f572217c5a3bf98050dba293"
             ]
         ],
+        "timestamp": "2025-09-03T13:06:44.737395143",
         "meta": {
             "nf-test": "0.9.2",
             "nextflow": "25.04.6"
-        },
-        "timestamp": "2025-09-03T13:06:44.737395143"
+        }
     },
     "output_filenames": {
         "content": [
@@ -84,10 +122,10 @@
                 "signature_scores_qc_mqc.txt"
             ]
         ],
+        "timestamp": "2025-09-03T13:05:55.712919014",
         "meta": {
             "nf-test": "0.9.2",
             "nextflow": "25.04.6"
-        },
-        "timestamp": "2025-09-03T13:05:55.712919014"
+        }
     }
 }
