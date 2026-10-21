@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Changed`
 
+- [#179](https://github.com/nf-core/nanostring/pull/177) - Added remaining aspects related to Multiqc from nf-core template 4.1.0.
 - [#177](https://github.com/nf-core/nanostring/pull/177) - Updated to nf-core template 4.1.0 and migrated pipeline to Nextflow workflow outputs.
 - [#175](https://github.com/nf-core/nanostring/pull/175) - Updated to NACHO v2.0.7.
 
