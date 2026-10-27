@@ -1,0 +1,37 @@
+nextflow_process {
+
+    name "Test Process CREATE_ANNOTATED_TABLES"
+    script "../main.nf"
+    process "CREATE_ANNOTATED_TABLES"
+    tag "module"
+
+    test("Should run without failures") {
+
+        when {
+            process {
+                """
+                // Normalized file with meta
+                input[0] = [
+                    [ id: 'test_sample' ],
+                    file(params.pipelines_testdata_base_path + 'nanostring/modules_test_data/test_profile/normalized_counts.tsv', checkIfExists: true)
+                ]
+
+                // Sample sheet with meta
+                input[1] = [
+                    [ id: 'test_sample' ],
+                    file(params.pipelines_testdata_base_path + 'nanostring/samplesheets/samplesheet_test.csv', checkIfExists: true)
+                ]
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+
+    }
+
+}
