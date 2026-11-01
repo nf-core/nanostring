@@ -26,6 +26,9 @@
 
 The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool to run tasks across multiple compute infrastructures in a very portable manner. It uses Docker/Singularity containers making installation trivial and results highly reproducible. The [Nextflow DSL2](https://www.nextflow.io/docs/latest/dsl2.html) implementation of this pipeline uses one container per process which makes it much easier to maintain and update software dependencies. Where possible, these processes have been submitted to and installed from [nf-core/modules](https://github.com/nf-core/modules) in order to make them available to all nf-core pipelines, and to everyone within the Nextflow community!
 
+> [!WARNING]
+> Version 2.0.0 changes NACHO normalization behavior. Background-corrected housekeeping counts below 1 are clamped to 1, and counts at or below background can now become 0.1 instead of 0 after rounding. This can change normalized values and the House_factor compared with v1.x. Review outputs carefully when upgrading.
+
 ## Pipeline summary
 
 1. Quality control with NACHO ([`NACHO`](https://github.com/mcanouil/NACHO/))
@@ -87,7 +90,7 @@ nf-core/nanostring was originally written by Peltzer, Alexander & Mohr, Christop
 
 ## Contributions and Support
 
-If you would like to contribute to this pipeline, please see the [contributing guidelines](.github/CONTRIBUTING.md).
+If you would like to contribute to this pipeline, please see the [contributing guidelines](docs/CONTRIBUTING.md).
 
 For further information or help, don't hesitate to get in touch on the [Slack `#nanostring` channel](https://nfcore.slack.com/channels/nanostring) (you can join with [this invite](https://nf-co.re/join/slack)).
 

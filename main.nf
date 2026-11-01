@@ -47,7 +47,7 @@ workflow NFCORE_NANOSTRING {
     //
     NANOSTRING (
         samplesheet,
-        channel.from(file(params.input)).map{ input -> tuple( [id: file(params.input).getName()], input) }
+        channel.value(tuple([id: file(params.input).getName()], file(params.input)))
     )
 
     emit:
