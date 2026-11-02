@@ -40,7 +40,7 @@
                     "r-fs": "2.1.0"
                 },
                 "Workflow": {
-                    "nf-core/nanostring": "v1.4.0"
+                    "nf-core/nanostring": "v2.0.0"
                 }
             },
             [
@@ -126,7 +126,7 @@
                 "multiqc_normalized_qc.txt:md5,520d3a6680375c41365bdd8837af00cd"
             ]
         ],
-        "timestamp": "2026-10-21T15:13:37.428182311",
+        "timestamp": "2026-11-01T12:42:18.667593646",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"

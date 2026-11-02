@@ -15,4 +15,4 @@ template:
   name: nanostring
   org: nf-core
   outdir: .
-  version: 1.4.0
+  version: 2.0.0
