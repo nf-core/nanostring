@@ -1,0 +1,20 @@
+Changes in component 'nf-core/nacho/normalize'
+Changes in 'nacho/normalize/environment.yml':
+--- modules/nf-core/nacho/normalize/environment.yml
++++ modules/nf-core/nacho/normalize/environment.yml
+@@ -5,6 +5,7 @@
+   - bioconda
+ 
+ dependencies:
++  - conda-forge::r-base=4.5.2
+   - conda-forge::r-dplyr=1.1.4
+   - conda-forge::r-fs=1.6.6
+   - conda-forge::r-ggplot2=4.0.1
+
+'modules/nf-core/nacho/normalize/main.nf' is unchanged
+'modules/nf-core/nacho/normalize/meta.yml' is unchanged
+'modules/nf-core/nacho/normalize/tests/main.nf.test.snap' is unchanged
+'modules/nf-core/nacho/normalize/tests/main.nf.test' is unchanged
+'modules/nf-core/nacho/normalize/tests/nextflow.config' is unchanged
+'modules/nf-core/nacho/normalize/resources/usr/bin/nacho_norm.R' is unchanged
+************************************************************
