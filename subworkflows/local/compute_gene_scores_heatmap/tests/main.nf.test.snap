@@ -8,8 +8,8 @@
         ],
         "timestamp": "2025-09-03T13:05:55.67538203",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.6"
+            "nextflow": "25.04.6",
+            "nf-test": "0.9.2"
         }
     },
     "stub": {
@@ -83,8 +83,8 @@
         ],
         "timestamp": "2026-10-04T16:14:34.241440815",
         "meta": {
-            "nf-test": "0.9.5",
-            "nextflow": "26.04.0"
+            "nextflow": "26.04.0",
+            "nf-test": "0.9.5"
         }
     },
     "output_filenames_filter": {
@@ -97,8 +97,8 @@
         ],
         "timestamp": "2025-09-03T13:11:31.831749055",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.6"
+            "nextflow": "25.04.6",
+            "nf-test": "0.9.2"
         }
     },
     "versions_filter": {
@@ -110,8 +110,8 @@
         ],
         "timestamp": "2025-09-03T13:06:44.737395143",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.6"
+            "nextflow": "25.04.6",
+            "nf-test": "0.9.2"
         }
     },
     "output_filenames": {
@@ -124,8 +124,8 @@
         ],
         "timestamp": "2025-09-03T13:05:55.712919014",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.6"
+            "nextflow": "25.04.6",
+            "nf-test": "0.9.2"
         }
     }
 }

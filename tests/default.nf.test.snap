@@ -4,39 +4,39 @@
             {
                 "CREATE_ANNOTATED_TABLES": {
                     "r-base": "4.5.2",
-                    "r-ggplot2": null,
                     "r-dplyr": "1.1.4",
+                    "r-ggplot2": null,
                     "r-readr": "2.1.6"
                 },
                 "CREATE_GENE_HEATMAP": {
+                    "bioconductor-ComplexHeatmap": "2.22.0",
                     "r-base": "4.4.3",
+                    "r-circlize": "0.4.17",
                     "r-dplyr": "1.1.4",
+                    "r-fs": "1.6.6",
                     "r-ggplot2": "4.0.1",
                     "r-rlang": "1.1.7",
-                    "bioconductor-ComplexHeatmap": "2.22.0",
-                    "r-circlize": "0.4.17",
-                    "r-yaml": "2.3.12",
-                    "r-fs": "1.6.6"
+                    "r-yaml": "2.3.12"
                 },
                 "NACHO_NORMALIZE": {
                     "r-base": "4.5.1",
-                    "r-nfcore.utils": "0.0.3",
-                    "r-nacho": "2.0.7",
                     "r-dplyr": "1.2.1",
+                    "r-fs": "2.1.0",
                     "r-ggplot2": "4.0.3",
-                    "r-tidyr": "1.3.2",
+                    "r-nacho": "2.0.7",
+                    "r-nfcore.utils": "0.0.3",
                     "r-readr": "2.2.0",
-                    "r-fs": "2.1.0"
+                    "r-tidyr": "1.3.2"
                 },
                 "NACHO_QC": {
                     "r-base": "4.5.1",
-                    "r-nfcore.utils": "0.0.3",
-                    "r-nacho": "2.0.7",
                     "r-dplyr": "1.2.1",
+                    "r-fs": "2.1.0",
                     "r-ggplot2": "4.0.3",
-                    "r-tidyr": "1.3.2",
+                    "r-nacho": "2.0.7",
+                    "r-nfcore.utils": "0.0.3",
                     "r-readr": "2.2.0",
-                    "r-fs": "2.1.0"
+                    "r-tidyr": "1.3.2"
                 },
                 "Workflow": {
                     "nf-core/nanostring": "v1.4.0"
@@ -127,8 +127,8 @@
         ],
         "timestamp": "2026-10-21T15:10:57.773312175",
         "meta": {
-            "nf-test": "0.9.5",
-            "nextflow": "26.04.0"
+            "nextflow": "26.04.0",
+            "nf-test": "0.9.5"
         }
     }
 }

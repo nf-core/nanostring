@@ -25,8 +25,8 @@
         ],
         "timestamp": "2026-09-30T15:43:59.079349902",
         "meta": {
-            "nf-test": "0.9.5",
-            "nextflow": "26.04.6"
+            "nextflow": "26.04.6",
+            "nf-test": "0.9.5"
         }
     },
     "Salmon - RCC files - stub": {
@@ -55,8 +55,8 @@
         ],
         "timestamp": "2026-09-30T15:44:06.960787101",
         "meta": {
-            "nf-test": "0.9.5",
-            "nextflow": "26.04.6"
+            "nextflow": "26.04.6",
+            "nf-test": "0.9.5"
         }
     }
 }
