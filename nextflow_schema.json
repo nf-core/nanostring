@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/nf-core/nanostring/master/nextflow_schema.json",
     "title": "nf-core/nanostring pipeline parameters",
-    "description": "Nanostring nCounter analysis pipeline",
+    "description": "A Nanostring nCounter analysis pipeline",
     "type": "object",
     "$defs": {
         "input_output_options": {
@@ -233,13 +233,6 @@
                     "fa_icon": "fas fa-palette",
                     "hidden": true
                 },
-                "hook_url": {
-                    "type": "string",
-                    "description": "Incoming hook URL for messaging service",
-                    "fa_icon": "fas fa-people-group",
-                    "help_text": "Incoming hook URL for messaging service. Currently, MS Teams and Slack are supported.",
-                    "hidden": true
-                },
                 "multiqc_title": {
                     "type": "string",
                     "description": "MultiQC report title. Printed as page header, used for filename if not otherwise specified.",
@@ -279,7 +272,7 @@
                 },
                 "trace_report_suffix": {
                     "type": "string",
-                    "fa_icon": "far calendar",
+                    "fa_icon": "far fa-calendar",
                     "description": "Suffix to add to the trace report filename. Default is the date and time in the format yyyy-MM-dd_HH-mm-ss.",
                     "hidden": true
                 },

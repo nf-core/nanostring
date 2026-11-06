@@ -1,0 +1,68 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/subworkflows/yaml-schema.json
+name: PIPELINE_INITIALISATION
+description: Pipeline initialisation, completion, and helper functions for nf-core/nanostring.
+keywords:
+  - utility
+  - pipeline
+  - initialisation
+  - completion
+components:
+  - utils_nfschema_plugin
+  - utils_nfcore_pipeline
+  - utils_nextflow_pipeline
+  - completionemail
+  - completionsummary
+input:
+  - version:
+      type: boolean
+      description: Display the pipeline version and exit during initialisation.
+  - validate_params:
+      type: boolean
+      description: Validate pipeline parameters against the schema during initialisation.
+  - _monochrome_logs:
+      type: boolean
+      description: Disable coloured logging during initialisation.
+  - nextflow_cli_args:
+      type: list
+      description: Positional Nextflow arguments to validate during initialisation.
+  - outdir:
+      type: string
+      description: Output directory used by initialisation and completion.
+  - _input:
+      type: string
+      description: Input samplesheet path during initialisation.
+  - help:
+      type: boolean
+      description: Display the short help message and exit during initialisation.
+  - help_full:
+      type: boolean
+      description: Display the full help message and exit during initialisation.
+  - show_hidden:
+      type: boolean
+      description: Include hidden parameters in the help message during initialisation.
+  - email:
+      type: string
+      description: Address for the pipeline completion email.
+  - email_on_fail:
+      type: string
+      description: Address for an email when the pipeline fails.
+  - plaintext_email:
+      type: boolean
+      description: Send the completion email as plain text.
+  - monochrome_logs:
+      type: boolean
+      description: Disable ANSI colour codes in the completion summary.
+  - multiqc_report:
+      type: file
+      description: MultiQC report passed to the completion email.
+output:
+  - samplesheet:
+      type: file
+      description: Validated samplesheet records emitted by pipeline initialisation.
+  - versions:
+      type: file
+      description: Software version files emitted by pipeline initialisation.
+authors:
+  - "@atrigila"
+maintainers:
+  - "@atrigila"

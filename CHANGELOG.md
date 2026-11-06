@@ -3,13 +3,33 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v1.3.4
+## v2.0.0 - 2026-10-23 - Millimetre
 
-### `Fixed`
+### `Breaking changes`
+
+- NACHO 2.0.7 changes normalization results: background-corrected housekeeping counts below 1 are clamped to 1, and the 0.1 floor is applied after rounding. Counts at or below background therefore become 0.1 instead of 0, which can also change the House_factor. In the included four-sample fixture, normalized expression values changed from 0 to 0.1, PCL and LoD QC values changed from 0/FAIL to NA, and House_factor values stayed the same. Re-run analyses and review results when upgrading from v1.x.
+- Nextflow 26.04.0 or later is required for workflow outputs.
 
 ### `Changed`
 
+- [#179](https://github.com/nf-core/nanostring/pull/179) - Added remaining MultiQC aspects from nf-core template 4.1.0.
+- [#177](https://github.com/nf-core/nanostring/pull/177) - Updated to nf-core template 4.1.0 and migrated pipeline to Nextflow workflow outputs.
+- [#175](https://github.com/nf-core/nanostring/pull/175) - Updated to NACHO v2.0.7.
+- Updated nf-schema to 3.0.0.
+
 ### `Dependencies`
+
+| Dependency       | Old version | New version |
+| ---------------- | ----------- | ----------- |
+| `NACHO`          | 2.0.6       | 2.0.7       |
+| `MultiQC`        | 1.33        | 1.35        |
+| `r-base`         | 4.5.2       | 4.5.1       |
+| `r-dplyr`        | 1.1.4       | 1.2.1       |
+| `r-fs`           | 1.6.6       | 2.1.0       |
+| `r-ggplot2`      | 4.0.1       | 4.0.3       |
+| `r-readr`        | 2.1.6       | 2.2.0       |
+| `r-optparse`     | 1.7.5       | removed     |
+| `r-nfcore.utils` | —           | 0.0.3       |
 
 ## v1.3.3 - 2026-01-30 - Micrometer patch 3
 

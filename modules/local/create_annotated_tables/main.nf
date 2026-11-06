@@ -4,9 +4,9 @@ process CREATE_ANNOTATED_TABLES {
 
     conda "${moduleDir}/environment.yml"
 
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/56/56c5ac7d61c88a64dc7d6f047e92fbcafbfa271a2df451181f3bac6addcc58b3/data' :
-        'community.wave.seqera.io/library/r-dplyr_r-ggplot2_r-readr_r-stringr_r-tidyr:48d97bd8e8272dbe' }"
+    container "${ workflow.containerEngine in ['singularity', 'apptainer'] && !task.ext.singularity_pull_docker_container
+?         'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/fc/fc3f085fb9fa37ada3792ed13783d85378fc09558c1df742e02908d243f6644c/data'
+:         'community.wave.seqera.io/library/r-base_r-dplyr_r-ggplot2_r-readr_pruned:699fc61330185bf2' }"
 
     input:
     tuple val(meta) , path(counts)
