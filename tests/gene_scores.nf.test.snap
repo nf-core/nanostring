@@ -16,7 +16,7 @@
                 "CREATE_ANNOTATED_TABLES": {
                     "r-base": "4.5.2",
                     "r-dplyr": "1.1.4",
-                    "r-ggplot2": null,
+                    "r-ggplot2": "4.0.1",
                     "r-readr": "2.1.6"
                 },
                 "CREATE_GENE_HEATMAP": {
@@ -150,7 +150,7 @@
             ],
             "# id: nf-core-nanoflow-signature-score\n# section_name: 'Signature Scores'\n# description: 'Signature Scores: Algorithm: ssgsea'\n# plot_type: 'heatmap'\n# section_href: 'https://github.com/nf-core/nanoflow'\nsample\ttestscore\nsalmon_02_02.RCC\t1.44\nsalmon_03_03.RCC\t0.44\nsalmon_01_01.RCC\t0.74\nsalmon_04_04.RCC\t0.85\n"
         ],
-        "timestamp": "2026-11-07T15:15:14.654863",
+        "timestamp": "2026-11-07T18:11:16.37427",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.5"
@@ -173,7 +173,7 @@
                 "CREATE_ANNOTATED_TABLES": {
                     "r-base": "4.5.2",
                     "r-dplyr": "1.1.4",
-                    "r-ggplot2": null,
+                    "r-ggplot2": "4.0.1",
                     "r-readr": "2.1.6"
                 },
                 "CREATE_GENE_HEATMAP": {
@@ -307,7 +307,7 @@
             ],
             "# id: nf-core-nanoflow-signature-score\n# section_name: 'Signature Scores'\n# description: 'Signature Scores: Algorithm: mean'\n# plot_type: 'heatmap'\n# section_href: 'https://github.com/nf-core/nanoflow'\nsample\ttestscore\nsalmon_03_03.RCC\t945.40\nsalmon_04_04.RCC\t758.20\nsalmon_01_01.RCC\t840.20\nsalmon_02_02.RCC\t812.20\n"
         ],
-        "timestamp": "2026-11-07T15:18:24.767658",
+        "timestamp": "2026-11-07T18:14:19.760026",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.5"
@@ -330,7 +330,7 @@
                 "CREATE_ANNOTATED_TABLES": {
                     "r-base": "4.5.2",
                     "r-dplyr": "1.1.4",
-                    "r-ggplot2": null,
+                    "r-ggplot2": "4.0.1",
                     "r-readr": "2.1.6"
                 },
                 "CREATE_GENE_HEATMAP": {
@@ -464,7 +464,7 @@
             ],
             "# id: nf-core-nanoflow-signature-score\n# section_name: 'Signature Scores'\n# description: 'Signature Scores: Algorithm: plage.dir'\n# plot_type: 'heatmap'\n# section_href: 'https://github.com/nf-core/nanoflow'\nsample\tgrowth\tcircadian\nsalmon_02_02.RCC\t-0.73\t-0.74\nsalmon_01_01.RCC\t-0.19\t-0.01\nsalmon_03_03.RCC\t0.55\t0.08\nsalmon_04_04.RCC\t0.36\t0.67\n"
         ],
-        "timestamp": "2026-11-07T15:02:36.328531",
+        "timestamp": "2026-11-07T18:17:26.058965",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.5"
@@ -487,7 +487,7 @@
                 "CREATE_ANNOTATED_TABLES": {
                     "r-base": "4.5.2",
                     "r-dplyr": "1.1.4",
-                    "r-ggplot2": null,
+                    "r-ggplot2": "4.0.1",
                     "r-readr": "2.1.6"
                 },
                 "CREATE_GENE_HEATMAP": {
@@ -621,7 +621,7 @@
             ],
             "# id: nf-core-nanoflow-signature-score\n# section_name: 'Signature Scores'\n# description: 'Signature Scores: Algorithm: sams'\n# plot_type: 'heatmap'\n# section_href: 'https://github.com/nf-core/nanoflow'\nsample\ttestscore\nsalmon_03_03.RCC\t216.40\nsalmon_02_02.RCC\t14.60\nsalmon_01_01.RCC\t4.80\nsalmon_04_04.RCC\t0.40\n"
         ],
-        "timestamp": "2026-11-07T17:03:34.306162",
+        "timestamp": "2026-11-07T18:15:53.531114",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.5"
@@ -644,7 +644,7 @@
                 "CREATE_ANNOTATED_TABLES": {
                     "r-base": "4.5.2",
                     "r-dplyr": "1.1.4",
-                    "r-ggplot2": null,
+                    "r-ggplot2": "4.0.1",
                     "r-readr": "2.1.6"
                 },
                 "CREATE_GENE_HEATMAP": {
@@ -778,7 +778,7 @@
             ],
             "# id: nf-core-nanoflow-signature-score\n# section_name: 'Signature Scores'\n# description: 'Signature Scores: Algorithm: singscore'\n# plot_type: 'heatmap'\n# section_href: 'https://github.com/nf-core/nanoflow'\nsample\ttestscore\nsalmon_04_04.RCC\t0.32\nsalmon_02_02.RCC\t0.36\nsalmon_01_01.RCC\t0.40\nsalmon_03_03.RCC\t0.38\n"
         ],
-        "timestamp": "2026-11-07T15:16:50.214164",
+        "timestamp": "2026-11-07T18:12:48.107639",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.5"
