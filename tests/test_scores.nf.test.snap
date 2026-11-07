@@ -1,5 +1,5 @@
 {
-    "test_scores profile": {
+    "-profile test_scores": {
         "content": [
             8,
             {
@@ -149,10 +149,10 @@
                 "multiqc_normalized_qc.txt:md5,520d3a6680375c41365bdd8837af00cd"
             ]
         ],
-        "timestamp": "2026-11-05T19:35:45.041917155",
+        "timestamp": "2026-11-07T14:42:11.276334",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.3"
+            "nextflow": "26.10.5"
         }
     }
 }
