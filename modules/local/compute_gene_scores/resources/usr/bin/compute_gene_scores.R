@@ -736,7 +736,7 @@ if (nrow(scores) > 1) {
     hc.r <- hclust(dist(scores))
     s.r <- hc.r$order
 }
-scores.df <- as.data.frame.matrix(t(scores[s.r, s.c]))
+scores.df <- as.data.frame.matrix(t(scores[s.r, s.c, drop = FALSE]))
 scores.df <- rownames_to_column(scores.df, "sample")
 
 #Write to multiQC output

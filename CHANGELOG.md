@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Fixed`
 
 - [#190](https://github.com/nf-core/nanostring/pull/190) - Fixed `-stub` runs of `CREATE_ANNOTATED_TABLES` (stub files did not match the declared outputs) and `CREATE_GENE_HEATMAP` (identical stub file names for the normalized and `wo_HKnorm` heatmaps).
+- [#190](https://github.com/nf-core/nanostring/pull/190) - Fixed the gene score table for a `gene_score_yaml` with a single gene set: it was written transposed with the gene set name replaced by `1`, inconsistent with the multi-gene-set layout (samples as rows, gene sets as columns).
 
 ### `Changed`
 

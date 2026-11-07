@@ -148,9 +148,9 @@
                 "multiqc_nf-core-nanoflow-signature-score-qc.txt:md5,2c1f0d5341d41543aadcf85826222f73",
                 "multiqc_normalized_qc.txt:md5,520d3a6680375c41365bdd8837af00cd"
             ],
-            "# id: nf-core-nanoflow-signature-score\n# section_name: 'Signature Scores'\n# description: 'Signature Scores: Algorithm: ssgsea'\n# plot_type: 'heatmap'\n# section_href: 'https://github.com/nf-core/nanoflow'\nsample\tsalmon_02_02.RCC\tsalmon_03_03.RCC\tsalmon_01_01.RCC\tsalmon_04_04.RCC\n1\t1.44\t0.44\t0.74\t0.85\n"
+            "# id: nf-core-nanoflow-signature-score\n# section_name: 'Signature Scores'\n# description: 'Signature Scores: Algorithm: ssgsea'\n# plot_type: 'heatmap'\n# section_href: 'https://github.com/nf-core/nanoflow'\nsample\ttestscore\nsalmon_02_02.RCC\t1.44\nsalmon_03_03.RCC\t0.44\nsalmon_01_01.RCC\t0.74\nsalmon_04_04.RCC\t0.85\n"
         ],
-        "timestamp": "2026-11-07T14:57:51.706887",
+        "timestamp": "2026-11-07T15:15:14.654863",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.5"
@@ -305,9 +305,9 @@
                 "multiqc_nf-core-nanoflow-signature-score-qc.txt:md5,2c1f0d5341d41543aadcf85826222f73",
                 "multiqc_normalized_qc.txt:md5,520d3a6680375c41365bdd8837af00cd"
             ],
-            "# id: nf-core-nanoflow-signature-score\n# section_name: 'Signature Scores'\n# description: 'Signature Scores: Algorithm: mean'\n# plot_type: 'heatmap'\n# section_href: 'https://github.com/nf-core/nanoflow'\nsample\tsalmon_03_03.RCC\tsalmon_04_04.RCC\tsalmon_01_01.RCC\tsalmon_02_02.RCC\n1\t945.40\t758.20\t840.20\t812.20\n"
+            "# id: nf-core-nanoflow-signature-score\n# section_name: 'Signature Scores'\n# description: 'Signature Scores: Algorithm: mean'\n# plot_type: 'heatmap'\n# section_href: 'https://github.com/nf-core/nanoflow'\nsample\ttestscore\nsalmon_03_03.RCC\t945.40\nsalmon_04_04.RCC\t758.20\nsalmon_01_01.RCC\t840.20\nsalmon_02_02.RCC\t812.20\n"
         ],
-        "timestamp": "2026-11-07T15:01:01.443055",
+        "timestamp": "2026-11-07T15:18:24.767658",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.5"
@@ -619,9 +619,9 @@
                 "multiqc_nf-core-nanoflow-signature-score-qc.txt:md5,2c1f0d5341d41543aadcf85826222f73",
                 "multiqc_normalized_qc.txt:md5,520d3a6680375c41365bdd8837af00cd"
             ],
-            "# id: nf-core-nanoflow-signature-score\n# section_name: 'Signature Scores'\n# description: 'Signature Scores: Algorithm: singscore'\n# plot_type: 'heatmap'\n# section_href: 'https://github.com/nf-core/nanoflow'\nsample\tsalmon_04_04.RCC\tsalmon_02_02.RCC\tsalmon_01_01.RCC\tsalmon_03_03.RCC\n1\t0.32\t0.36\t0.40\t0.38\n"
+            "# id: nf-core-nanoflow-signature-score\n# section_name: 'Signature Scores'\n# description: 'Signature Scores: Algorithm: singscore'\n# plot_type: 'heatmap'\n# section_href: 'https://github.com/nf-core/nanoflow'\nsample\ttestscore\nsalmon_04_04.RCC\t0.32\nsalmon_02_02.RCC\t0.36\nsalmon_01_01.RCC\t0.40\nsalmon_03_03.RCC\t0.38\n"
         ],
-        "timestamp": "2026-11-07T14:59:26.538512",
+        "timestamp": "2026-11-07T15:16:50.214164",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.5"
