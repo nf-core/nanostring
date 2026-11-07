@@ -1,0 +1,62 @@
+nextflow_pipeline {
+
+    name "Test pipeline - gene_score_method"
+    script "../main.nf"
+    profile "test_scores"
+    tag "pipeline"
+    tag "gene_scores"
+
+    // Each case is run on the test_scores profile (test RCC data + gene_score_test.yaml unless overridden).
+    // signature_scores_mqc.txt is excluded from the md5 checks via tests/.nftignore (floating-point
+    // output), so its content is snapshotted with values rounded to 2 decimal places instead.
+    [
+        [ method: 'ssgsea'   , yaml: null ],
+        [ method: 'singscore', yaml: null ],
+        [ method: 'mean'     , yaml: null ],
+        // Two gene sets (genes taken from the test RCC data), default method
+        [ method: 'plage.dir', yaml: 'tests/assets/gene_score_multi.yaml' ],
+    ].each { tc ->
+
+        def test_name = "-profile test_scores --gene_score_method ${tc.method}" + (tc.yaml ? " --gene_score_yaml ${tc.yaml}" : "")
+
+        test(test_name) {
+
+            when {
+                params {
+                    outdir            = "$outputDir"
+                    gene_score_method = tc.method
+                    if (tc.yaml) {
+                        gene_score_yaml = "${baseDir}/${tc.yaml}"
+                    }
+                }
+            }
+
+            then {
+                // stable_path: All files + folders in ${params.outdir}/ with a stable path (including file name)
+                def stable_path = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: ['pipeline_info/*.{html,json,txt}'])
+                // stable_content: All files in ${params.outdir}/ with stable content
+                def stable_content = getAllFilesFromDir(params.outdir, ignoreFile: 'tests/.nftignore')
+                def scores_file = file("$outputDir/gene_scores/signature_scores_mqc.txt")
+                def scores_rounded = scores_file.text.replaceAll(/(-?\d+\.\d+(e-?\d+)?)/) { match ->
+                    String.format(Locale.ROOT, "%.2f", Double.parseDouble(match[1]))
+                }
+                assert workflow.success
+                assertAll(
+                    { assert scores_file.text.contains("Algorithm: ${tc.method}") },
+                    { assert snapshot(
+                        // Number of successful tasks
+                        workflow.trace.succeeded().size(),
+                        // pipeline versions.yml file for multiqc from which Nextflow version is removed because we test pipelines on multiple Nextflow versions
+                        removeNextflowVersion("$outputDir/pipeline_info/nf_core_nanostring_software_mqc_versions.yml"),
+                        // All stable path name, with a relative path
+                        stable_path,
+                        // All files with stable contents
+                        stable_content,
+                        // Gene scores rounded to 2 decimal places
+                        scores_rounded
+                    ).match() }
+                )
+            }
+        }
+    }
+}

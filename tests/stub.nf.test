@@ -1,0 +1,33 @@
+nextflow_pipeline {
+
+    name "Test pipeline - stub"
+    script "../main.nf"
+    profile "test_scores"
+    tag "pipeline"
+    tag "stub"
+
+    test("-profile test_scores -stub") {
+
+        options "-stub"
+
+        when {
+            params {
+                outdir = "$outputDir"
+            }
+        }
+
+        then {
+            // stable_path: All files + folders in ${params.outdir}/ with a stable path (including file name)
+            def stable_path = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: ['pipeline_info/*.{html,json,txt,yml}'])
+            assert workflow.success
+            assertAll(
+                { assert snapshot(
+                    // Number of successful tasks
+                    workflow.trace.succeeded().size(),
+                    // All stable path name, with a relative path (stub outputs are empty placeholders)
+                    stable_path
+                ).match() }
+            )
+        }
+    }
+}
