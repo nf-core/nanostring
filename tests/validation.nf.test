@@ -1,0 +1,35 @@
+nextflow_pipeline {
+
+    name "Test pipeline - parameter validation"
+    script "../main.nf"
+    tag "pipeline"
+    tag "validation"
+
+    // Invalid values for parameters with a closed set of allowed values must be rejected
+    // by nf-schema at pipeline start, before any process runs.
+    [
+        [ param: 'gene_score_method'   , value: 'not_a_method', allowed: '[plage, plage.dir, gsva, singscore, ssgsea, median, mean, sams]' ],
+        [ param: 'normalization_method', value: 'not_a_method', allowed: '[GEO, GLM]' ],
+    ].each { tc ->
+
+        test("--${tc.param} ${tc.value} fails parameter validation") {
+
+            when {
+                params {
+                    outdir = "$outputDir"
+                    delegate."${tc.param}" = tc.value
+                }
+            }
+
+            then {
+                def output = (workflow.stdout + workflow.stderr).join('\n')
+                assertAll(
+                    { assert workflow.failed },
+                    { assert output.contains('The following invalid input values have been detected') },
+                    { assert output.contains("--${tc.param} (${tc.value}): Expected any of ${tc.allowed}") },
+                    { assert workflow.trace.tasks().size() == 0 }
+                )
+            }
+        }
+    }
+}
