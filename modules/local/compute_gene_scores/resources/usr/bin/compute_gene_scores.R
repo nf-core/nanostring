@@ -387,19 +387,15 @@ sams_score <- function(
     # method "sams" or "median", median is just the column median
 
     expr_mat <- as.matrix(expr_mat)
-    assertthat::assert_that(
-        is.numeric(expr_mat),
-        msg = "expression matix is not numeric"
-    )
-
-    assertthat::assert_that(
-        all(up_genes %in% rownames(expr_mat)),
-        msg = "At least one element in up_genes is not in rownames of expression matrix."
-    )
-    assertthat::assert_that(
-        all(down_genes %in% rownames(expr_mat)),
-        msg = "At least one element down_genes is not in rownames of expression matrix."
-    )
+    if (!is.numeric(expr_mat)) {
+        stop("expression matrix is not numeric")
+    }
+    if (!all(up_genes %in% rownames(expr_mat))) {
+        stop("At least one element in up_genes is not in rownames of expression matrix.")
+    }
+    if (!all(down_genes %in% rownames(expr_mat))) {
+        stop("At least one element in down_genes is not in rownames of expression matrix.")
+    }
     if (center_rows) {
         if (geom_mean) {
             row_means <- apply(expr_mat, 1, gm_mean_simple)

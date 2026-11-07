@@ -10,6 +10,17 @@
             "nextflow": "26.10.5"
         }
     },
+    "multiple gene sets - sams": {
+        "content": [
+            "# id: nf-core-nanoflow-signature-score\n# section_name: 'Signature Scores'\n# description: 'Signature Scores: Algorithm: sams'\n# plot_type: 'heatmap'\n# section_href: 'https://github.com/nf-core/nanoflow'\nsample\tgrowth\tcircadian\nsalmon_03_03.RCC\t4\t3.30\nsalmon_04_04.RCC\t2.38\t1.85\nsalmon_01_01.RCC\t7.13\t0.75\nsalmon_02_02.RCC\t6.75\t4.50\n",
+            "# id: nf-core-nanoflow-signature-score-qc\n# section_name: 'Signature Score QC'\n# description: 'Compare Signatures to Expression Matrix'\n# plot_type: 'table'\n# section_href: 'https://github.com/nf-core/nanoflow'\ngeneset\tsize.geneset\tsize.missing\tsize.left\tgenes.missing\tgenes.used\ngrowth\t4\t0\t4\t\tGH R1, IGF-1a, IGF-1b, PRL\ncircadian\t5\t0\t5\t\tcry1, cry2, MT1, MT2, mel1c\n"
+        ],
+        "timestamp": "2026-11-07T16:56:17.223858",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.10.5"
+        }
+    },
     "test profile": {
         "content": [
             "# id: nf-core-nanoflow-signature-score\n# section_name: 'Signature Scores'\n# description: 'Signature Scores: Algorithm: plage.dir'\n# plot_type: 'heatmap'\n# section_href: 'https://github.com/nf-core/nanoflow'\nsample\ttestscore\nsalmon_01_01.RCC\t0.26\nsalmon_03_03.RCC\t0.60\nsalmon_02_02.RCC\t-0.75\nsalmon_04_04.RCC\t-0.12\n",
