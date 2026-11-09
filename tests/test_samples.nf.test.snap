@@ -1,5 +1,5 @@
 {
-    "test_samples profile": {
+    "-profile test_samples": {
         "content": [
             7,
             {
@@ -126,10 +126,10 @@
                 "multiqc_normalized_qc.txt:md5,520d3a6680375c41365bdd8837af00cd"
             ]
         ],
-        "timestamp": "2026-11-05T19:34:16.920781619",
+        "timestamp": "2026-11-07T14:40:12.753595",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.3"
+            "nextflow": "26.10.5"
         }
     }
 }
