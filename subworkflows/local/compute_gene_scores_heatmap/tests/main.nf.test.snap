@@ -1,4 +1,20 @@
 {
+    "skip heatmap": {
+        "content": [
+            [
+                "versions.yml:md5,fada5495f572217c5a3bf98050dba293"
+            ],
+            [
+                "signature_scores_mqc.txt",
+                "signature_scores_qc_mqc.txt"
+            ]
+        ],
+        "timestamp": "2026-11-07T14:44:53.84691",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.10.5"
+        }
+    },
     "versions": {
         "content": [
             [

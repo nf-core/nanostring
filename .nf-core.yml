@@ -5,6 +5,9 @@ lint:
     - .github/PULL_REQUEST_TEMPLATE.md
     - .github/workflows/linting.yml
     - .github/workflows/branch.yml
+  # validation.nf.test fails at parameter validation before any task runs, so there is no versions.yml to snapshot
+  nf_test_content:
+    - tests/validation.nf.test
 nf_core_version: 4.2.1
 repository_type: pipeline
 template:
@@ -15,4 +18,6 @@ template:
   name: nanostring
   org: nf-core
   outdir: .
+  skip_features:
+    - fastqc
   version: 2.0.0
