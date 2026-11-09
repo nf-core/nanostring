@@ -7,16 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Breaking changes`
 
-- NACHO 2.0.7 changes normalization results: background-corrected housekeeping counts below 1 are clamped to 1, and the 0.1 floor is applied after rounding. Counts at or below background therefore become 0.1 instead of 0, which can also change the House_factor. In the included four-sample fixture, normalized expression values changed from 0 to 0.1, PCL and LoD QC values changed from 0/FAIL to NA, and House_factor values stayed the same. Re-run analyses and review results when upgrading from v1.x.
+- [NACHO 2.0.7](https://github.com/mcanouil/NACHO/releases/tag/v2.0.7) changes normalization and QC results. Re-run analyses and review results when upgrading from v1.x:
+  - Normalized counts at or below background are now `0.1` instead of `0`, because the 0.1 floor is applied after rounding.
+  - Background-corrected housekeeping counts below 1 are now replaced with 1 before computing `House_factor`, so `House_factor` and all housekeeping-normalized counts can change for samples with very low housekeeping expression.
+  - `PCL` and `LoD` are now `NA` instead of `0` (and their QC flags `NA` instead of `FAIL`) when a CodeSet has no `POS_E` positive control probe or the negative controls do not vary. Such samples are no longer flagged as outliers on these metrics.
+  - The QC report's PCA is now computed with samples as observations, so PCA plots differ.
 - Nextflow 26.04.0 or later is required for workflow outputs.
 
 ### `Changed`
 
+- [#188](https://github.com/nf-core/nanostring/pull/188) - Clarified the NACHO 2.0.7 breaking changes in the changelog and README, based on a comparison of v1.3.3 and v2.0.0 outputs.
 - [#186](https://github.com/nf-core/nanostring/pull/186) - Updated to nf-core template 4.2.1.
 - [#179](https://github.com/nf-core/nanostring/pull/179) - Added remaining MultiQC aspects from nf-core template 4.1.0.
 - [#177](https://github.com/nf-core/nanostring/pull/177) - Updated to nf-core template 4.1.0 and migrated pipeline to Nextflow workflow outputs.
 - [#175](https://github.com/nf-core/nanostring/pull/175) - Updated to NACHO v2.0.7.
-- Updated nf-schema to 3.0.0.
+- [#177](https://github.com/nf-core/nanostring/pull/177) - Updated nf-schema to 3.0.0.
 
 ### `Dependencies`
 
@@ -31,6 +36,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | `r-readr`        | 2.1.6       | 2.2.0       |
 | `r-optparse`     | 1.7.5       | removed     |
 | `r-nfcore.utils` | —           | 0.0.3       |
+
+The R package changes above apply to the `NACHO_QC` and `NACHO_NORMALIZE` module environments only. `CREATE_ANNOTATED_TABLES` is unchanged (r-base 4.5.2, now pinned explicitly; r-dplyr 1.1.4, r-ggplot2 4.0.1, r-readr 2.1.6).
 
 ## v1.3.3 - 2026-01-30 - Micrometer patch 3
 
