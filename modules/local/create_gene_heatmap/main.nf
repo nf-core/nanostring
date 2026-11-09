@@ -41,8 +41,10 @@ process CREATE_GENE_HEATMAP {
     """
 
     stub:
+    // Mirror the output file naming of compute_gene_heatmap.R
+    def prefix = annotated_endo_data.name.contains('wo_HKnorm') ? 'wo_HKnorm_' : ''
     """
-    touch gene_heatmap_mqc.png
+    touch ${prefix}gene_heatmap_mqc.png
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

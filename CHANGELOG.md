@@ -14,6 +14,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - The QC report's PCA is now computed with samples as observations, so PCA plots differ.
 - Nextflow 26.04.0 or later is required for workflow outputs.
 
+### `Added`
+
+- [#190](https://github.com/nf-core/nanostring/pull/190) - Expanded nf-test coverage: pipeline-level tests for `--normalization_method GLM`, `--skip_heatmap`, `--heatmap_genes_to_filter`/`--heatmap_id_column`, alternative `--gene_score_method` values and multiple gene sets, plus a pipeline `-stub` test and additional local module/subworkflow test cases.
+
+### `Fixed`
+
+- [#190](https://github.com/nf-core/nanostring/pull/190) - Fixed `-stub` runs of `CREATE_ANNOTATED_TABLES` (stub files did not match the declared outputs) and `CREATE_GENE_HEATMAP` (identical stub file names for the normalized and `wo_HKnorm` heatmaps).
+- [#190](https://github.com/nf-core/nanostring/pull/190) - Fixed the gene score table for a `gene_score_yaml` with a single gene set: it was written transposed with the gene set name replaced by `1`, inconsistent with the multi-gene-set layout (samples as rows, gene sets as columns).
+- [#194](https://github.com/nf-core/nanostring/pull/194) - Fixed `--gene_score_method sams`, which failed because `compute_gene_scores.R` used the undeclared `assertthat` package; replaced with base R checks and added `sams` test cases ([#191](https://github.com/nf-core/nanostring/issues/191)).
+
 ### `Changed`
 
 - [#189](https://github.com/nf-core/nanostring/pull/189) - Removed duplicated `tests/test.nf.test` (merged into template `tests/default.nf.test`), aligned all pipeline nf-tests to the template assertion style and cleaned up stale `tests/.nftignore` entries.
