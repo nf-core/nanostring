@@ -6,7 +6,7 @@
                 "CREATE_ANNOTATED_TABLES": {
                     "r-base": "4.5.2",
                     "r-dplyr": "1.1.4",
-                    "r-ggplot2": null,
+                    "r-ggplot2": "4.0.1",
                     "r-readr": "2.1.6"
                 },
                 "CREATE_GENE_HEATMAP": {
@@ -126,7 +126,7 @@
                 "multiqc_normalized_qc.txt:md5,520d3a6680375c41365bdd8837af00cd"
             ]
         ],
-        "timestamp": "2026-11-07T14:40:12.753595",
+        "timestamp": "2026-11-07T18:23:24.473588",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.5"
