@@ -113,7 +113,7 @@ The normalization can be adjusted with the parameter `--normalization_method` an
 
 ### Gene Scores
 
-The pipeline can compute gene scores for arbitrary sets of genes. It automatically checks for the set of desired genes to be present in the data, e.g. you cannot specify a set of genes that is not also present and measured in your nCounter experiment. Furthermore, the algorithm / method of choice can be adjusted - available options are: `plage`, `plage.dir` (directed PLAGE), `GSVA`, `singscore`, `ssgsea`, `median`, `mean`, `sams`.
+The pipeline can compute gene scores for arbitrary sets of genes. It automatically checks for the set of desired genes to be present in the data, e.g. you cannot specify a set of genes that is not also present and measured in your nCounter experiment. Furthermore, the algorithm / method of choice can be adjusted - available options for `--gene_score_method` are: `plage`, `plage.dir` (directed PLAGE, default), `gsva`, `singscore`, `ssgsea`, `median`, `mean`, `sams`. Values are case-sensitive and any other value is rejected by parameter validation at pipeline start.
 The recommendation is to use PLAGE or PLAGE in the directed form (default) for Nanostring nCounter data. You can simply start the analysis by supplying an appropriate YAML description with the desired gene and the required genes, e.g. to compute the MPAS score, supply this as a yaml using the option `--gene_score_yaml <file>`:
 
 ```yaml

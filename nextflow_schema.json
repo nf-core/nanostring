@@ -76,8 +76,10 @@
                 "gene_score_method": {
                     "type": "string",
                     "default": "plage.dir",
+                    "enum": ["plage", "plage.dir", "gsva", "singscore", "ssgsea", "median", "mean", "sams"],
                     "fa_icon": "fas fa-adjust",
-                    "description": "This selects the algorithm for computing the respective gene score. Default is 'plage.dir'."
+                    "description": "This selects the algorithm for computing the respective gene score. Default is 'plage.dir'.",
+                    "help_text": "Available options are `plage`, `plage.dir` (directed PLAGE, default), `gsva`, `singscore`, `ssgsea`, `median`, `mean` and `sams`."
                 },
                 "gene_score_yaml": {
                     "format": "file-path",
