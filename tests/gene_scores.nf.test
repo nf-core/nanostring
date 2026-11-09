@@ -13,6 +13,7 @@ nextflow_pipeline {
         [ method: 'ssgsea'   , yaml: null ],
         [ method: 'singscore', yaml: null ],
         [ method: 'mean'     , yaml: null ],
+        [ method: 'sams'     , yaml: null ],
         // Two gene sets (genes taken from the test RCC data), default method
         [ method: 'plage.dir', yaml: 'tests/assets/gene_score_multi.yaml' ],
     ].each { tc ->

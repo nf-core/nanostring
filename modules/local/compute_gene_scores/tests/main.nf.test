@@ -74,6 +74,41 @@ nextflow_process {
         }
     }
 
+    test("multiple gene sets - sams") {
+        when {
+            params {
+                gene_score_method = 'sams'
+            }
+            process {
+                """
+                input[0] = [[id:"test"], file(params.pipelines_testdata_base_path + 'nanostring/modules_test_data/test_profile/normalized_counts.tsv', checkIfExists: true )]
+                input[1] = file("${baseDir}/tests/assets/gene_score_multi.yaml", checkIfExists: true )
+                """
+            }
+        }
+        then {
+            assertAll(
+                { assert process.success },
+                {
+                    def files = process.out.scores_for_mqc[0][1]
+                    def signatureScoresFile = files.find { file(it).name.contains('signature_scores_mqc') }
+                    def signatureQcFile = files.find { file(it).name.contains('signature_scores_qc_mqc') }
+
+                    // Round floating-point numbers to 2 decimal places
+                    def scoresContent = file(signatureScoresFile).text.replaceAll(/(-?\d+\.\d+)/) { match ->
+                        String.format(Locale.ROOT, "%.2f", Double.parseDouble(match[1]))
+                    }
+
+                    assert scoresContent.contains('Algorithm: sams')
+                    assert snapshot(
+                        scoresContent,
+                        file(signatureQcFile).text
+                    ).match()
+                }
+            )
+        }
+    }
+
     test("stub") {
         options '-stub'
         when {
