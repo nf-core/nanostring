@@ -1,5 +1,5 @@
 {
-    "Test profile": {
+    "-profile test --normalization_method GLM": {
         "content": [
             7,
             {
@@ -118,18 +118,18 @@
             [
                 "hk_detected_mqc.txt:md5,61209383acc2abf6fc3ea309b5a5e094",
                 "normalized_qc_mqc.txt:md5,e9f9c9342d7abf167b02a0147cfcd9be",
-                "multiqc_No_HK_Norm_GEX_ENDO.txt:md5,398cb2abfff2630916dc7348c3fe8cfe",
-                "multiqc_No_HK_Norm_GEX_HK.txt:md5,7e0c5b707084b96c8c9971b370efedda",
-                "multiqc_Norm_GEX_ENDO.txt:md5,75f44b352b09c71e0266eb995f4b0282",
-                "multiqc_Norm_GEX_HK.txt:md5,1741444283470be6edcc00cae0b66935",
+                "multiqc_No_HK_Norm_GEX_ENDO.txt:md5,896cac44fc4dda9065adf45147bb1202",
+                "multiqc_No_HK_Norm_GEX_HK.txt:md5,08463c44c1d9d910131db4dc305ec2bd",
+                "multiqc_Norm_GEX_ENDO.txt:md5,492b5f1d4ffec111846519af39a0dec3",
+                "multiqc_Norm_GEX_HK.txt:md5,eb3870801aa566f13ce2e1e0be40f139",
                 "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
                 "multiqc_normalized_qc.txt:md5,520d3a6680375c41365bdd8837af00cd"
             ]
         ],
-        "timestamp": "2026-11-05T19:33:01.600594037",
+        "timestamp": "2026-11-07T15:06:49.407912",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.3"
+            "nextflow": "26.10.5"
         }
     }
 }

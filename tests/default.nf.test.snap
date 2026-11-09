@@ -1,6 +1,7 @@
 {
     "-profile test": {
         "content": [
+            7,
             {
                 "CREATE_ANNOTATED_TABLES": {
                     "r-base": "4.5.2",
@@ -125,10 +126,10 @@
                 "multiqc_normalized_qc.txt:md5,520d3a6680375c41365bdd8837af00cd"
             ]
         ],
-        "timestamp": "2026-11-05T19:31:42.474372897",
+        "timestamp": "2026-11-07T14:38:52.796484",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.3"
+            "nextflow": "26.10.5"
         }
     }
 }
