@@ -136,8 +136,10 @@ workflow NANOSTRING {
             "${process}:\n${tool_versions.join('\n')}"
         }
 
-    softwareVersionsToYAML(ch_versions.mix(topic_versions.versions_file))
+    ch_versions_yaml = softwareVersionsToYAML(ch_versions.mix(topic_versions.versions_file))
         .mix(topic_versions_string)
+
+    ch_versions_yaml
         .collectFile(
             name: 'nf_core_'  +  'nanostring_software_'  + 'mqc_'  + 'versions.yml',
             sort: true,
@@ -177,6 +179,22 @@ workflow NANOSTRING {
         }
     )
 
+    //
+    // MultiQC takes the collated versions as input, so its own version can only be
+    // added to the published software versions file after it has run
+    //
+    ch_versions_yaml
+        .mix(
+            MULTIQC.out.versions.map { process, tool, version ->
+                "${process.tokenize(':').last()}:\n  ${tool}: ${version}"
+            }
+        )
+        .collectFile(
+            name: 'nf_core_'  +  'nanostring_software_'  + 'mqc_'  + 'versions.yml',
+            sort: true,
+            newLine: true
+        ).set { ch_software_versions }
+
     emit:
     nacho_qc_html       = ch_nacho_qc_html
     nacho_qc_png        = ch_nacho_qc_png
@@ -190,7 +208,7 @@ workflow NANOSTRING {
     multiqc_report      = MULTIQC.out.report.map { _meta, report -> report }.toList()
     multiqc_data        = MULTIQC.out.data.map { _meta, data -> data }
     multiqc_plots       = MULTIQC.out.plots.map { _meta, plots -> plots }
-    software_versions   = ch_collated_versions
+    software_versions   = ch_software_versions
     versions            = ch_versions
 
 }

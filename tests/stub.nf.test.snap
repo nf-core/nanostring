@@ -29,6 +29,9 @@
                     "r-rlang": "1.1.7",
                     "r-yaml": "2.3.12"
                 },
+                "MULTIQC": {
+                    "multiqc": 1.35
+                },
                 "NACHO_NORMALIZE": {
                     "r-base": "4.5.1",
                     "r-dplyr": "1.2.1",

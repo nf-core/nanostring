@@ -18,4 +18,6 @@ template:
   name: nanostring
   org: nf-core
   outdir: .
+  skip_features:
+    - fastqc
   version: 2.0.0

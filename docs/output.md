@@ -21,7 +21,7 @@ and processes data using the following steps:
 
 ### Quality Control
 
-This step currently uses the NACHO NanoString analysis package to perform basic QC of the input RCC files. Several quality metrics are created and the majority of these are available in the MultiQC report. These have been created using the `bin/nacho_qc.R` script in the pipeline. In addition to this, the output also has two NACHO reports, once with outliers highlighted and once without highlighting outliers in the visualizations:
+This step currently uses the NACHO NanoString analysis package to perform basic QC of the input RCC files. Several quality metrics are created and the majority of these are available in the MultiQC report. These have been created using the `nacho_qc.R` template of the `NACHO_QC` module. In addition to this, the output also has two NACHO reports, once with outliers highlighted and once without highlighting outliers in the visualizations:
 
 <details markdown="1">
 <summary>Output files</summary>

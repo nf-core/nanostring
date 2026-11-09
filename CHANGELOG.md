@@ -3,7 +3,7 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v2.0.0 - 2026-10-23 - Millimetre
+## v2.0.0 - 2026-11-09 - Millimetre
 
 ### `Breaking changes`
 
@@ -11,8 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Normalized counts at or below background are now `0.1` instead of `0`, because the 0.1 floor is applied after rounding.
   - Background-corrected housekeeping counts below 1 are now replaced with 1 before computing `House_factor`, so `House_factor` and all housekeeping-normalized counts can change for samples with very low housekeeping expression.
   - `PCL` and `LoD` are now `NA` instead of `0` (and their QC flags `NA` instead of `FAIL`) when a CodeSet has no `POS_E` positive control probe or the negative controls do not vary. Such samples are no longer flagged as outliers on these metrics.
-  - The QC report's PCA is now computed with samples as observations, so PCA plots differ.
+  - The QC report's PCA is now computed with samples as observations, so the PCA plots (`PCA1_vs_PCA2_mqc.png`, `PCAi_mqc.png`, `PCA_mqc.png`) and the NanoQC reports differ.
+  - `load_rcc()` now stops with an error when RCC files mix PlexSet and single-sample files or when a single-sample samplesheet lists the same RCC file twice, so samplesheets that ran with v1.x can now fail.
 - Nextflow 26.04.0 or later is required for workflow outputs.
+- The `--hook_url` parameter (and the `HOOK_URL` environment variable) and the Microsoft Teams and Slack notification templates were removed with the nf-core template update. Runs that relied on them no longer send these notifications.
 
 ### `Added`
 
@@ -20,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
+- [#199](https://github.com/nf-core/nanostring/pull/199) - Added MultiQC to the published software versions file, removed stray FastQC lock files from the template merge and skipped the `fastqc` template feature, and fixed a stale script reference in `docs/output.md`.
 - [#193](https://github.com/nf-core/nanostring/pull/193) - Added an `enum` for `--gene_score_method` to the parameter schema, so invalid values are rejected at pipeline start instead of failing in `COMPUTE_GENE_SCORES` after QC and normalisation ([#192](https://github.com/nf-core/nanostring/issues/192)).
 - [#196](https://github.com/nf-core/nanostring/pull/196) - Fixed `CREATE_ANNOTATED_TABLES` reporting the `r-ggplot2` version as `null` (`packageVersion('ggplot')` typo) ([#195](https://github.com/nf-core/nanostring/issues/195)).
 - [#190](https://github.com/nf-core/nanostring/pull/190) - Fixed `-stub` runs of `CREATE_ANNOTATED_TABLES` (stub files did not match the declared outputs) and `CREATE_GENE_HEATMAP` (identical stub file names for the normalized and `wo_HKnorm` heatmaps).
