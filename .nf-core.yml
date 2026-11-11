@@ -8,7 +8,7 @@ lint:
   # validation.nf.test fails at parameter validation before any task runs, so there is no versions.yml to snapshot
   nf_test_content:
     - tests/validation.nf.test
-nf_core_version: 4.2.1
+nf_core_version: 4.2.2
 repository_type: pipeline
 template:
   author: Peltzer, Alexander & Mohr, Christopher
