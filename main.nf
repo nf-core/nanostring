@@ -31,7 +31,14 @@ include { PIPELINE_COMPLETION     } from './subworkflows/local/utils_nfcore_nano
 workflow NFCORE_NANOSTRING {
 
     take:
-    samplesheet // channel: samplesheet read in from --input
+    samplesheet                 // channel: samplesheet read in from --input
+    samplesheet_path            // channel: [ meta, path/to/samplesheet ]
+    gene_score_yaml             // channel: [ path(gene_score_yaml) ] (or empty)
+    heatmap_genes_to_filter     // channel: [ path(heatmap_genes_to_filter) ] (or empty)
+    skip_heatmap                // boolean: skip the gene heatmap
+    multiqc_config              // list:    MultiQC config files
+    multiqc_logo                // path:    MultiQC logo (or empty list)
+    multiqc_methods_description // path:    MultiQC methods description template
 
     main:
 
@@ -40,7 +47,13 @@ workflow NFCORE_NANOSTRING {
     //
     NANOSTRING (
         samplesheet,
-        channel.value(tuple([id: file(params.input).getName()], file(params.input)))
+        samplesheet_path,
+        gene_score_yaml,
+        heatmap_genes_to_filter,
+        skip_heatmap,
+        multiqc_config,
+        multiqc_logo,
+        multiqc_methods_description
     )
 
     emit:
@@ -83,10 +96,31 @@ workflow {
     )
 
     //
+    // Resolve pipeline parameters into files and channels
+    //
+    input_samplesheet           = file(params.input)
+    ch_samplesheet_path         = channel.value(tuple([id: input_samplesheet.getName()], input_samplesheet))
+    ch_gene_score_yaml          = params.gene_score_yaml ? channel.fromPath(params.gene_score_yaml, checkIfExists: true) : channel.empty()
+    ch_heatmap_genes_to_filter  = params.heatmap_genes_to_filter ? channel.fromPath(params.heatmap_genes_to_filter, checkIfExists: true) : channel.empty()
+    multiqc_config              = [file("$projectDir/assets/multiqc_config.yml", checkIfExists: true)] +
+        (params.multiqc_config ? [file(params.multiqc_config, checkIfExists: true)] : [])
+    multiqc_logo                = params.multiqc_logo ? file(params.multiqc_logo, checkIfExists: true) : []
+    multiqc_methods_description = params.multiqc_methods_description ?
+        file(params.multiqc_methods_description, checkIfExists: true) :
+        file("$projectDir/assets/methods_description_template.yml", checkIfExists: true)
+
+    //
     // WORKFLOW: Run main workflow
     //
     NFCORE_NANOSTRING (
-        PIPELINE_INITIALISATION.out.samplesheet
+        PIPELINE_INITIALISATION.out.samplesheet,
+        ch_samplesheet_path,
+        ch_gene_score_yaml,
+        ch_heatmap_genes_to_filter,
+        params.skip_heatmap,
+        multiqc_config,
+        multiqc_logo,
+        multiqc_methods_description
     )
     //
     // SUBWORKFLOW: Run completion tasks
