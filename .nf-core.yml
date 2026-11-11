@@ -5,6 +5,18 @@ lint:
     - .github/PULL_REQUEST_TEMPLATE.md
     - .github/workflows/linting.yml
     - .github/workflows/branch.yml
+  # Pipeline parameters are declared as typed parameters in main.nf (#201), which
+  # nf-core/tools 4.2.x lint does not read (it only inspects `nextflow config` output).
+  # TODO: Remove these ignores once nf-core/tools supports typed parameters.
+  nextflow_config:
+    - params.input
+    - config_defaults:
+        - params.heatmap_id_column
+        - params.normalization_method
+        - params.gene_score_method
+        - params.max_multiqc_email_size
+        - params.validate_params
+  schema_params: false
   # validation.nf.test fails at parameter validation before any task runs, so there is no versions.yml to snapshot
   nf_test_content:
     - tests/validation.nf.test

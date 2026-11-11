@@ -34,6 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [#201](https://github.com/nf-core/nanostring/issues/201) - Removed unused iGenomes reference genome parameters (`--genome`, `--igenomes_base`, `--igenomes_ignore`).
 - [#201](https://github.com/nf-core/nanostring/issues/201) - Pass pipeline parameters explicitly from the entry workflow into `NANOSTRING` instead of reading `params` inside the workflow.
+- [#201](https://github.com/nf-core/nanostring/issues/201) - Declared pipeline parameters as typed parameters in `main.nf`.
 - [#189](https://github.com/nf-core/nanostring/pull/189) - Removed duplicated `tests/test.nf.test` (merged into template `tests/default.nf.test`), aligned all pipeline nf-tests to the template assertion style and cleaned up stale `tests/.nftignore` entries.
 - [#188](https://github.com/nf-core/nanostring/pull/188) - Clarified the NACHO 2.0.7 breaking changes in the changelog and README, based on a comparison of v1.3.3 and v2.0.0 outputs.
 - [#200](https://github.com/nf-core/nanostring/pull/200) - Updated to nf-core template 4.2.2.

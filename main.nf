@@ -11,6 +11,56 @@
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    PIPELINE PARAMETERS
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Typed pipeline parameters. Parameters that are read while the configuration is parsed
+    (e.g. outdir, publish_dir_mode, monochrome_logs, trace_report_suffix, help,
+    pipelines_testdata_base_path, custom_config_*, config_profile_*) are declared in
+    nextflow.config instead, because the params block is only evaluated after the config.
+----------------------------------------------------------------------------------------
+*/
+
+params {
+    // Input options
+    // NOTE: `input` is nullable so that --help / --version work without it;
+    //       nextflow_schema.json marks it as required for nf-schema validation.
+    input: Path?
+
+    // Skipping options
+    skip_heatmap: Boolean = false
+
+    // Pipeline options
+    heatmap_genes_to_filter: Path?
+    heatmap_id_column: String = 'SAMPLE_ID'
+
+    // Normalization options
+    normalization_method: String = 'GEO'
+
+    // Gene score options
+    gene_score_method: String = 'plage.dir'
+    gene_score_yaml: Path?
+
+    // MultiQC options
+    multiqc_config: Path?
+    multiqc_title: String?
+    multiqc_logo: Path?
+    max_multiqc_email_size: String = '25.MB'
+    multiqc_methods_description: Path?
+
+    // Boilerplate options
+    email: String?
+    email_on_fail: String?
+    plaintext_email: Boolean = false
+    help_full: Boolean = false
+    show_hidden: Boolean = false
+    version: Boolean = false
+
+    // Schema validation options
+    validate_params: Boolean = true
+}
+
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     IMPORT FUNCTIONS / MODULES / SUBWORKFLOWS / WORKFLOWS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
@@ -96,17 +146,17 @@ workflow {
     )
 
     //
-    // Resolve pipeline parameters into files and channels
+    // Resolve pipeline parameters into files and channels.
+    // Typed `Path` parameters are already converted to paths and checked for
+    // existence by Nextflow at launch, so no file()/checkIfExists is needed for them.
     //
-    input_samplesheet           = file(params.input)
-    ch_samplesheet_path         = channel.value(tuple([id: input_samplesheet.getName()], input_samplesheet))
-    ch_gene_score_yaml          = params.gene_score_yaml ? channel.fromPath(params.gene_score_yaml, checkIfExists: true) : channel.empty()
-    ch_heatmap_genes_to_filter  = params.heatmap_genes_to_filter ? channel.fromPath(params.heatmap_genes_to_filter, checkIfExists: true) : channel.empty()
+    ch_samplesheet_path         = channel.value(tuple([id: params.input.getName()], params.input))
+    ch_gene_score_yaml          = params.gene_score_yaml ? channel.of(params.gene_score_yaml) : channel.empty()
+    ch_heatmap_genes_to_filter  = params.heatmap_genes_to_filter ? channel.of(params.heatmap_genes_to_filter) : channel.empty()
     multiqc_config              = [file("$projectDir/assets/multiqc_config.yml", checkIfExists: true)] +
-        (params.multiqc_config ? [file(params.multiqc_config, checkIfExists: true)] : [])
-    multiqc_logo                = params.multiqc_logo ? file(params.multiqc_logo, checkIfExists: true) : []
-    multiqc_methods_description = params.multiqc_methods_description ?
-        file(params.multiqc_methods_description, checkIfExists: true) :
+        (params.multiqc_config ? [params.multiqc_config] : [])
+    multiqc_logo                = params.multiqc_logo ?: []
+    multiqc_methods_description = params.multiqc_methods_description ?:
         file("$projectDir/assets/methods_description_template.yml", checkIfExists: true)
 
     //
