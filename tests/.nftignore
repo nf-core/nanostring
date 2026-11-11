@@ -5,6 +5,14 @@ multiqc/multiqc_data/multiqc_data.json
 multiqc/multiqc_data/multiqc_sources.txt
 multiqc/multiqc_data/multiqc_software_versions.txt
 multiqc/multiqc_data/llms-full.txt
+multiqc/multiqc_data/multiqc_nf-core-nanoflow-signature-score.txt
 multiqc/multiqc_plots/{svg,pdf,png}/*.{svg,pdf,png}
 multiqc/multiqc_report.html
 pipeline_info/*.{html,json,txt,yml}
+QC/NACHO/NanoQC.html
+QC/NACHO/NanoQC_with_outliers.html
+QC/NACHO/png/*
+annotated_tables/*.tsv
+gene_heatmaps/*.png
+gene_scores/signature_scores_mqc.txt
+normalized_counts/*.tsv

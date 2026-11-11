@@ -1,0 +1,78 @@
+nextflow_pipeline {
+
+    name "Test pipeline - heatmap options"
+    script "../main.nf"
+    profile "test_scores"
+    tag "pipeline"
+    tag "heatmap"
+
+    test("-profile test_scores --skip_heatmap") {
+
+        when {
+            params {
+                outdir       = "$outputDir"
+                skip_heatmap = true
+            }
+        }
+
+        then {
+            // stable_path: All files + folders in ${params.outdir}/ with a stable path (including file name)
+            def stable_path = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: ['pipeline_info/*.{html,json,txt}'])
+            // stable_content: All files in ${params.outdir}/ with stable content
+            def stable_content = getAllFilesFromDir(params.outdir, ignoreFile: 'tests/.nftignore')
+            assert workflow.success
+            assertAll(
+                // The heatmap process must not run and no heatmap must be published
+                { assert !workflow.trace.tasks().any { it.name.contains('CREATE_GENE_HEATMAP') } },
+                { assert !file("$outputDir/gene_heatmaps").exists() },
+                { assert !stable_path.any { it.toString().contains('gene_heatmap') } },
+                // Gene scores are still computed
+                { assert file("$outputDir/gene_scores/signature_scores_mqc.txt").exists() },
+                { assert snapshot(
+                    // Number of successful tasks
+                    workflow.trace.succeeded().size(),
+                    // pipeline versions.yml file for multiqc from which Nextflow version is removed because we test pipelines on multiple Nextflow versions
+                    removeNextflowVersion("$outputDir/pipeline_info/nf_core_nanostring_software_mqc_versions.yml"),
+                    // All stable path name, with a relative path
+                    stable_path,
+                    // All files with stable contents
+                    stable_content
+                ).match() }
+            )
+        }
+    }
+
+    test("-profile test_scores --heatmap_genes_to_filter --heatmap_id_column RCC_FILE") {
+
+        when {
+            params {
+                outdir                  = "$outputDir"
+                heatmap_genes_to_filter = 'https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/nanostring/modules_test_data/test_profile/genes_to_filter.yml'
+                heatmap_id_column       = "RCC_FILE"
+            }
+        }
+
+        then {
+            // stable_path: All files + folders in ${params.outdir}/ with a stable path (including file name)
+            def stable_path = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: ['pipeline_info/*.{html,json,txt}'])
+            // stable_content: All files in ${params.outdir}/ with stable content
+            def stable_content = getAllFilesFromDir(params.outdir, ignoreFile: 'tests/.nftignore')
+            assert workflow.success
+            assertAll(
+                // Heatmaps (PNG, non-deterministic content) are checked for existence only
+                { assert file("$outputDir/gene_heatmaps/gene_heatmap_mqc.png").exists() },
+                { assert file("$outputDir/gene_heatmaps/wo_HKnorm_gene_heatmap_mqc.png").exists() },
+                { assert snapshot(
+                    // Number of successful tasks
+                    workflow.trace.succeeded().size(),
+                    // pipeline versions.yml file for multiqc from which Nextflow version is removed because we test pipelines on multiple Nextflow versions
+                    removeNextflowVersion("$outputDir/pipeline_info/nf_core_nanostring_software_mqc_versions.yml"),
+                    // All stable path name, with a relative path
+                    stable_path,
+                    // All files with stable contents
+                    stable_content
+                ).match() }
+            )
+        }
+    }
+}

@@ -1,0 +1,144 @@
+{
+    "stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test_sample"
+                        },
+                        "counts_Norm_GEX_ENDO.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "test_sample"
+                        },
+                        "counts_Norm_GEX_HK.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "2": [
+                    [
+                        {
+                            "id": "test_sample"
+                        },
+                        [
+                            "Norm_GEX_ENDO_mqc.tsv:md5,d41d8cd98f00b204e9800998ecf8427e",
+                            "Norm_GEX_HK_mqc.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ]
+                    ]
+                ],
+                "3": [
+                    "versions.yml:md5,381dc9e63da0813d6fad14b46c02612b"
+                ],
+                "annotated_data_mqc": [
+                    [
+                        {
+                            "id": "test_sample"
+                        },
+                        [
+                            "Norm_GEX_ENDO_mqc.tsv:md5,d41d8cd98f00b204e9800998ecf8427e",
+                            "Norm_GEX_HK_mqc.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ]
+                    ]
+                ],
+                "annotated_endo_data": [
+                    [
+                        {
+                            "id": "test_sample"
+                        },
+                        "counts_Norm_GEX_ENDO.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "annotated_hk_data": [
+                    [
+                        {
+                            "id": "test_sample"
+                        },
+                        "counts_Norm_GEX_HK.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,381dc9e63da0813d6fad14b46c02612b"
+                ]
+            }
+        ],
+        "timestamp": "2026-11-07T18:05:26.882757",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.10.5"
+        }
+    },
+    "Should run without failures": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test_sample"
+                        },
+                        "counts_Norm_GEX_ENDO.tsv:md5,5992886680cb6fc6f3e901e79752d544"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "test_sample"
+                        },
+                        "counts_Norm_GEX_HK.tsv:md5,9d8a0503df864a82990648348131be21"
+                    ]
+                ],
+                "2": [
+                    [
+                        {
+                            "id": "test_sample"
+                        },
+                        [
+                            "Norm_GEX_ENDO_mqc.tsv:md5,5992886680cb6fc6f3e901e79752d544",
+                            "Norm_GEX_HK_mqc.tsv:md5,9d8a0503df864a82990648348131be21"
+                        ]
+                    ]
+                ],
+                "3": [
+                    "versions.yml:md5,381dc9e63da0813d6fad14b46c02612b"
+                ],
+                "annotated_data_mqc": [
+                    [
+                        {
+                            "id": "test_sample"
+                        },
+                        [
+                            "Norm_GEX_ENDO_mqc.tsv:md5,5992886680cb6fc6f3e901e79752d544",
+                            "Norm_GEX_HK_mqc.tsv:md5,9d8a0503df864a82990648348131be21"
+                        ]
+                    ]
+                ],
+                "annotated_endo_data": [
+                    [
+                        {
+                            "id": "test_sample"
+                        },
+                        "counts_Norm_GEX_ENDO.tsv:md5,5992886680cb6fc6f3e901e79752d544"
+                    ]
+                ],
+                "annotated_hk_data": [
+                    [
+                        {
+                            "id": "test_sample"
+                        },
+                        "counts_Norm_GEX_HK.tsv:md5,9d8a0503df864a82990648348131be21"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,381dc9e63da0813d6fad14b46c02612b"
+                ]
+            }
+        ],
+        "timestamp": "2026-11-07T18:05:20.133548",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.10.5"
+        }
+    }
+}

@@ -3,14 +3,218 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v2.0.0 - [unreleased<!-- TODO nf-core: replace with date on release -->]
+## v2.0.0 - 2026-11-09 - Millimetre
+
+### `Breaking changes`
+
+- [NACHO 2.0.7](https://github.com/mcanouil/NACHO/releases/tag/v2.0.7) changes normalization and QC results. Re-run analyses and review results when upgrading from v1.x:
+  - Normalized counts at or below background are now `0.1` instead of `0`, because the 0.1 floor is applied after rounding.
+  - Background-corrected housekeeping counts below 1 are now replaced with 1 before computing `House_factor`, so `House_factor` and all housekeeping-normalized counts can change for samples with very low housekeeping expression.
+  - `PCL` and `LoD` are now `NA` instead of `0` (and their QC flags `NA` instead of `FAIL`) when a CodeSet has no `POS_E` positive control probe or the negative controls do not vary. Such samples are no longer flagged as outliers on these metrics.
+  - The QC report's PCA is now computed with samples as observations, so the PCA plots (`PCA1_vs_PCA2_mqc.png`, `PCAi_mqc.png`, `PCA_mqc.png`) and the NanoQC reports differ.
+  - `load_rcc()` now stops with an error when RCC files mix PlexSet and single-sample files or when a single-sample samplesheet lists the same RCC file twice, so samplesheets that ran with v1.x can now fail.
+- Nextflow 26.04.0 or later is required for workflow outputs.
+- The `--hook_url` parameter (and the `HOOK_URL` environment variable) and the Microsoft Teams and Slack notification templates were removed with the nf-core template update. Runs that relied on them no longer send these notifications.
+
+### `Added`
+
+- [#190](https://github.com/nf-core/nanostring/pull/190) - Expanded nf-test coverage: pipeline-level tests for `--normalization_method GLM`, `--skip_heatmap`, `--heatmap_genes_to_filter`/`--heatmap_id_column`, alternative `--gene_score_method` values and multiple gene sets, plus a pipeline `-stub` test and additional local module/subworkflow test cases.
+
+### `Fixed`
+
+- [#199](https://github.com/nf-core/nanostring/pull/199) - Added MultiQC to the published software versions file, removed stray FastQC lock files from the template merge and skipped the `fastqc` template feature, and fixed a stale script reference in `docs/output.md`.
+- [#193](https://github.com/nf-core/nanostring/pull/193) - Added an `enum` for `--gene_score_method` to the parameter schema, so invalid values are rejected at pipeline start instead of failing in `COMPUTE_GENE_SCORES` after QC and normalisation ([#192](https://github.com/nf-core/nanostring/issues/192)).
+- [#196](https://github.com/nf-core/nanostring/pull/196) - Fixed `CREATE_ANNOTATED_TABLES` reporting the `r-ggplot2` version as `null` (`packageVersion('ggplot')` typo) ([#195](https://github.com/nf-core/nanostring/issues/195)).
+- [#190](https://github.com/nf-core/nanostring/pull/190) - Fixed `-stub` runs of `CREATE_ANNOTATED_TABLES` (stub files did not match the declared outputs) and `CREATE_GENE_HEATMAP` (identical stub file names for the normalized and `wo_HKnorm` heatmaps).
+- [#190](https://github.com/nf-core/nanostring/pull/190) - Fixed the gene score table for a `gene_score_yaml` with a single gene set: it was written transposed with the gene set name replaced by `1`, inconsistent with the multi-gene-set layout (samples as rows, gene sets as columns).
+- [#194](https://github.com/nf-core/nanostring/pull/194) - Fixed `--gene_score_method sams`, which failed because `compute_gene_scores.R` used the undeclared `assertthat` package; replaced with base R checks and added `sams` test cases ([#191](https://github.com/nf-core/nanostring/issues/191)).
+
+### `Changed`
+
+- [#189](https://github.com/nf-core/nanostring/pull/189) - Removed duplicated `tests/test.nf.test` (merged into template `tests/default.nf.test`), aligned all pipeline nf-tests to the template assertion style and cleaned up stale `tests/.nftignore` entries.
+- [#188](https://github.com/nf-core/nanostring/pull/188) - Clarified the NACHO 2.0.7 breaking changes in the changelog and README, based on a comparison of v1.3.3 and v2.0.0 outputs.
+- [#200](https://github.com/nf-core/nanostring/pull/200) - Updated to nf-core template 4.2.2.
+- [#186](https://github.com/nf-core/nanostring/pull/186) - Updated to nf-core template 4.2.1.
+- [#179](https://github.com/nf-core/nanostring/pull/179) - Added remaining MultiQC aspects from nf-core template 4.1.0.
+- [#177](https://github.com/nf-core/nanostring/pull/177) - Updated to nf-core template 4.1.0 and migrated pipeline to Nextflow workflow outputs.
+- [#175](https://github.com/nf-core/nanostring/pull/175) - Updated to NACHO v2.0.7.
+- [#177](https://github.com/nf-core/nanostring/pull/177) - Updated nf-schema to 3.0.0.
+
+### `Dependencies`
+
+| Dependency       | Old version | New version |
+| ---------------- | ----------- | ----------- |
+| `NACHO`          | 2.0.6       | 2.0.7       |
+| `MultiQC`        | 1.33        | 1.35        |
+| `r-base`         | 4.5.2       | 4.5.1       |
+| `r-dplyr`        | 1.1.4       | 1.2.1       |
+| `r-fs`           | 1.6.6       | 2.1.0       |
+| `r-ggplot2`      | 4.0.1       | 4.0.3       |
+| `r-readr`        | 2.1.6       | 2.2.0       |
+| `r-optparse`     | 1.7.5       | removed     |
+| `r-nfcore.utils` | —           | 0.0.3       |
+
+The R package changes above apply to the `NACHO_QC` and `NACHO_NORMALIZE` module environments only. `CREATE_ANNOTATED_TABLES` is unchanged (r-base 4.5.2, now pinned explicitly; r-dplyr 1.1.4, r-ggplot2 4.0.1, r-readr 2.1.6).
+
+## v1.3.3 - 2026-01-30 - Micrometer patch 3
+
+### `Fixed`
+
+- Addressed issues with latest GSVA function calls after GSVA >1.5.0 was introduced to be able to use gene score methods accordingly again
+- [#156](https://github.com/nf-core/nanostring/pull/156) - Updated the analysis dependencies in the local module for gene score computation to latest versions of the R Scripts
+- [#155](https://github.com/nf-core/nanostring/pull/155) - Removed container dependency on biocontainers and rather using Wave containers again
+- [#161](https://github.com/nf-core/nanostring/pull/161) - Update container urls to use HTTPS for Singularity and update dependencies for other local modules too
+
+## v1.3.2 - 2026-01-15 - Micrometer patch 2
+
+### `Fixed`
+
+- [#151](https://github.com/nf-core/nanostring/pull/151) - Updated modules and subworkflows, and follow nextflow's strict syntax.
+
+### `Changed`
+
+- [#144](https://github.com/nf-core/nanostring/pull/144) - Updated to nf-core template 3.5.1
+- [#133](https://github.com/nf-core/nanostring/pull/133/) - Improvements to JSON schema and minor linting changes
+- [#136](https://github.com/nf-core/nanostring/pull/136) - Replaced `NORMALIZE` and `QUALITY_CONTROL` for its modules.
+
+## v1.3.1 - 2025-01-20 - Micrometre patch
+
+### `Added`
+
+- [#94](https://github.com/nf-core/nanostring/pull/94) - Added nf-tests for local subworkflows `NORMALIZE` and `QUALITY_CONTROL`.
+- [#99](https://github.com/nf-core/nanostring/pull/99) - Added nf-tests for local module `NACHO_NORMALIZE`.
+- [#100](https://github.com/nf-core/nanostring/pull/100) - Added nf-tests for local module `NACHO_QC`.
+- [#101](https://github.com/nf-core/nanostring/pull/101) - Added nf-tests for local module `COMPUTE_GENE_SCORES`.
+- [#102](https://github.com/nf-core/nanostring/pull/102) - Added nf-tests for local module `CREATE_GENE_HEATMAP`.
+- [#103](https://github.com/nf-core/nanostring/pull/103) - Added nf-tests for local module `CREATE_ANNOTATED_TABLES`.
+- [#104](https://github.com/nf-core/nanostring/pull/104) - Update all nf-core modules and subworkflows.
+
+### `Fixed`
+
+- [#119](https://github.com/nf-core/nanostring/pull/119) - Fix input channels being consumed, convert them to value channels for `CREATE_ANNOTATED_TABLES` and `CREATE_GENE_HEATMAP`. [#118](https://github.com/nf-core/nanostring/issues/118)
+
+### `Changed`
+
+- [#82](https://github.com/nf-core/nanostring/pull/82) - Updated to nf-core template 3.0.2
+- [#95](https://github.com/nf-core/nanostring/pull/95) - Add pipeline level nf-tests.
+- [#96](https://github.com/nf-core/nanostring/pull/96) - Remove timestamp suffix from nacho_norm.R and write_out_prepared_gex.R
+- [#114](https://github.com/nf-core/nanostring/pull/114) - Convert `CREATE_GENE_HEATMAP` and `COMPUTE_GENE_SCORES` to nf-core format and create a subworkflow for them.
+- [#117](https://github.com/nf-core/nanostring/pull/117) - Convert `NACHO_NORMALIZE` and `NACHO_QC` from local to nf-core modules.
+- [#122](https://github.com/nf-core/nanostring/pull/122) - Updated to nf-core template 3.1.1
+
+### `Dependencies`
+
+| Dependency | Old version | New version |
+| ---------- | ----------- | ----------- |
+| `multiqc`  | 1.24.1      | 1.27        |
+
+## v1.3.0 - 2024-08-27 - Micrometre
+
+### `Added`
+
+- [#66](https://github.com/nf-core/nanostring/pull/66) - Updated to nf-core template 2.12.1
+- [#71](https://github.com/nf-core/nanostring/pull/71) - Updated to nf-core template 2.13.1
+- [#73](https://github.com/nf-core/nanostring/pull/73) - Updated to nf-core template 2.14.1
+
+### `Fixed`
+
+- [#65](https://github.com/nf-core/nanostring/pull/65) - Issue with `CREATE_GENE_HEATMAP` if no list of genes was provided
+
+### `Changed`
+
+- [#71](https://github.com/nf-core/nanostring/pull/71) - Made column `RCC_FILE_NAME` mandatory
+- [#78](https://github.com/nf-core/nanostring/pull/78) - Added Nanostring Tubemap original designfile to repository for future changes, fixed typo and removed version in picture
+
+### `Dependencies`
+
+| Dependency | Old version | New version |
+| ---------- | ----------- | ----------- |
+| `multiqc`  | 1.19        | 1.24.1      |
+
+## v1.2.1 - 2024-01-18 - Nanometre patch
+
+### `Added`
+
+- [#55](https://github.com/nf-core/nanostring/pull/55) - Added the Bioinformatics publication to the citation list
+- [#55](https://github.com/nf-core/nanostring/pull/55) - Updated to nf-core template 2.11.1
+- [#58](https://github.com/nf-core/nanostring/pull/58) - Granularized the containers for NACHO and Heatmaps
+
+### `Dependencies`
+
+| Dependency | Old version | New version |
+| ---------- | ----------- | ----------- |
+| `nacho`    | 2.0.5       | 2.0.6       |
+
+## v1.2.0 - 2023-08-24 - Nanometre
+
+### `Added`
+
+- [#48](https://github.com/nf-core/nanostring/pull/48) - Allow users to specify id column for heatmap [#39](https://github.com/nf-core/nanostring/issues/39)
+- [#46](https://github.com/nf-core/nanostring/pull/46) - Update to nf-core template `2.9`
+- [#42](https://github.com/nf-core/nanostring/pull/42) - Allow users to specify normalization method: `GEO` (default) or `GLM`
+
+### `Fixed`
+
+- [#51](https://github.com/nf-core/nanostring/pull/51) - Prevent HK-normalization while loading counts
+- [#51](https://github.com/nf-core/nanostring/pull/51) - Use provided normalization method for Non-HK-normalized counts
+- [#46](https://github.com/nf-core/nanostring/pull/46) - Publish `NACHO` QC reports [#44](https://github.com/nf-core/nanostring/issues/44)
+- [#47](https://github.com/nf-core/nanostring/pull/47) - Update `NACHO` R package including bug fix [#45](https://github.com/nf-core/nanostring/issues/45)
+- [#47](https://github.com/nf-core/nanostring/pull/47) - Set correct `conda` environment for `COMPUTE_GENE_SCORES` process
+
+### `Dependencies`
+
+| Dependency | Old version | New version |
+| ---------- | ----------- | ----------- |
+| `nacho`    | 2.0.4       | 2.0.5       |
+
+### `Deprecated`
+
+## v1.1.1 - 2023-06-23 - Picometre patch
+
+### `Added`
+
+- [#37](https://github.com/nf-core/nanostring/pull/37) - Allow skipping heatmap creation [#38](https://github.com/nf-core/nanostring/issues/38)
+
+### `Fixed`
+
+- [#37](https://github.com/nf-core/nanostring/pull/37) - Use unique rownames for Heatmap creation
+
+### `Dependencies`
+
+### `Deprecated`
+
+## v1.1.0 - 2023-06-22 - Picometre
+
+### `Added`
+
+- [#33](https://github.com/nf-core/nanostring/pull/33) - Add functionality to generate gene-count heatmaps [#17](https://github.com/nf-core/nanostring/issues/17)
+- [#32](https://github.com/nf-core/nanostring/pull/32) - Add functinoality to compute gene scores [#16](https://github.com/nf-core/nanostring/issues/16)
+
+### `Fixed`
+
+### `Changed`
+
+- [#82](https://github.com/nf-core/nanostring/pull/82) - Updated to nf-core template 3.0.2
+
+### `Dependencies`
+
+## v1.0.0 - 2023-06-12 - Femtometre
 
 Initial release of nf-core/nanostring, created with the [nf-core](https://nf-co.re/) template.
 
 ### `Added`
 
+- [#21](https://github.com/nf-core/nanostring/pull/21) - Add quality control using [NACHO](https://github.com/mcanouil/NACHO/) [#11](https://github.com/nf-core/nanostring/issues/11)
+- [#21](https://github.com/nf-core/nanostring/pull/21) - Add normalization with and without Housekeeping genes using [NACHO](https://github.com/mcanouil/NACHO/) [#12](https://github.com/nf-core/nanostring/issues/12)
+- [#21](https://github.com/nf-core/nanostring/pull/21) - Add tests and respective test data [#19](https://github.com/nf-core/nanostring/issues/19)
+- [#23](https://github.com/nf-core/nanostring/pull/23) - Add tables with non-housekeeping-normalized counts to MultiQC report
+
 ### `Fixed`
 
 ### `Dependencies`
+
+| Dependency | Old version | New version |
+| ---------- | ----------- | ----------- |
+| `nacho`    | -           | 2.0.4       |
 
 ### `Deprecated`

@@ -1,0 +1,47 @@
+{
+    "test profile": {
+        "content": [
+            [
+                "gene_heatmap_mqc.png"
+            ],
+            [
+                "versions.yml:md5,c3a817ba44cb542fd95b1d3fc8aac36d"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.3"
+        },
+        "timestamp": "2026-01-30T11:11:20.305619188"
+    },
+    "stub": {
+        "content": [
+            [
+                "gene_heatmap_mqc.png"
+            ],
+            [
+                "versions.yml:md5,c3a817ba44cb542fd95b1d3fc8aac36d"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.10.1"
+        },
+        "timestamp": "2024-11-27T17:19:24.928039636"
+    },
+    "test profile filter": {
+        "content": [
+            [
+                "gene_heatmap_mqc.png"
+            ],
+            [
+                "versions.yml:md5,c3a817ba44cb542fd95b1d3fc8aac36d"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.10.1"
+        },
+        "timestamp": "2024-11-27T17:19:13.743619416"
+    }
+}
