@@ -20,4 +20,5 @@ template:
   outdir: .
   skip_features:
     - fastqc
+    - igenomes
   version: 2.0.0

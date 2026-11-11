@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `load_rcc()` now stops with an error when RCC files mix PlexSet and single-sample files or when a single-sample samplesheet lists the same RCC file twice, so samplesheets that ran with v1.x can now fail.
 - Nextflow 26.04.0 or later is required for workflow outputs.
 - The `--hook_url` parameter (and the `HOOK_URL` environment variable) and the Microsoft Teams and Slack notification templates were removed with the nf-core template update. Runs that relied on them no longer send these notifications.
+- The unused iGenomes parameters `--genome`, `--igenomes_base` and `--igenomes_ignore` were removed ([#201](https://github.com/nf-core/nanostring/issues/201)). NanoString nCounter data does not use a reference genome; remove these parameters from custom configs or params files, otherwise parameter validation reports them as unrecognised.
 
 ### `Added`
 
@@ -31,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Changed`
 
+- [#201](https://github.com/nf-core/nanostring/issues/201) - Removed unused iGenomes reference genome parameters (`--genome`, `--igenomes_base`, `--igenomes_ignore`).
 - [#189](https://github.com/nf-core/nanostring/pull/189) - Removed duplicated `tests/test.nf.test` (merged into template `tests/default.nf.test`), aligned all pipeline nf-tests to the template assertion style and cleaned up stale `tests/.nftignore` entries.
 - [#188](https://github.com/nf-core/nanostring/pull/188) - Clarified the NACHO 2.0.7 breaking changes in the changelog and README, based on a comparison of v1.3.3 and v2.0.0 outputs.
 - [#200](https://github.com/nf-core/nanostring/pull/200) - Updated to nf-core template 4.2.2.
