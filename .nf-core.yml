@@ -11,9 +11,6 @@ lint:
   nextflow_config:
     - params.input
     - config_defaults:
-        - params.heatmap_id_column
-        - params.normalization_method
-        - params.gene_score_method
         - params.max_multiqc_email_size
         - params.validate_params
   schema_params: false

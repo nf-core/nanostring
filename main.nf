@@ -15,8 +15,10 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     Typed pipeline parameters. Parameters that are read while the configuration is parsed
     (e.g. outdir, publish_dir_mode, monochrome_logs, trace_report_suffix, help,
-    pipelines_testdata_base_path, custom_config_*, config_profile_*) are declared in
-    nextflow.config instead, because the params block is only evaluated after the config.
+    pipelines_testdata_base_path, custom_config_*, config_profile_*) and parameters used
+    in conf/modules.config ext.args (normalization_method, heatmap_id_column,
+    gene_score_method) are declared in nextflow.config instead: the params block is only
+    evaluated after the config, and module/subworkflow nf-tests never load main.nf.
 ----------------------------------------------------------------------------------------
 */
 
@@ -31,13 +33,8 @@ params {
 
     // Pipeline options
     heatmap_genes_to_filter: Path?
-    heatmap_id_column: String = 'SAMPLE_ID'
-
-    // Normalization options
-    normalization_method: String = 'GEO'
 
     // Gene score options
-    gene_score_method: String = 'plage.dir'
     gene_score_yaml: Path?
 
     // MultiQC options
