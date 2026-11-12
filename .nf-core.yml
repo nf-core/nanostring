@@ -1,6 +1,9 @@
 lint:
   files_exist:
     - .github/workflows/linting_comment.yml
+    # iGenomes is not used for NanoString data (#201)
+    - conf/igenomes.config
+    - conf/igenomes_ignored.config
   files_unchanged:
     - .github/PULL_REQUEST_TEMPLATE.md
     - .github/workflows/linting.yml
