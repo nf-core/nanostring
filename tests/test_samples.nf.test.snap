@@ -43,7 +43,7 @@
                     "r-tidyr": "1.3.2"
                 },
                 "Workflow": {
-                    "nf-core/nanostring": "v2.0.0"
+                    "nf-core/nanostring": "v2.0.1dev"
                 }
             },
             [
