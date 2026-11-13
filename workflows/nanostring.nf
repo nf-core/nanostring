@@ -43,8 +43,14 @@ include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pi
 workflow NANOSTRING {
 
     take:
-    ch_samplesheet   // channel: [ meta, rcc_path ]
-    samplesheet_path // channel: [ meta, path/to/samplesheet ]
+    ch_samplesheet              // channel: [ meta, rcc_path ]
+    samplesheet_path            // channel: [ meta, path/to/samplesheet ]
+    ch_gene_score_yaml          // channel: [ path(gene_score_yaml) ] (or empty)
+    ch_heatmap_genes_to_filter  // channel: [ path(heatmap_genes_to_filter) ] (or empty)
+    skip_heatmap                // boolean: skip the gene heatmap
+    multiqc_config              // list:    MultiQC config files
+    multiqc_logo                // path:    MultiQC logo (or empty list)
+    multiqc_methods_description // path:    MultiQC methods description template
 
     main:
 
@@ -52,15 +58,14 @@ workflow NANOSTRING {
     ch_multiqc_files = channel.empty()
 
     //
-    // INPUT RCC FILES
+    // INPUT RCC FILES: all RCC files in one tuple, keyed by the samplesheet meta
     //
-    ch_samplesheet
-        .map { _meta, rcc_path -> rcc_path}
+    ch_rcc_paths = ch_samplesheet
+        .map { _meta, rcc_path -> rcc_path }
         .collect()
-        .map{ rcc_path ->
-            tuple( [ id: file(params.input).getName() ], rcc_path )
-        }
-        .set{ rcc_files }
+    rcc_files = samplesheet_path
+        .combine(ch_rcc_paths.map { rcc_paths -> [ rcc_paths ] })
+        .map { meta, _samplesheet, rcc_paths -> tuple(meta, rcc_paths) }
 
     //
     // SUBWORKFLOW: Quality control of input files
@@ -101,15 +106,12 @@ workflow NANOSTRING {
     //
     // Run compute gene scores and plot heatmap subworkflow
     //
-    ch_gene_score_yaml           = params.gene_score_yaml ? channel.fromPath(params.gene_score_yaml, checkIfExists: true) : channel.empty()
-    ch_heatmap_genes_to_filter   = params.heatmap_genes_to_filter  ? channel.fromPath( params.heatmap_genes_to_filter, checkIfExists: true ) : channel.empty()
-
     COMPUTE_GENE_SCORES_HEATMAP (
         ch_normalized,
         ch_annotated_endo_data,
         ch_gene_score_yaml,
         ch_heatmap_genes_to_filter,
-        params.skip_heatmap
+        skip_heatmap
     )
     ch_versions      = ch_versions.mix(COMPUTE_GENE_SCORES_HEATMAP.out.versions)
     ch_gene_scores   = COMPUTE_GENE_SCORES_HEATMAP.out.gene_scores
@@ -150,20 +152,13 @@ workflow NANOSTRING {
     //
     // MODULE: MultiQC
     //
-    multiqc_config = [file("$projectDir/assets/multiqc_config.yml", checkIfExists: true)] +
-        (params.multiqc_config ? [file(params.multiqc_config, checkIfExists: true)] : [])
-    multiqc_logo = params.multiqc_logo ? file(params.multiqc_logo, checkIfExists: true) : []
-
     summary_params      = paramsSummaryMap(
         parameters_schema: "nextflow_schema.json")
     ch_workflow_summary = channel.value(paramsSummaryMultiqc(summary_params))
     ch_multiqc_files = ch_multiqc_files.mix(
         ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
-    ch_multiqc_custom_methods_description = params.multiqc_methods_description ?
-        file(params.multiqc_methods_description, checkIfExists: true) :
-        file("$projectDir/assets/methods_description_template.yml", checkIfExists: true)
-    ch_methods_description                = channel.value(
-        methodsDescriptionText(ch_multiqc_custom_methods_description))
+    ch_methods_description = channel.value(
+        methodsDescriptionText(multiqc_methods_description))
 
     ch_multiqc_files = ch_multiqc_files.mix(ch_collated_versions)
     ch_multiqc_files = ch_multiqc_files.mix(

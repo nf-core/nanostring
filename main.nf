@@ -11,6 +11,53 @@
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    PIPELINE PARAMETERS
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Typed pipeline parameters. Parameters that are read while the configuration is parsed
+    (e.g. outdir, publish_dir_mode, monochrome_logs, trace_report_suffix, help,
+    pipelines_testdata_base_path, custom_config_*, config_profile_*) and parameters used
+    in conf/modules.config ext.args (normalization_method, heatmap_id_column,
+    gene_score_method) are declared in nextflow.config instead: the params block is only
+    evaluated after the config, and module/subworkflow nf-tests never load main.nf.
+----------------------------------------------------------------------------------------
+*/
+
+params {
+    // Input options
+    // NOTE: `input` is nullable so that --help / --version work without it;
+    //       nextflow_schema.json marks it as required for nf-schema validation.
+    input: Path?
+
+    // Skipping options
+    skip_heatmap: Boolean = false
+
+    // Pipeline options
+    heatmap_genes_to_filter: Path?
+
+    // Gene score options
+    gene_score_yaml: Path?
+
+    // MultiQC options
+    multiqc_config: Path?
+    multiqc_title: String?
+    multiqc_logo: Path?
+    max_multiqc_email_size: String = '25.MB'
+    multiqc_methods_description: Path?
+
+    // Boilerplate options
+    email: String?
+    email_on_fail: String?
+    plaintext_email: Boolean = false
+    help_full: Boolean = false
+    show_hidden: Boolean = false
+    version: Boolean = false
+
+    // Schema validation options
+    validate_params: Boolean = true
+}
+
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     IMPORT FUNCTIONS / MODULES / SUBWORKFLOWS / WORKFLOWS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
@@ -18,13 +65,6 @@
 include { NANOSTRING              } from './workflows/nanostring'
 include { PIPELINE_INITIALISATION } from './subworkflows/local/utils_nfcore_nanostring_pipeline'
 include { PIPELINE_COMPLETION     } from './subworkflows/local/utils_nfcore_nanostring_pipeline'
-include { getGenomeAttribute      } from './subworkflows/local/utils_nfcore_nanostring_pipeline'
-
-/*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    GENOME PARAMETER VALUES
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*/
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -38,7 +78,14 @@ include { getGenomeAttribute      } from './subworkflows/local/utils_nfcore_nano
 workflow NFCORE_NANOSTRING {
 
     take:
-    samplesheet // channel: samplesheet read in from --input
+    samplesheet                 // channel: samplesheet read in from --input
+    samplesheet_path            // channel: [ meta, path/to/samplesheet ]
+    gene_score_yaml             // channel: [ path(gene_score_yaml) ] (or empty)
+    heatmap_genes_to_filter     // channel: [ path(heatmap_genes_to_filter) ] (or empty)
+    skip_heatmap                // boolean: skip the gene heatmap
+    multiqc_config              // list:    MultiQC config files
+    multiqc_logo                // path:    MultiQC logo (or empty list)
+    multiqc_methods_description // path:    MultiQC methods description template
 
     main:
 
@@ -47,7 +94,13 @@ workflow NFCORE_NANOSTRING {
     //
     NANOSTRING (
         samplesheet,
-        channel.value(tuple([id: file(params.input).getName()], file(params.input)))
+        samplesheet_path,
+        gene_score_yaml,
+        heatmap_genes_to_filter,
+        skip_heatmap,
+        multiqc_config,
+        multiqc_logo,
+        multiqc_methods_description
     )
 
     emit:
@@ -90,10 +143,31 @@ workflow {
     )
 
     //
+    // Resolve pipeline parameters into files and channels.
+    // Typed `Path` parameters are already converted to paths and checked for
+    // existence by Nextflow at launch, so no file()/checkIfExists is needed for them.
+    //
+    ch_samplesheet_path         = channel.value(tuple([id: params.input.getName()], params.input))
+    ch_gene_score_yaml          = params.gene_score_yaml ? channel.of(params.gene_score_yaml) : channel.empty()
+    ch_heatmap_genes_to_filter  = params.heatmap_genes_to_filter ? channel.of(params.heatmap_genes_to_filter) : channel.empty()
+    multiqc_config              = [file("$projectDir/assets/multiqc_config.yml", checkIfExists: true)] +
+        (params.multiqc_config ? [params.multiqc_config] : [])
+    multiqc_logo                = params.multiqc_logo ?: []
+    multiqc_methods_description = params.multiqc_methods_description ?:
+        file("$projectDir/assets/methods_description_template.yml", checkIfExists: true)
+
+    //
     // WORKFLOW: Run main workflow
     //
     NFCORE_NANOSTRING (
-        PIPELINE_INITIALISATION.out.samplesheet
+        PIPELINE_INITIALISATION.out.samplesheet,
+        ch_samplesheet_path,
+        ch_gene_score_yaml,
+        ch_heatmap_genes_to_filter,
+        params.skip_heatmap,
+        multiqc_config,
+        multiqc_logo,
+        multiqc_methods_description
     )
     //
     // SUBWORKFLOW: Run completion tasks

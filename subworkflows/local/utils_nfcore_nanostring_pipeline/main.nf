@@ -30,7 +30,7 @@ workflow PIPELINE_INITIALISATION {
     _monochrome_logs   // boolean: Do not use coloured log outputs
     nextflow_cli_args //   array: List of positional nextflow CLI args
     outdir            //  string: The output directory where the results will be saved
-    _input             //  string: Path to input samplesheet
+    input             //    path: Path to input samplesheet
     help              // boolean: Display help message and exit
     help_full         // boolean: Show the full help message
     show_hidden       // boolean: Show hidden parameters in the help message
@@ -92,16 +92,11 @@ workflow PIPELINE_INITIALISATION {
     )
 
     //
-    // Custom validation for pipeline parameters
-    //
-    validateInputParameters()
-
-    //
-    // Create channel from input file provided through params.input
+    // Create channel from input file provided through --input
     //
 
     channel
-        .fromList(samplesheetToList(params.input, "${projectDir}/assets/schema_input.json"))
+        .fromList(samplesheetToList(input, "${projectDir}/assets/schema_input.json"))
         .set { ch_samplesheet }
 
     emit:
@@ -160,13 +155,6 @@ workflow PIPELINE_COMPLETION {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 //
-// Check and validate pipeline parameters
-//
-def validateInputParameters() {
-    genomeExistsError()
-}
-
-//
 // Validate channels from input samplesheet
 //
 def validateInputSamplesheet(input) {
@@ -179,31 +167,6 @@ def validateInputSamplesheet(input) {
     }
 
     return [ metas[0], fastqs ]
-}
-//
-// Get attribute from genome config file e.g. fasta
-//
-def getGenomeAttribute(attribute) {
-    if (params.genomes && params.genome && params.genomes.containsKey(params.genome)) {
-        if (params.genomes[ params.genome ].containsKey(attribute)) {
-            return params.genomes[ params.genome ][ attribute ]
-        }
-    }
-    return null
-}
-
-//
-// Exit pipeline if incorrect --genome key provided
-//
-def genomeExistsError() {
-    if (params.genomes && params.genome && !params.genomes.containsKey(params.genome)) {
-        def error_string = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" +
-            "  Genome '${params.genome}' not found in any config files provided to the pipeline.\n" +
-            "  Currently, the available genome keys are:\n" +
-            "  ${params.genomes.keySet().join(", ")}\n" +
-            "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        error(error_string)
-    }
 }
 //
 // Generate methods description for MultiQC
