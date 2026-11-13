@@ -43,8 +43,14 @@ include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pi
 workflow NANOSTRING {
 
     take:
-    ch_samplesheet   // channel: [ meta, rcc_path ]
-    samplesheet_path // channel: [ meta, path/to/samplesheet ]
+    ch_samplesheet              // channel: [ meta, rcc_path ]
+    samplesheet_path            // channel: [ meta, path/to/samplesheet ]
+    ch_gene_score_yaml          // channel: [ path(gene_score_yaml) ] (or empty)
+    ch_heatmap_genes_to_filter  // channel: [ path(heatmap_genes_to_filter) ] (or empty)
+    skip_heatmap                // boolean: skip the gene heatmap
+    multiqc_config              // list:    MultiQC config files
+    multiqc_logo                // path:    MultiQC logo (or empty list)
+    multiqc_methods_description // path:    MultiQC methods description template
 
     main:
 
@@ -52,24 +58,26 @@ workflow NANOSTRING {
     ch_multiqc_files = channel.empty()
 
     //
-    // INPUT RCC FILES
+    // INPUT RCC FILES: all RCC files in one tuple, keyed by the samplesheet meta
     //
-    ch_samplesheet
-        .map { _meta, rcc_path -> rcc_path}
+    ch_rcc_paths = ch_samplesheet
+        .map { _meta, rcc_path -> rcc_path }
         .collect()
-        .map{ rcc_path ->
-            tuple( [ id: file(params.input).getName() ], rcc_path )
-        }
-        .set{ rcc_files }
+    rcc_files = samplesheet_path
+        .combine(ch_rcc_paths.map { rcc_paths -> [ rcc_paths ] })
+        .map { meta, _samplesheet, rcc_paths -> tuple(meta, rcc_paths) }
 
     //
     // SUBWORKFLOW: Quality control of input files
     //
     NACHO_QC (
         rcc_files,
-        samplesheet_path.first()
+        samplesheet_path
     )
     ch_versions      = ch_versions.mix(NACHO_QC.out.versions)
+    ch_nacho_qc_html = NACHO_QC.out.nacho_qc_reports
+    ch_nacho_qc_png  = NACHO_QC.out.nacho_qc_png
+    ch_nacho_qc_txt  = NACHO_QC.out.nacho_qc_txt
     ch_nacho_qc_multiqc_metrics = NACHO_QC.out.nacho_qc_png.map { png -> png[1] }.mix(NACHO_QC.out.nacho_qc_txt.map { txt -> txt[1] })
     ch_multiqc_files = ch_multiqc_files.mix(ch_nacho_qc_multiqc_metrics.collect())
 
@@ -78,7 +86,7 @@ workflow NANOSTRING {
     //
     NACHO_NORMALIZE (
         rcc_files,
-        samplesheet_path.first()
+        samplesheet_path
     )
     ch_versions         = ch_versions.mix(NACHO_NORMALIZE.out.versions)
     ch_normalized       = NACHO_NORMALIZE.out.normalized_counts
@@ -89,25 +97,25 @@ workflow NANOSTRING {
     //
     CREATE_ANNOTATED_TABLES (
         ch_normalized.mix(ch_normalized_wo_hk).toSortedList{ a, b -> a[1].getName() <=> b[1].getName() }.flatMap(), // Order tuples (based on file name) to stabilize tests and reproducibility
-        samplesheet_path.first()
+        samplesheet_path
     )
     ch_versions            = ch_versions.mix(CREATE_ANNOTATED_TABLES.out.versions)
     ch_annotated_endo_data = CREATE_ANNOTATED_TABLES.out.annotated_endo_data
+    ch_annotated_hk_data   = CREATE_ANNOTATED_TABLES.out.annotated_hk_data
     ch_multiqc_files       = ch_multiqc_files.mix(CREATE_ANNOTATED_TABLES.out.annotated_data_mqc.map { mqc -> mqc[1] }.collect())
     //
     // Run compute gene scores and plot heatmap subworkflow
     //
-    ch_gene_score_yaml           = params.gene_score_yaml ? channel.fromPath(params.gene_score_yaml, checkIfExists: true) : channel.empty()
-    ch_heatmap_genes_to_filter   = params.heatmap_genes_to_filter  ? channel.fromPath( params.heatmap_genes_to_filter, checkIfExists: true ) : channel.empty()
-
     COMPUTE_GENE_SCORES_HEATMAP (
         ch_normalized,
         ch_annotated_endo_data,
         ch_gene_score_yaml,
         ch_heatmap_genes_to_filter,
-        params.skip_heatmap
+        skip_heatmap
     )
     ch_versions      = ch_versions.mix(COMPUTE_GENE_SCORES_HEATMAP.out.versions)
+    ch_gene_scores   = COMPUTE_GENE_SCORES_HEATMAP.out.gene_scores
+    ch_gene_heatmaps = COMPUTE_GENE_SCORES_HEATMAP.out.gene_heatmaps
     ch_multiqc_files = ch_multiqc_files.mix(COMPUTE_GENE_SCORES_HEATMAP.out.multiqc_files)
 
     //
@@ -130,10 +138,11 @@ workflow NANOSTRING {
             "${process}:\n${tool_versions.join('\n')}"
         }
 
-    softwareVersionsToYAML(ch_versions.mix(topic_versions.versions_file))
+    ch_versions_yaml = softwareVersionsToYAML(ch_versions.mix(topic_versions.versions_file))
         .mix(topic_versions_string)
+
+    ch_versions_yaml
         .collectFile(
-            storeDir: "${params.outdir}/pipeline_info",
             name: 'nf_core_'  +  'nanostring_software_'  + 'mqc_'  + 'versions.yml',
             sort: true,
             newLine: true
@@ -143,25 +152,13 @@ workflow NANOSTRING {
     //
     // MODULE: MultiQC
     //
-    ch_multiqc_config        = channel.fromPath(
-        "$projectDir/assets/multiqc_config.yml", checkIfExists: true)
-    ch_multiqc_custom_config = params.multiqc_config ?
-        channel.fromPath(params.multiqc_config, checkIfExists: true) :
-        channel.empty()
-    ch_multiqc_logo          = params.multiqc_logo ?
-        channel.fromPath(params.multiqc_logo, checkIfExists: true) :
-        channel.empty()
-
     summary_params      = paramsSummaryMap(
-        workflow, parameters_schema: "nextflow_schema.json")
+        parameters_schema: "nextflow_schema.json")
     ch_workflow_summary = channel.value(paramsSummaryMultiqc(summary_params))
     ch_multiqc_files = ch_multiqc_files.mix(
         ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
-    ch_multiqc_custom_methods_description = params.multiqc_methods_description ?
-        file(params.multiqc_methods_description, checkIfExists: true) :
-        file("$projectDir/assets/methods_description_template.yml", checkIfExists: true)
-    ch_methods_description                = channel.value(
-        methodsDescriptionText(ch_multiqc_custom_methods_description))
+    ch_methods_description = channel.value(
+        methodsDescriptionText(multiqc_methods_description))
 
     ch_multiqc_files = ch_multiqc_files.mix(ch_collated_versions)
     ch_multiqc_files = ch_multiqc_files.mix(
@@ -172,17 +169,42 @@ workflow NANOSTRING {
     )
 
     MULTIQC (
-        ch_multiqc_files.collect(),
-        ch_multiqc_config.toList(),
-        ch_multiqc_custom_config.toList(),
-        ch_multiqc_logo.toList(),
-        [],
-        []
+        ch_multiqc_files.collect().map { files ->
+            tuple([id: 'multiqc'], files, multiqc_config, multiqc_logo, [], [])
+        }
     )
 
+    //
+    // MultiQC takes the collated versions as input, so its own version can only be
+    // added to the published software versions file after it has run
+    //
+    ch_versions_yaml
+        .mix(
+            MULTIQC.out.versions.map { process, tool, version ->
+                "${process.tokenize(':').last()}:\n  ${tool}: ${version}"
+            }
+        )
+        .collectFile(
+            name: 'nf_core_'  +  'nanostring_software_'  + 'mqc_'  + 'versions.yml',
+            sort: true,
+            newLine: true
+        ).set { ch_software_versions }
+
     emit:
-    multiqc_report = MULTIQC.out.report.toList() // channel: /path/to/multiqc_report.html
-    versions       = ch_versions                 // channel: [ path(versions.yml) ]
+    nacho_qc_html       = ch_nacho_qc_html
+    nacho_qc_png        = ch_nacho_qc_png
+    nacho_qc_txt        = ch_nacho_qc_txt
+    normalized_counts   = ch_normalized
+    normalized_counts_wo_hk = ch_normalized_wo_hk
+    annotated_endo_data = ch_annotated_endo_data
+    annotated_hk_data   = ch_annotated_hk_data
+    gene_scores         = ch_gene_scores
+    gene_heatmaps       = ch_gene_heatmaps
+    multiqc_report      = MULTIQC.out.report.map { _meta, report -> report }.toList()
+    multiqc_data        = MULTIQC.out.data.map { _meta, data -> data }
+    multiqc_plots       = MULTIQC.out.plots.map { _meta, plots -> plots }
+    software_versions   = ch_software_versions
+    versions            = ch_versions
 
 }
 

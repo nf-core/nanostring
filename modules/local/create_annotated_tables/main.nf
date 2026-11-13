@@ -4,9 +4,9 @@ process CREATE_ANNOTATED_TABLES {
 
     conda "${moduleDir}/environment.yml"
 
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/56/56c5ac7d61c88a64dc7d6f047e92fbcafbfa271a2df451181f3bac6addcc58b3/data' :
-        'community.wave.seqera.io/library/r-dplyr_r-ggplot2_r-readr_r-stringr_r-tidyr:48d97bd8e8272dbe' }"
+    container "${ workflow.containerEngine in ['singularity', 'apptainer'] && !task.ext.singularity_pull_docker_container
+?         'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/fc/fc3f085fb9fa37ada3792ed13783d85378fc09558c1df742e02908d243f6644c/data'
+:         'community.wave.seqera.io/library/r-base_r-dplyr_r-ggplot2_r-readr_pruned:699fc61330185bf2' }"
 
     input:
     tuple val(meta) , path(counts)
@@ -29,22 +29,26 @@ process CREATE_ANNOTATED_TABLES {
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         r-base: \$(echo \$(R --version 2>&1) | sed 's/^.*R version //; s/ .*\$//')
-        r-ggplot2: \$(Rscript -e "library(ggplot2); cat(as.character(packageVersion('ggplot')))")
+        r-ggplot2: \$(Rscript -e "library(ggplot2); cat(as.character(packageVersion('ggplot2')))")
         r-dplyr: \$(Rscript -e "library(dplyr); cat(as.character(packageVersion('dplyr')))")
         r-readr: \$(Rscript -e "library(readr); cat(as.character(packageVersion('readr')))")
     END_VERSIONS
     """
 
     stub:
+    // Mirror the output file naming of write_out_prepared_gex.R
+    def input_name = counts.baseName.tokenize('_').drop(1).join('_')
+    def mqc_prefix = input_name.contains('wo_HKnorm') ? 'No_HK_' : ''
     """
-    touch ENDO.tsv
-    touch HK.tsv
-    touch mqc.tsv
+    touch ${input_name}_Norm_GEX_ENDO.tsv
+    touch ${input_name}_Norm_GEX_HK.tsv
+    touch ${mqc_prefix}Norm_GEX_ENDO_mqc.tsv
+    touch ${mqc_prefix}Norm_GEX_HK_mqc.tsv
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         r-base: \$(echo \$(R --version 2>&1) | sed 's/^.*R version //; s/ .*\$//')
-        r-ggplot2: \$(Rscript -e "library(ggplot2); cat(as.character(packageVersion('ggplot')))")
+        r-ggplot2: \$(Rscript -e "library(ggplot2); cat(as.character(packageVersion('ggplot2')))")
         r-dplyr: \$(Rscript -e "library(dplyr); cat(as.character(packageVersion('dplyr')))")
         r-readr: \$(Rscript -e "library(readr); cat(as.character(packageVersion('readr')))")
     END_VERSIONS

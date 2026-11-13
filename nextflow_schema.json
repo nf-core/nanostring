@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/nf-core/nanostring/master/nextflow_schema.json",
     "title": "nf-core/nanostring pipeline parameters",
-    "description": "Nanostring nCounter analysis pipeline",
+    "description": "A Nanostring nCounter analysis pipeline",
     "type": "object",
     "$defs": {
         "input_output_options": {
@@ -76,8 +76,10 @@
                 "gene_score_method": {
                     "type": "string",
                     "default": "plage.dir",
+                    "enum": ["plage", "plage.dir", "gsva", "singscore", "ssgsea", "median", "mean", "sams"],
                     "fa_icon": "fas fa-adjust",
-                    "description": "This selects the algorithm for computing the respective gene score. Default is 'plage.dir'."
+                    "description": "This selects the algorithm for computing the respective gene score. Default is 'plage.dir'.",
+                    "help_text": "Available options are `plage`, `plage.dir` (directed PLAGE, default), `gsva`, `singscore`, `ssgsea`, `median`, `mean` and `sams`."
                 },
                 "gene_score_yaml": {
                     "format": "file-path",
@@ -96,35 +98,6 @@
                 "skip_heatmap": {
                     "type": "boolean",
                     "description": "Skip creating the heatmap"
-                }
-            }
-        },
-        "reference_genome_options": {
-            "title": "Reference genome options",
-            "type": "object",
-            "fa_icon": "fas fa-dna",
-            "description": "Reference genome related files and options required for the workflow.",
-            "properties": {
-                "genome": {
-                    "type": "string",
-                    "description": "Name of iGenomes reference.",
-                    "fa_icon": "fas fa-book",
-                    "help_text": "If using a reference genome configured in the pipeline using iGenomes, use this parameter to give the ID for the reference. This is then used to build the full paths for all required reference genome files e.g. `--genome GRCh38`. \n\nSee the [nf-core website docs](https://nf-co.re/usage/reference_genomes) for more details."
-                },
-                "igenomes_ignore": {
-                    "type": "boolean",
-                    "description": "Do not load the iGenomes reference config.",
-                    "fa_icon": "fas fa-ban",
-                    "hidden": true,
-                    "help_text": "Do not load `igenomes.config` when running the pipeline. You may choose this option if you observe clashes between custom parameters and those supplied in `igenomes.config`."
-                },
-                "igenomes_base": {
-                    "type": "string",
-                    "format": "directory-path",
-                    "description": "The base path to the igenomes reference files",
-                    "fa_icon": "fas fa-ban",
-                    "hidden": true,
-                    "default": "s3://ngi-igenomes/igenomes/"
                 }
             }
         },
@@ -233,13 +206,6 @@
                     "fa_icon": "fas fa-palette",
                     "hidden": true
                 },
-                "hook_url": {
-                    "type": "string",
-                    "description": "Incoming hook URL for messaging service",
-                    "fa_icon": "fas fa-people-group",
-                    "help_text": "Incoming hook URL for messaging service. Currently, MS Teams and Slack are supported.",
-                    "hidden": true
-                },
                 "multiqc_title": {
                     "type": "string",
                     "description": "MultiQC report title. Printed as page header, used for filename if not otherwise specified.",
@@ -279,7 +245,7 @@
                 },
                 "trace_report_suffix": {
                     "type": "string",
-                    "fa_icon": "far calendar",
+                    "fa_icon": "far fa-calendar",
                     "description": "Suffix to add to the trace report filename. Default is the date and time in the format yyyy-MM-dd_HH-mm-ss.",
                     "hidden": true
                 },
@@ -313,9 +279,6 @@
         },
         {
             "$ref": "#/$defs/skipping_options"
-        },
-        {
-            "$ref": "#/$defs/reference_genome_options"
         },
         {
             "$ref": "#/$defs/institutional_config_options"
