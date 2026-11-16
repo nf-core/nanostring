@@ -14,6 +14,7 @@ jobs:
         uses: seqeralabs/action-seqera-launch@v1
         with:
           wait: running
+          nextflow-version: "26.10.0"
           syntax-parser: v2
           workspace-id: ${{ vars.TOWER_WORKSPACE_ID }}
           access-token: ${{ secrets.TOWER_ACCESS_TOKEN }}

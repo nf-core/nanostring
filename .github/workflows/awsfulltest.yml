@@ -28,6 +28,7 @@ jobs:
         # on the `test_full.config` test runs with only one set of parameters
         with:
           wait: running
+          nextflow-version: "26.10.0"
           syntax-parser: v2
           workspace-id: ${{ vars.TOWER_WORKSPACE_ID }}
           access-token: ${{ secrets.TOWER_ACCESS_TOKEN }}
