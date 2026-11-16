@@ -53,7 +53,7 @@
                     "r-tidyr": "1.3.2"
                 },
                 "Workflow": {
-                    "nf-core/nanostring": "v2.0.1dev"
+                    "nf-core/nanostring": "v2.1.0"
                 }
             },
             [
@@ -213,7 +213,7 @@
                     "r-tidyr": "1.3.2"
                 },
                 "Workflow": {
-                    "nf-core/nanostring": "v2.0.1dev"
+                    "nf-core/nanostring": "v2.1.0"
                 }
             },
             [
@@ -373,7 +373,7 @@
                     "r-tidyr": "1.3.2"
                 },
                 "Workflow": {
-                    "nf-core/nanostring": "v2.0.1dev"
+                    "nf-core/nanostring": "v2.1.0"
                 }
             },
             [
@@ -533,7 +533,7 @@
                     "r-tidyr": "1.3.2"
                 },
                 "Workflow": {
-                    "nf-core/nanostring": "v2.0.1dev"
+                    "nf-core/nanostring": "v2.1.0"
                 }
             },
             [
@@ -693,7 +693,7 @@
                     "r-tidyr": "1.3.2"
                 },
                 "Workflow": {
-                    "nf-core/nanostring": "v2.0.1dev"
+                    "nf-core/nanostring": "v2.1.0"
                 }
             },
             [
