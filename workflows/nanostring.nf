@@ -29,9 +29,9 @@ include { NACHO_NORMALIZE        } from '../modules/nf-core/nacho/normalize/main
 include { NACHO_QC               } from '../modules/nf-core/nacho/qc/main'
 
 include { paramsSummaryMap       } from 'plugin/nf-schema'
+include { collectVersions        } from 'plugin/nf-core-utils'
 
 include { paramsSummaryMultiqc   } from '../subworkflows/nf-core/utils_nfcore_pipeline'
-include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 
 
 /*
@@ -121,33 +121,15 @@ workflow NANOSTRING {
     //
     // Collate and save software versions
     //
-    def topic_versions = channel.topic("versions")
-        .distinct()
-        .branch { entry ->
-            versions_file: entry instanceof Path
-            versions_tuple: true
-        }
-
-    def topic_versions_string = topic_versions.versions_tuple
-        .map { process, tool, version ->
-            [ process[process.lastIndexOf(':')+1..-1], "  ${tool}: ${version}" ]
-        }
-        .groupTuple(by:0)
-        .map { process, tool_versions ->
-            tool_versions.unique().sort()
-            "${process}:\n${tool_versions.join('\n')}"
-        }
-
-    ch_versions_yaml = softwareVersionsToYAML(ch_versions.mix(topic_versions.versions_file))
-        .mix(topic_versions_string)
-
-    ch_versions_yaml
-        .collectFile(
-            name: 'nf_core_'  +  'nanostring_software_'  + 'mqc_'  + 'versions.yml',
-            sort: true,
-            newLine: true
-        ).set { ch_collated_versions }
-
+    // collectVersions() merges versions.yml files and [process, tool, version] topic
+    // tuples, and appends the Workflow block. toList() emits even if nothing reported.
+    //
+    ch_collated_versions = ch_versions
+        .mix(channel.topic('versions'))
+        .unique()
+        .toList()
+        .map { versions -> collectVersions(versions) }
+        .collectFile(name: 'nf_core_'  +  'nanostring_software_'  + 'mqc_'  + 'versions.yml')
 
     //
     // MODULE: MultiQC
@@ -178,17 +160,12 @@ workflow NANOSTRING {
     // MultiQC takes the collated versions as input, so its own version can only be
     // added to the published software versions file after it has run
     //
-    ch_versions_yaml
-        .mix(
-            MULTIQC.out.versions.map { process, tool, version ->
-                "${process.tokenize(':').last()}:\n  ${tool}: ${version}"
-            }
-        )
-        .collectFile(
-            name: 'nf_core_'  +  'nanostring_software_'  + 'mqc_'  + 'versions.yml',
-            sort: true,
-            newLine: true
-        ).set { ch_software_versions }
+    ch_software_versions = ch_versions
+        .mix(channel.topic('versions'), MULTIQC.out.versions)
+        .unique()
+        .toList()
+        .map { versions -> collectVersions(versions) }
+        .collectFile(name: 'nf_core_'  +  'nanostring_software_'  + 'mqc_'  + 'versions.yml')
 
     emit:
     nacho_qc_html       = ch_nacho_qc_html
