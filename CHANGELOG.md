@@ -3,6 +3,12 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v2.0.1dev - [unreleased]
+
+### `Fixed`
+
+- [#206](https://github.com/nf-core/nanostring/pull/206) - Switched the AWS test workflows from `seqeralabs/action-tower-launch` to `seqeralabs/action-seqera-launch` and launch them with the v2 syntax parser, which the pipeline's typed parameters require ([#205](https://github.com/nf-core/nanostring/issues/205), [nf-core/tools#4518](https://github.com/nf-core/tools/pull/4518)).
+
 ## v2.0.0 - 2026-11-09 - Millimetre
 
 ### `Breaking changes`
