@@ -16,6 +16,7 @@ and processes data using the following steps:
 - [Annotate](#annotate) - annotate the normalized gene counts with metadata from samplesheet
 - [Gene Score](#gene-scores) - computes gene scores with user supplied YAML formatted gene sets
 - [Gene Heatmap](#gene-count-heatmaps) - visualizes gene counts in a heatmap format
+- [Differential abundance export](#differential-abundance-export) - optional inputs for nf-core/differentialabundance
 - [MultiQC](#multiqc) - aggregate report, describing results of the whole pipeline
 - [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
 
@@ -86,6 +87,19 @@ This holds the gene-count heatmaps generated for the normalized and non-housekee
 - `gene_heatmaps/`
 - `gene_heatmap_mqc.png`: Gene-count heatmap for HK-normalized data.
 - `wo_HKnorm_gene_heatmap_mqc.png`: Gene-count heatmap for non-HK-normalized data.
+
+</details>
+
+### Differential abundance export
+
+<details markdown="1">
+<summary>Output files</summary>
+
+Only written with `--export_differentialabundance`. See the [usage documentation](usage.md#differential-expression-with-nf-coredifferentialabundance) for how to run nf-core/differentialabundance with these files.
+
+- `differentialabundance/`
+  - `normalized_counts_log2_endogenous.tsv`: log2 housekeeping-normalized counts of Endogenous genes, with genes (`feature_id`) as rows and samples (`SAMPLE_ID`) as columns.
+  - `samplesheet_differentialabundance.csv`: samplesheet with a `sample` column matching the matrix columns.
 
 </details>
 

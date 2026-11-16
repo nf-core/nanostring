@@ -1,0 +1,62 @@
+{
+    "-profile test --export_differentialabundance": {
+        "content": [
+            {
+                "CREATE_ANNOTATED_TABLES": {
+                    "r-base": "4.5.2",
+                    "r-dplyr": "1.1.4",
+                    "r-ggplot2": "4.0.1",
+                    "r-readr": "2.1.6"
+                },
+                "CREATE_GENE_HEATMAP": {
+                    "bioconductor-ComplexHeatmap": "2.22.0",
+                    "r-base": "4.4.3",
+                    "r-circlize": "0.4.17",
+                    "r-dplyr": "1.1.4",
+                    "r-fs": "1.6.6",
+                    "r-ggplot2": "4.0.1",
+                    "r-rlang": "1.1.7",
+                    "r-yaml": "2.3.12"
+                },
+                "EXPORT_DIFFERENTIALABUNDANCE": {
+                    "r-base": "4.5.2",
+                    "r-dplyr": "1.1.4",
+                    "r-readr": "2.1.6"
+                },
+                "MULTIQC": {
+                    "multiqc": "1.35"
+                },
+                "NACHO_NORMALIZE": {
+                    "r-base": "4.5.1",
+                    "r-dplyr": "1.2.1",
+                    "r-fs": "2.1.0",
+                    "r-ggplot2": "4.0.3",
+                    "r-nacho": "2.0.7",
+                    "r-nfcore.utils": "0.0.3",
+                    "r-readr": "2.2.0",
+                    "r-tidyr": "1.3.2"
+                },
+                "NACHO_QC": {
+                    "r-base": "4.5.1",
+                    "r-dplyr": "1.2.1",
+                    "r-fs": "2.1.0",
+                    "r-ggplot2": "4.0.3",
+                    "r-nacho": "2.0.7",
+                    "r-nfcore.utils": "0.0.3",
+                    "r-readr": "2.2.0",
+                    "r-tidyr": "1.3.2"
+                },
+                "Workflow": {
+                    "nf-core/nanostring": "v2.1.0"
+                }
+            },
+            "normalized_counts_log2_endogenous.tsv:md5,f3a4425f83ec879b476061e85e27c45f",
+            "samplesheet_differentialabundance.csv:md5,1bee2128d52e3c3f53fe22038cf4cd90"
+        ],
+        "timestamp": "2026-11-16T11:03:23.521476",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.10.6"
+        }
+    }
+}

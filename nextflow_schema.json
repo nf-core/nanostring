@@ -101,6 +101,21 @@
                 }
             }
         },
+        "export_options": {
+            "title": "Export options",
+            "type": "object",
+            "description": "Write additional files for downstream analysis with other pipelines.",
+            "default": "",
+            "fa_icon": "fas fa-file-export",
+            "properties": {
+                "export_differentialabundance": {
+                    "type": "boolean",
+                    "description": "Write a log2 matrix of Endogenous genes and a matching samplesheet for nf-core/differentialabundance.",
+                    "fa_icon": "fas fa-file-export",
+                    "help_text": "Writes `differentialabundance/normalized_counts_log2_endogenous.tsv` and `differentialabundance/samplesheet_differentialabundance.csv`, which can be passed to nf-core/differentialabundance with `-profile generic_matrix`. See the usage documentation for details."
+                }
+            }
+        },
         "institutional_config_options": {
             "title": "Institutional config options",
             "type": "object",
@@ -279,6 +294,9 @@
         },
         {
             "$ref": "#/$defs/skipping_options"
+        },
+        {
+            "$ref": "#/$defs/export_options"
         },
         {
             "$ref": "#/$defs/institutional_config_options"

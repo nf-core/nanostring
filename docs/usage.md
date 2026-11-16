@@ -129,6 +129,29 @@ MPAS:
   - EPHA4
 ```
 
+### Differential expression with nf-core/differentialabundance
+
+With `--export_differentialabundance`, the pipeline writes inputs for [nf-core/differentialabundance](https://nf-co.re/differentialabundance) to `differentialabundance/`:
+
+- `normalized_counts_log2_endogenous.tsv`: log2 of the housekeeping-normalized counts (the same values as `normalized_counts/normalized_counts.tsv`), with Endogenous genes only. Positive and Negative control probes and housekeeping genes are removed so they are not tested. Rows are genes (`feature_id`), columns are samples (`SAMPLE_ID`).
+- `samplesheet_differentialabundance.csv`: your samplesheet with a `sample` column (a copy of `SAMPLE_ID`) matching the matrix columns. The `RCC_FILE` path column is dropped, and all other metadata columns are kept.
+
+`SAMPLE_ID` must be unique for this export. Add the variables you want to compare as columns to your nanostring samplesheet (e.g. `TREATMENT`), and they will appear in the exported samplesheet. Then describe the comparisons in a [contrasts file](https://nf-co.re/differentialabundance/usage#contrasts-file) and run:
+
+```bash
+nextflow run nf-core/differentialabundance \
+   -profile generic_matrix,<docker/singularity/.../institute> \
+   --input <OUTDIR>/differentialabundance/samplesheet_differentialabundance.csv \
+   --matrix <OUTDIR>/differentialabundance/normalized_counts_log2_endogenous.tsv \
+   --contrasts contrasts.csv \
+   --outdir <DA_OUTDIR>
+```
+
+The `generic_matrix` profile uses limma on the matrix as-is, which is why the export is log2-transformed. Do not pass `normalized_counts/normalized_counts.tsv` directly: it is on a linear scale and includes control probes, so the run succeeds but the fold changes and p-values are wrong.
+
+> [!NOTE]
+> NACHO sets normalized counts at or below background to `0.1`, which is `-3.32` after log2. The default `--filtering_min_abundance 1` of nf-core/differentialabundance then applies on the log2 scale and removes genes below 2 normalized counts in all samples.
+
 ### Updating the pipeline
 
 When you run the above command, Nextflow automatically pulls the pipeline code from GitHub and stores it as a cached version. When running the pipeline after this, it will always use the cached version if available - even if the pipeline has been updated since. To make sure that you're running the latest version of the pipeline, make sure that you regularly update the cached version of the pipeline:

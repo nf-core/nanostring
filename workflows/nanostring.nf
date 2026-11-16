@@ -14,6 +14,7 @@ include { COMPUTE_GENE_SCORES_HEATMAP } from '../subworkflows/local/compute_gene
 // MODULES
 //
 include { CREATE_ANNOTATED_TABLES } from '../modules/local/create_annotated_tables'
+include { EXPORT_DIFFERENTIALABUNDANCE } from '../modules/local/export_differentialabundance'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -48,6 +49,7 @@ workflow NANOSTRING {
     ch_gene_score_yaml          // channel: [ path(gene_score_yaml) ] (or empty)
     ch_heatmap_genes_to_filter  // channel: [ path(heatmap_genes_to_filter) ] (or empty)
     skip_heatmap                // boolean: skip the gene heatmap
+    export_differentialabundance // boolean: write nf-core/differentialabundance inputs
     multiqc_config              // list:    MultiQC config files
     multiqc_logo                // path:    MultiQC logo (or empty list)
     multiqc_methods_description // path:    MultiQC methods description template
@@ -91,6 +93,21 @@ workflow NANOSTRING {
     ch_versions         = ch_versions.mix(NACHO_NORMALIZE.out.versions)
     ch_normalized       = NACHO_NORMALIZE.out.normalized_counts
     ch_normalized_wo_hk = NACHO_NORMALIZE.out.normalized_counts_wo_HK
+
+    //
+    // MODULE: Export a log2 Endogenous matrix and samplesheet for nf-core/differentialabundance
+    //
+    ch_differentialabundance_matrix      = channel.empty()
+    ch_differentialabundance_samplesheet = channel.empty()
+    if (export_differentialabundance) {
+        EXPORT_DIFFERENTIALABUNDANCE (
+            ch_normalized,
+            samplesheet_path
+        )
+        ch_versions                          = ch_versions.mix(EXPORT_DIFFERENTIALABUNDANCE.out.versions)
+        ch_differentialabundance_matrix      = EXPORT_DIFFERENTIALABUNDANCE.out.matrix
+        ch_differentialabundance_samplesheet = EXPORT_DIFFERENTIALABUNDANCE.out.samplesheet
+    }
 
     //
     // MODULE: Annotate normalized counts with metadata from the samplesheet
@@ -177,6 +194,8 @@ workflow NANOSTRING {
     annotated_hk_data   = ch_annotated_hk_data
     gene_scores         = ch_gene_scores
     gene_heatmaps       = ch_gene_heatmaps
+    differentialabundance_matrix      = ch_differentialabundance_matrix
+    differentialabundance_samplesheet = ch_differentialabundance_samplesheet
     multiqc_report      = MULTIQC.out.report.map { _meta, report -> report }.toList()
     multiqc_data        = MULTIQC.out.data.map { _meta, data -> data }
     multiqc_plots       = MULTIQC.out.plots.map { _meta, plots -> plots }
