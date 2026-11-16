@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#209](https://github.com/nf-core/nanostring/pull/209) - Added the [nf-co2footprint](https://github.com/nextflow-io/nf-co2footprint) plugin (`1.4.1`), which writes energy consumption and CO₂e estimates for each run to `pipeline_info/co2footprint_*`.
 - [#209](https://github.com/nf-core/nanostring/pull/209) - Added the [nf-prov](https://github.com/nextflow-io/nf-prov) plugin (`1.8.0`), which writes a BioCompute Object provenance manifest to `pipeline_info/manifest_*.bco.json`.
 - [#209](https://github.com/nf-core/nanostring/pull/209) - Added the [nf-core-utils](https://github.com/nf-core/nf-core-utils) plugin (`0.7.0`) and use its `collectVersions()` to collate software versions, replacing the hand-written merge in `workflows/nanostring.nf`. Versions are now always written as strings, e.g. `multiqc: '1.35'`.
+- [#210](https://github.com/nf-core/nanostring/pull/210) - Added `--export_differentialabundance`, which writes a log2 matrix of Endogenous genes and a matching samplesheet to `differentialabundance/` for use with [nf-core/differentialabundance](https://nf-co.re/differentialabundance) `-profile generic_matrix` ([#18](https://github.com/nf-core/nanostring/issues/18)).
 
 ### `Fixed`
 
