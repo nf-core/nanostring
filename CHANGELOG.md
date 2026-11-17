@@ -3,6 +3,23 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v2.1.0 - 2026-11-16 - Centimetre
+
+### `Breaking changes`
+
+- [#209](https://github.com/nf-core/nanostring/pull/209) - Nextflow 26.10.0 or later is now required (previously 26.04.0), as nf-prov 1.8.0 needs it. Update Nextflow before running this release.
+
+### `Added`
+
+- [#209](https://github.com/nf-core/nanostring/pull/209) - Added the [nf-co2footprint](https://github.com/nextflow-io/nf-co2footprint) plugin (`1.4.1`), which writes energy consumption and CO₂e estimates for each run to `pipeline_info/co2footprint_*`.
+- [#209](https://github.com/nf-core/nanostring/pull/209) - Added the [nf-prov](https://github.com/nextflow-io/nf-prov) plugin (`1.8.0`), which writes a BioCompute Object provenance manifest to `pipeline_info/manifest_*.bco.json`.
+- [#209](https://github.com/nf-core/nanostring/pull/209) - Added the [nf-core-utils](https://github.com/nf-core/nf-core-utils) plugin (`0.7.0`) and use its `collectVersions()` to collate software versions, replacing the hand-written merge in `workflows/nanostring.nf`. Versions are now always written as strings, e.g. `multiqc: '1.35'`.
+- [#210](https://github.com/nf-core/nanostring/pull/210) - Added `--export_differentialabundance`, which writes a log2 matrix of Endogenous genes and a matching samplesheet to `differentialabundance/` for use with [nf-core/differentialabundance](https://nf-co.re/differentialabundance) `-profile generic_matrix` ([#18](https://github.com/nf-core/nanostring/issues/18)).
+
+### `Fixed`
+
+- [#206](https://github.com/nf-core/nanostring/pull/206) - Switched the AWS test workflows from `seqeralabs/action-tower-launch` to `seqeralabs/action-seqera-launch` and launch them with the v2 syntax parser, which the pipeline's typed parameters require ([#205](https://github.com/nf-core/nanostring/issues/205), [nf-core/tools#4518](https://github.com/nf-core/tools/pull/4518)).
+
 ## v2.0.0 - 2026-11-09 - Millimetre
 
 ### `Breaking changes`

@@ -1,0 +1,100 @@
+{
+    "stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "samplesheet_test.csv"
+                        },
+                        "normalized_counts_log2_endogenous.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "samplesheet_test.csv"
+                        },
+                        "samplesheet_differentialabundance.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "2": [
+                    "versions.yml:md5,332e75499b12f25f4698bc0f441966ad"
+                ],
+                "matrix": [
+                    [
+                        {
+                            "id": "samplesheet_test.csv"
+                        },
+                        "normalized_counts_log2_endogenous.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "samplesheet": [
+                    [
+                        {
+                            "id": "samplesheet_test.csv"
+                        },
+                        "samplesheet_differentialabundance.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,332e75499b12f25f4698bc0f441966ad"
+                ]
+            }
+        ],
+        "timestamp": "2026-11-16T10:49:49.836162",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.10.6"
+        }
+    },
+    "Should run without failures": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "samplesheet_test.csv"
+                        },
+                        "normalized_counts_log2_endogenous.tsv:md5,f3a4425f83ec879b476061e85e27c45f"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "samplesheet_test.csv"
+                        },
+                        "samplesheet_differentialabundance.csv:md5,1bee2128d52e3c3f53fe22038cf4cd90"
+                    ]
+                ],
+                "2": [
+                    "versions.yml:md5,332e75499b12f25f4698bc0f441966ad"
+                ],
+                "matrix": [
+                    [
+                        {
+                            "id": "samplesheet_test.csv"
+                        },
+                        "normalized_counts_log2_endogenous.tsv:md5,f3a4425f83ec879b476061e85e27c45f"
+                    ]
+                ],
+                "samplesheet": [
+                    [
+                        {
+                            "id": "samplesheet_test.csv"
+                        },
+                        "samplesheet_differentialabundance.csv:md5,1bee2128d52e3c3f53fe22038cf4cd90"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,332e75499b12f25f4698bc0f441966ad"
+                ]
+            }
+        ],
+        "timestamp": "2026-11-16T10:52:16.206478",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.10.6"
+        }
+    }
+}

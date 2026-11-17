@@ -20,7 +20,7 @@
                     "r-readr": "2.1.6"
                 },
                 "MULTIQC": {
-                    "multiqc": 1.35
+                    "multiqc": "1.35"
                 },
                 "NACHO_NORMALIZE": {
                     "r-base": "4.5.1",
@@ -43,7 +43,7 @@
                     "r-tidyr": "1.3.2"
                 },
                 "Workflow": {
-                    "nf-core/nanostring": "v2.0.0"
+                    "nf-core/nanostring": "v2.1.0"
                 }
             },
             [
@@ -176,7 +176,7 @@
                     "r-yaml": "2.3.12"
                 },
                 "MULTIQC": {
-                    "multiqc": 1.35
+                    "multiqc": "1.35"
                 },
                 "NACHO_NORMALIZE": {
                     "r-base": "4.5.1",
@@ -199,7 +199,7 @@
                     "r-tidyr": "1.3.2"
                 },
                 "Workflow": {
-                    "nf-core/nanostring": "v2.0.0"
+                    "nf-core/nanostring": "v2.1.0"
                 }
             },
             [

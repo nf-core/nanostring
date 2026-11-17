@@ -1,0 +1,67 @@
+nextflow_process {
+
+    name "Test Process EXPORT_DIFFERENTIALABUNDANCE"
+    script "../main.nf"
+    process "EXPORT_DIFFERENTIALABUNDANCE"
+    tag "modules"
+    tag "export_differentialabundance"
+
+    test("Should run without failures") {
+
+        when {
+            process {
+                """
+                input[0] = [
+                    [ id: 'samplesheet_test.csv' ],
+                    file(params.pipelines_testdata_base_path + 'nanostring/modules_test_data/test_profile/normalized_counts.tsv', checkIfExists: true)
+                ]
+                input[1] = [
+                    [ id: 'samplesheet_test.csv' ],
+                    file(params.pipelines_testdata_base_path + 'nanostring/samplesheets/samplesheet_test.csv', checkIfExists: true)
+                ]
+                """
+            }
+        }
+
+        then {
+            def matrix = path(process.out.matrix[0][1]).readLines()
+            assertAll(
+                { assert process.success },
+                // feature_id + one column per SAMPLE_ID, Endogenous genes only
+                { assert matrix[0] == "feature_id\tsalmon_01\tsalmon_02\tsalmon_03\tsalmon_04" },
+                { assert !matrix.any { line -> line.startsWith('POS_') || line.startsWith('NEG_') } },
+                { assert snapshot(process.out).match() }
+            )
+        }
+
+    }
+
+    test("stub") {
+
+        options '-stub'
+
+        when {
+            process {
+                """
+                input[0] = [
+                    [ id: 'samplesheet_test.csv' ],
+                    file(params.pipelines_testdata_base_path + 'nanostring/modules_test_data/test_profile/normalized_counts.tsv', checkIfExists: true)
+                ]
+                input[1] = [
+                    [ id: 'samplesheet_test.csv' ],
+                    file(params.pipelines_testdata_base_path + 'nanostring/samplesheets/samplesheet_test.csv', checkIfExists: true)
+                ]
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+
+    }
+
+}

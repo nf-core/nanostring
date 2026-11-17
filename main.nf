@@ -31,6 +31,9 @@ params {
     // Skipping options
     skip_heatmap: Boolean = false
 
+    // Export options
+    export_differentialabundance: Boolean = false
+
     // Pipeline options
     heatmap_genes_to_filter: Path?
 
@@ -83,6 +86,7 @@ workflow NFCORE_NANOSTRING {
     gene_score_yaml             // channel: [ path(gene_score_yaml) ] (or empty)
     heatmap_genes_to_filter     // channel: [ path(heatmap_genes_to_filter) ] (or empty)
     skip_heatmap                // boolean: skip the gene heatmap
+    export_differentialabundance // boolean: write nf-core/differentialabundance inputs
     multiqc_config              // list:    MultiQC config files
     multiqc_logo                // path:    MultiQC logo (or empty list)
     multiqc_methods_description // path:    MultiQC methods description template
@@ -98,6 +102,7 @@ workflow NFCORE_NANOSTRING {
         gene_score_yaml,
         heatmap_genes_to_filter,
         skip_heatmap,
+        export_differentialabundance,
         multiqc_config,
         multiqc_logo,
         multiqc_methods_description
@@ -113,6 +118,8 @@ workflow NFCORE_NANOSTRING {
     annotated_hk_data   = NANOSTRING.out.annotated_hk_data
     gene_scores         = NANOSTRING.out.gene_scores
     gene_heatmaps       = NANOSTRING.out.gene_heatmaps
+    differentialabundance_matrix      = NANOSTRING.out.differentialabundance_matrix
+    differentialabundance_samplesheet = NANOSTRING.out.differentialabundance_samplesheet
     multiqc_report      = NANOSTRING.out.multiqc_report
     multiqc_data        = NANOSTRING.out.multiqc_data
     multiqc_plots       = NANOSTRING.out.multiqc_plots
@@ -165,6 +172,7 @@ workflow {
         ch_gene_score_yaml,
         ch_heatmap_genes_to_filter,
         params.skip_heatmap,
+        params.export_differentialabundance,
         multiqc_config,
         multiqc_logo,
         multiqc_methods_description
@@ -191,6 +199,8 @@ workflow {
     annotated_hk_data   = NFCORE_NANOSTRING.out.annotated_hk_data
     gene_scores         = NFCORE_NANOSTRING.out.gene_scores
     gene_heatmaps       = NFCORE_NANOSTRING.out.gene_heatmaps
+    differentialabundance_matrix      = NFCORE_NANOSTRING.out.differentialabundance_matrix
+    differentialabundance_samplesheet = NFCORE_NANOSTRING.out.differentialabundance_samplesheet
     multiqc_report      = NFCORE_NANOSTRING.out.multiqc_report
     multiqc_data        = NFCORE_NANOSTRING.out.multiqc_data
     multiqc_plots       = NFCORE_NANOSTRING.out.multiqc_plots
@@ -224,6 +234,12 @@ output {
     }
     gene_heatmaps {
         path 'gene_heatmaps'
+    }
+    differentialabundance_matrix {
+        path 'differentialabundance'
+    }
+    differentialabundance_samplesheet {
+        path 'differentialabundance'
     }
     multiqc_report {
         path 'multiqc'

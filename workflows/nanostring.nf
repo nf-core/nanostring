@@ -14,6 +14,7 @@ include { COMPUTE_GENE_SCORES_HEATMAP } from '../subworkflows/local/compute_gene
 // MODULES
 //
 include { CREATE_ANNOTATED_TABLES } from '../modules/local/create_annotated_tables'
+include { EXPORT_DIFFERENTIALABUNDANCE } from '../modules/local/export_differentialabundance'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -29,9 +30,9 @@ include { NACHO_NORMALIZE        } from '../modules/nf-core/nacho/normalize/main
 include { NACHO_QC               } from '../modules/nf-core/nacho/qc/main'
 
 include { paramsSummaryMap       } from 'plugin/nf-schema'
+include { collectVersions        } from 'plugin/nf-core-utils'
 
 include { paramsSummaryMultiqc   } from '../subworkflows/nf-core/utils_nfcore_pipeline'
-include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 
 
 /*
@@ -48,6 +49,7 @@ workflow NANOSTRING {
     ch_gene_score_yaml          // channel: [ path(gene_score_yaml) ] (or empty)
     ch_heatmap_genes_to_filter  // channel: [ path(heatmap_genes_to_filter) ] (or empty)
     skip_heatmap                // boolean: skip the gene heatmap
+    export_differentialabundance // boolean: write nf-core/differentialabundance inputs
     multiqc_config              // list:    MultiQC config files
     multiqc_logo                // path:    MultiQC logo (or empty list)
     multiqc_methods_description // path:    MultiQC methods description template
@@ -93,6 +95,21 @@ workflow NANOSTRING {
     ch_normalized_wo_hk = NACHO_NORMALIZE.out.normalized_counts_wo_HK
 
     //
+    // MODULE: Export a log2 Endogenous matrix and samplesheet for nf-core/differentialabundance
+    //
+    ch_differentialabundance_matrix      = channel.empty()
+    ch_differentialabundance_samplesheet = channel.empty()
+    if (export_differentialabundance) {
+        EXPORT_DIFFERENTIALABUNDANCE (
+            ch_normalized,
+            samplesheet_path
+        )
+        ch_versions                          = ch_versions.mix(EXPORT_DIFFERENTIALABUNDANCE.out.versions)
+        ch_differentialabundance_matrix      = EXPORT_DIFFERENTIALABUNDANCE.out.matrix
+        ch_differentialabundance_samplesheet = EXPORT_DIFFERENTIALABUNDANCE.out.samplesheet
+    }
+
+    //
     // MODULE: Annotate normalized counts with metadata from the samplesheet
     //
     CREATE_ANNOTATED_TABLES (
@@ -121,33 +138,15 @@ workflow NANOSTRING {
     //
     // Collate and save software versions
     //
-    def topic_versions = channel.topic("versions")
-        .distinct()
-        .branch { entry ->
-            versions_file: entry instanceof Path
-            versions_tuple: true
-        }
-
-    def topic_versions_string = topic_versions.versions_tuple
-        .map { process, tool, version ->
-            [ process[process.lastIndexOf(':')+1..-1], "  ${tool}: ${version}" ]
-        }
-        .groupTuple(by:0)
-        .map { process, tool_versions ->
-            tool_versions.unique().sort()
-            "${process}:\n${tool_versions.join('\n')}"
-        }
-
-    ch_versions_yaml = softwareVersionsToYAML(ch_versions.mix(topic_versions.versions_file))
-        .mix(topic_versions_string)
-
-    ch_versions_yaml
-        .collectFile(
-            name: 'nf_core_'  +  'nanostring_software_'  + 'mqc_'  + 'versions.yml',
-            sort: true,
-            newLine: true
-        ).set { ch_collated_versions }
-
+    // collectVersions() merges versions.yml files and [process, tool, version] topic
+    // tuples, and appends the Workflow block. toList() emits even if nothing reported.
+    //
+    ch_collated_versions = ch_versions
+        .mix(channel.topic('versions'))
+        .unique()
+        .toList()
+        .map { versions -> collectVersions(versions) }
+        .collectFile(name: 'nf_core_'  +  'nanostring_software_'  + 'mqc_'  + 'versions.yml')
 
     //
     // MODULE: MultiQC
@@ -178,17 +177,12 @@ workflow NANOSTRING {
     // MultiQC takes the collated versions as input, so its own version can only be
     // added to the published software versions file after it has run
     //
-    ch_versions_yaml
-        .mix(
-            MULTIQC.out.versions.map { process, tool, version ->
-                "${process.tokenize(':').last()}:\n  ${tool}: ${version}"
-            }
-        )
-        .collectFile(
-            name: 'nf_core_'  +  'nanostring_software_'  + 'mqc_'  + 'versions.yml',
-            sort: true,
-            newLine: true
-        ).set { ch_software_versions }
+    ch_software_versions = ch_versions
+        .mix(channel.topic('versions'), MULTIQC.out.versions)
+        .unique()
+        .toList()
+        .map { versions -> collectVersions(versions) }
+        .collectFile(name: 'nf_core_'  +  'nanostring_software_'  + 'mqc_'  + 'versions.yml')
 
     emit:
     nacho_qc_html       = ch_nacho_qc_html
@@ -200,6 +194,8 @@ workflow NANOSTRING {
     annotated_hk_data   = ch_annotated_hk_data
     gene_scores         = ch_gene_scores
     gene_heatmaps       = ch_gene_heatmaps
+    differentialabundance_matrix      = ch_differentialabundance_matrix
+    differentialabundance_samplesheet = ch_differentialabundance_samplesheet
     multiqc_report      = MULTIQC.out.report.map { _meta, report -> report }.toList()
     multiqc_data        = MULTIQC.out.data.map { _meta, data -> data }
     multiqc_plots       = MULTIQC.out.plots.map { _meta, plots -> plots }

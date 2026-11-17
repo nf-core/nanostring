@@ -1,0 +1,36 @@
+nextflow_pipeline {
+
+    name "Test pipeline - export_differentialabundance"
+    script "../main.nf"
+    profile "test"
+    tag "pipeline"
+    tag "export_differentialabundance"
+
+    test("-profile test --export_differentialabundance") {
+
+        when {
+            params {
+                outdir                       = "$outputDir"
+                export_differentialabundance = true
+            }
+        }
+
+        then {
+            def matrix      = path("$outputDir/differentialabundance/normalized_counts_log2_endogenous.tsv")
+            def samplesheet = path("$outputDir/differentialabundance/samplesheet_differentialabundance.csv")
+            assert workflow.success
+            assertAll(
+                // Matrix columns match the samplesheet `sample` column, as differentialabundance requires
+                { assert matrix.readLines()[0].tokenize('\t').drop(1) == samplesheet.readLines().drop(1).collect { line -> line.tokenize(',')[0] } },
+                // Endogenous genes only
+                { assert matrix.readLines().size() == 89 },
+                { assert snapshot(
+                    // pipeline versions.yml file for multiqc from which Nextflow version is removed because we test pipelines on multiple Nextflow versions
+                    removeNextflowVersion("$outputDir/pipeline_info/nf_core_nanostring_software_mqc_versions.yml"),
+                    matrix,
+                    samplesheet
+                ).match() }
+            )
+        }
+    }
+}
